@@ -8,6 +8,7 @@ import { PromiseSection } from "@/components/sections/PromiseSection";
 import { ServiceGrid } from "@/components/sections/ServiceGrid";
 import { SignatureWork } from "@/components/sections/SignatureWork";
 import { TestimonialsRow } from "@/components/sections/TestimonialsRow";
+import { WhyUs } from "@/components/sections/WhyUs";
 import { pageMetadata } from "@/lib/seo";
 import { getTranslations, setRequestLocale } from "next-intl/server";
 
@@ -26,6 +27,7 @@ export default async function HomePage({ params }: { params: Promise<{ locale: s
       <HeroScrollVideo />
       <PromiseSection />
       <ServiceGrid limit={6} />
+      <WhyUs />
       <SignatureWork />
       <ProcessTimeline />
       <CoverageMap />

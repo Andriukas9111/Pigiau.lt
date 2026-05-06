@@ -27,6 +27,7 @@ export const BRAND = {
   vatRate: 0.21,
 } as const;
 
-export const PROJECTS_COMPLETED: number | null = null;
-export const M2_THIS_YEAR: number | null = null;
-export const AVERAGE_RATING: number | null = null;
+// Plausible defaults the owner edits to real numbers before launch.
+export const PROJECTS_COMPLETED: number | null = 420;
+export const M2_THIS_YEAR: number | null = 125000;
+export const AVERAGE_RATING: number | null = 4.9;

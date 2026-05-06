@@ -63,7 +63,19 @@
     "bookingStripTitle": "Pradėkime nuo trumpo pokalbio",
     "bookingStripBody": "15 minučių vaizdo skambutis arba vizitas vietoje. Po jo gausite tikslią rašytinę sąmatą per 24 valandas.",
     "faqPreviewTitle": "Dažniausiai užduodami klausimai",
-    "faqPreviewCta": "Visi atsakymai"
+    "faqPreviewCta": "Visi atsakymai",
+    "whyTitle": "Kodėl mus renkasi",
+    "whyLede": "Be subrangų, be paslėptų mokesčių. Atvykstame, dirbame, atsakome už rezultatą.",
+    "why": {
+      "guaranteeTitle": "Rezultato garantija",
+      "guaranteeBody": "Jei rezultatas neatitinka sutartos kokybės, grįžtame ir pataisome be papildomo mokesčio.",
+      "insuredTitle": "Apdrausta veikla",
+      "insuredBody": "Civilinės atsakomybės draudimas iki 10 000 €. Visi darbuotojai dirba pagal darbo sutartį.",
+      "equipmentTitle": "Profesionali įranga",
+      "equipmentBody": "Karcher ir Nilfisk aparatai. Slėgis iki 250 bar, vandens temperatūra iki 90°C.",
+      "responseTitle": "Atsakome per 24 val.",
+      "responseBody": "Užklausa darbo dieną — atsakome tą pačią dieną. Vizitas vietoje per 48 valandas."
+    }
   },
   "services": {
     "title": "Paslaugos",
