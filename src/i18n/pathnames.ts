@@ -10,7 +10,7 @@ export const pathnames = {
   "/work": { lt: "/darbai", ru: "/raboty", en: "/work" },
   "/about": { lt: "/apie", ru: "/o-nas", en: "/about" },
   "/contact": { lt: "/kontaktai", ru: "/kontakty", en: "/contact" },
-  "/faq": { lt: "/d.u.k", ru: "/voprosy", en: "/faq" },
+  "/faq": { lt: "/duk", ru: "/voprosy", en: "/faq" },
   "/privacy": { lt: "/privatumo-politika", ru: "/politika-konfidencialnosti", en: "/privacy" },
   "/cookies": { lt: "/slapuku-politika", ru: "/cookies", en: "/cookies" },
 } as const;

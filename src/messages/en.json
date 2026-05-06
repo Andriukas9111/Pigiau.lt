@@ -450,13 +450,13 @@
   },
   "about": {
     "title": "About",
-    "lede": "An independent crew working in high-pressure cleaning since {{YEAR_FOUNDED}}. We do the work ourselves, no subcontractors. We send the photos ourselves. We write the quotes ourselves. We sign the warranty ourselves.",
+    "lede": "An independent crew working in high-pressure cleaning since 2024. We do the work ourselves, no subcontractors. We send the photos ourselves. We write the quotes ourselves. We sign the warranty ourselves.",
     "storyTitle": "Our story",
     "story": "We started with a single machine in our neighbour's yard. Today we work across Lithuania with three crews and specialised equipment for every surface. The principle is the same: if a surface can look perfect, we make it look perfect.",
     "equipmentTitle": "Equipment",
     "equipmentLede": "Professional Karcher and Nilfisk machines. Up to 250 bar, water up to 90°C. Separate equipment for sensitive surfaces (wood, clinker).",
     "certificationsTitle": "Certifications and insurance",
-    "certificationsLede": "Public liability cover up to €{{INSURANCE_AMOUNT}}. Rope-access certifications. All staff on permanent employment contracts.",
+    "certificationsLede": "Public liability cover up to €10 000. Rope-access certifications. All staff on permanent employment contracts.",
     "ctaTitle": "Let's talk",
     "ctaBody": "A short video call and we will already know what your site looks like clean."
   },
@@ -584,7 +584,7 @@
       },
       "insurance": {
         "q": "Are you insured?",
-        "a": "Public liability cover up to €{{INSURANCE_AMOUNT}}. Damage is covered."
+        "a": "Public liability cover up to €10 000. Damage is covered."
       },
       "damagedTile": {
         "q": "What if you damage a paver?",

@@ -462,13 +462,13 @@
   },
   "about": {
     "title": "Apie mus",
-    "lede": "Esame nepriklausoma komanda, dirbanti aukšto slėgio plovimo srityje nuo {{YEAR_FOUNDED}}. Darbą darome patys, be subrangovų. Nuotraukas siunčiame patys. Sąmatą rašome patys. Garantijos dokumentą pasirašome patys.",
+    "lede": "Esame nepriklausoma komanda, dirbanti aukšto slėgio plovimo srityje nuo 2024. Darbą darome patys, be subrangovų. Nuotraukas siunčiame patys. Sąmatą rašome patys. Garantijos dokumentą pasirašome patys.",
     "storyTitle": "Mūsų istorija",
     "story": "Pradėjome nuo vieno aparato kaimynų kieme. Šiandien dirbame visoje Lietuvoje su trimis komandomis ir specializuota įranga kiekvienam paviršiui. Tačiau principas tas pats: jeigu paviršius gali būti tobulas, mes jį tobulu padarome.",
     "equipmentTitle": "Įranga",
     "equipmentLede": "Profesionalūs Karcher ir Nilfisk aparatai. Slėgis iki 250 bar, vandens temperatūra iki 90°C. Atskira įranga jautriems paviršiams (mediena, klinkeris).",
     "certificationsTitle": "Sertifikatai ir draudimas",
-    "certificationsLede": "Civilinės atsakomybės draudimas iki {{INSURANCE_AMOUNT}} €. Aukštalipių darbų sertifikatai. Visi darbuotojai dirba pagal darbo sutartį.",
+    "certificationsLede": "Civilinės atsakomybės draudimas iki 10 000 €. Aukštalipių darbų sertifikatai. Visi darbuotojai dirba pagal darbo sutartį.",
     "ctaTitle": "Pasikalbėkime",
     "ctaBody": "Trumpas vaizdo skambutis, ir jau žinosime, kaip atrodys jūsų objektas po plovimo."
   },
@@ -596,7 +596,7 @@
       },
       "insurance": {
         "q": "Ar esate apdrausti?",
-        "a": "Civilinės atsakomybės draudimas — iki {{INSURANCE_AMOUNT}} €. Pažeidimo atveju draudimas padengia žalą."
+        "a": "Civilinės atsakomybės draudimas — iki 10 000 €. Pažeidimo atveju draudimas padengia žalą."
       },
       "damagedTile": {
         "q": "Kas, jeigu pažeisite trinkelę?",

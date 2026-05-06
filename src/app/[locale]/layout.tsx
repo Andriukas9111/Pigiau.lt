@@ -4,6 +4,7 @@ import { SkipLink } from "@/components/primitives/SkipLink";
 import { JsonLd, organizationLd } from "@/components/seo/JsonLd";
 import { routing } from "@/i18n/routing";
 import { pageMetadata } from "@/lib/seo";
+import "@/styles/globals.css";
 import { NextIntlClientProvider, hasLocale } from "next-intl";
 import { getMessages, getTranslations, setRequestLocale } from "next-intl/server";
 import { ViewTransitions } from "next-view-transitions";
