@@ -169,26 +169,29 @@ body {
 ---------------------------------------------------------------------------- */
 .nw-heroP {
   position: relative;
-  min-height: 460px;
+  min-height: 430px;
   overflow: hidden;
 }
+/* Proportional port of the design's absolute scene placement
+   (1004x669 @ left:416 top:-134 within a ~1404x430 card) so it bleeds top-right
+   and blends into the text via the left-edge mask — responsive at any width. */
 .nw-heroImg {
   position: absolute;
-  bottom: 0;
-  right: 0;
-  height: 100%;
-  width: 60%;
-  object-fit: cover;
-  object-position: center right;
+  left: 30%;
+  top: -32%;
+  width: 71%;
+  height: 159%;
+  object-fit: contain;
+  object-position: center;
   z-index: 1;
-  -webkit-mask-image: linear-gradient(to right, transparent 0, rgba(0, 0, 0, 0.4) 12%, #000 32%);
-  mask-image: linear-gradient(to right, transparent 0, rgba(0, 0, 0, 0.4) 12%, #000 32%);
+  -webkit-mask-image: linear-gradient(to right, transparent 0, rgba(0, 0, 0, 0.35) 16%, #000 38%);
+  mask-image: linear-gradient(to right, transparent 0, rgba(0, 0, 0, 0.35) 16%, #000 38%);
 }
 .nw-heroTxt {
   position: relative;
   z-index: 3;
-  max-width: 54%;
-  padding: 40px 44px;
+  max-width: 52%;
+  padding: 36px 44px;
 }
 @media (max-width: 900px) {
   .nw-heroP {
@@ -196,6 +199,8 @@ body {
   }
   .nw-heroImg {
     position: static;
+    left: auto;
+    top: auto;
     width: 100%;
     height: auto;
     -webkit-mask-image: none;
