@@ -3,6 +3,18 @@ import { Illustration, type IllustrationName } from "@/components/illustrations"
 import { Section } from "@/components/ui/Container";
 import Link from "next/link";
 
+/** Intrinsic dimensions of the trimmed banner WebP (prevents layout shift). */
+const BANNER_DIMS: Record<string, [number, number]> = {
+  hero_prices: [1500, 615],
+  hero_locations: [1500, 606],
+  hero_about: [1500, 613],
+  hero_booking: [1500, 435],
+  hero_faq: [1500, 540],
+  hero_contact: [1500, 586],
+  banner_cta: [1500, 318],
+  banner_star: [1500, 365],
+};
+
 /** Starry overlay for navy panels. */
 export function Starfield({ opacity = 0.6 }: { opacity?: number }) {
   return (
@@ -19,21 +31,21 @@ export function Starfield({ opacity = 0.6 }: { opacity?: number }) {
   );
 }
 
-/** Full-width page-hero banner image (the original baked-text artwork). */
+/** Full-width page-hero banner image (the original baked-text artwork, edge to edge). */
 export function PageBanner({ image, alt }: { image: string; alt: string }) {
+  const [w, h] = BANNER_DIMS[image] ?? [1500, 600];
   return (
     <Section mt={10}>
       <img
         src={`/assets/${image}.webp`}
         alt={alt}
-        width={1500}
-        height={643}
+        width={w}
+        height={h}
         loading="eager"
         fetchPriority="high"
         style={{
           width: "100%",
           height: "auto",
-          aspectRatio: "1500 / 643",
           display: "block",
           borderRadius: 28,
           boxShadow: "0 18px 50px rgba(31,109,200,.12)",
@@ -52,19 +64,19 @@ function BannerLink({
   pb = 0,
   mt = 30,
 }: { href: string; image: string; alt: string; label: string; pb?: number; mt?: number }) {
+  const [w, h] = BANNER_DIMS[image] ?? [1500, 360];
   return (
     <Section mt={mt} pb={pb}>
       <Link href={href} aria-label={label} style={{ display: "block" }}>
         <img
           src={`/assets/${image}.webp`}
           alt={alt}
-          width={1500}
-          height={500}
+          width={w}
+          height={h}
           loading="lazy"
           style={{
             width: "100%",
             height: "auto",
-            aspectRatio: "1500 / 500",
             display: "block",
             borderRadius: 22,
             boxShadow: "0 22px 60px rgba(10,31,77,.3)",
@@ -94,7 +106,7 @@ export function StarBanner() {
     <BannerLink
       href="/booking"
       image="banner_star"
-      alt="NordWash Star Member — perks for loyal Earthlings"
+      alt="NordWash Star Member — 10% off every order, priority pickup, free rewash"
       label="Become a NordWash Star Member"
     />
   );

@@ -169,7 +169,7 @@ body {
 ---------------------------------------------------------------------------- */
 .nw-heroP {
   position: relative;
-  min-height: 430px;
+  min-height: 460px;
   overflow: hidden;
 }
 .nw-heroImg {
@@ -177,12 +177,12 @@ body {
   bottom: 0;
   right: 0;
   height: 100%;
-  width: 62%;
-  object-fit: contain;
-  object-position: bottom right;
+  width: 60%;
+  object-fit: cover;
+  object-position: center right;
   z-index: 1;
-  -webkit-mask-image: linear-gradient(to right, transparent 0, rgba(0, 0, 0, 0.35) 14%, #000 34%);
-  mask-image: linear-gradient(to right, transparent 0, rgba(0, 0, 0, 0.35) 14%, #000 34%);
+  -webkit-mask-image: linear-gradient(to right, transparent 0, rgba(0, 0, 0, 0.4) 12%, #000 32%);
+  mask-image: linear-gradient(to right, transparent 0, rgba(0, 0, 0, 0.4) 12%, #000 32%);
 }
 .nw-heroTxt {
   position: relative;
