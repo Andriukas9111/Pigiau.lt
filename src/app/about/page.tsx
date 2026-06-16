@@ -10,7 +10,11 @@ export default function AboutPage() {
   return (
     <div className="nw-fade">
       {/* 1) HERO */}
-      <PageBanner image="hero_about" alt="About NordWash — from the North Star, with freshness" />
+      <PageBanner
+        image="hero_about"
+        title="About NordWash"
+        alt="About NordWash — from the North Star, with freshness"
+      />
 
       {/* 2) MEET THE CREW */}
       <Section>

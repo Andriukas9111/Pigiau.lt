@@ -32,10 +32,11 @@ export function Starfield({ opacity = 0.6 }: { opacity?: number }) {
 }
 
 /** Full-width page-hero banner image (the original baked-text artwork, edge to edge). */
-export function PageBanner({ image, alt }: { image: string; alt: string }) {
+export function PageBanner({ image, alt, title }: { image: string; alt: string; title?: string }) {
   const [w, h] = BANNER_DIMS[image] ?? [1500, 600];
   return (
     <Section mt={10}>
+      {title && <h1 className="sr-only">{title}</h1>}
       <img
         src={`/assets/${image}.webp`}
         alt={alt}

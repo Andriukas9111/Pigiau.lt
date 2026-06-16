@@ -333,7 +333,11 @@ function HowEstimate() {
 export default function PricesPage() {
   return (
     <div className="nw-fade">
-      <PageBanner image="hero_prices" alt="Prices & live calculator — see your price instantly" />
+      <PageBanner
+        image="hero_prices"
+        title="Prices & Live Calculator"
+        alt="Prices & live calculator — see your price instantly"
+      />
 
       <Section>
         <div style={{ textAlign: "center", marginBottom: 26 }}>

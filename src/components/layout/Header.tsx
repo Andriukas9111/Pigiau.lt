@@ -59,7 +59,6 @@ export function Header() {
               }}
             >
               {BRAND.name}
-              <span style={{ color: "#1E8BE8" }}>{BRAND.domainLabel}</span>
             </span>
             <span
               style={{

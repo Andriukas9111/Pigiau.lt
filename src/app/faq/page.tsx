@@ -32,7 +32,11 @@ const SUPPORT: { icon: IconName; color: string; bg: string; title: string; sub: 
 export default function FaqPage() {
   return (
     <div className="nw-fade">
-      <PageBanner image="hero_faq" alt="FAQ & Help Center — answers faster than light" />
+      <PageBanner
+        image="hero_faq"
+        title="FAQ & Help Center"
+        alt="FAQ & Help Center — answers faster than light"
+      />
 
       <FaqClient />
 

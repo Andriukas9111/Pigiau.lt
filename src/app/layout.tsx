@@ -23,16 +23,16 @@ const nunito = Nunito_Sans({
 export const metadata: Metadata = {
   metadataBase: new URL("https://www.nordwash.lt"),
   title: {
-    default: "NordWash.lt — Cosmic Laundry for Humans & Aliens",
-    template: "%s · NordWash.lt",
+    default: "NordWash — Cosmic Laundry for Humans & Aliens",
+    template: "%s · NordWash",
   },
   description:
     "Premium laundry, dry cleaning & cosmic care delivered across Lithuania. Free pickup, 24h express, 100% satisfaction. Book a wash today.",
   keywords: ["laundry", "dry cleaning", "Lithuania", "pickup", "Vilnius", "Kaunas", "Klaipėda", "NordWash"],
   openGraph: {
     type: "website",
-    siteName: "NordWash.lt",
-    title: "NordWash.lt — Cosmic Laundry for Humans & Aliens",
+    siteName: "NordWash",
+    title: "NordWash — Cosmic Laundry for Humans & Aliens",
     description: "Premium laundry & dry cleaning delivered across Lithuania. Free pickup, 24h express.",
     locale: "en",
   },
