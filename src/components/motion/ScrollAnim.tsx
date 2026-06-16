@@ -13,6 +13,7 @@ import { useEffect } from "react";
  */
 export function ScrollAnim() {
   const pathname = usePathname();
+  // biome-ignore lint/correctness/useExhaustiveDependencies: pathname is the intended re-run trigger on navigation
   useEffect(() => {
     const els = Array.from(document.querySelectorAll<HTMLElement>(".nw-reveal"));
     const reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
