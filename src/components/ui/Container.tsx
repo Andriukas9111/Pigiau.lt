@@ -19,7 +19,7 @@ export function Section({
   return (
     <section
       id={id}
-      className={className}
+      className={["nw-reveal", className].filter(Boolean).join(" ")}
       style={{ maxWidth: 1440, margin: `${mt}px auto 0`, padding: `0 18px ${pb}px`, ...style }}
     >
       {children}

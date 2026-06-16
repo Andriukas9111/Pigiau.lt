@@ -42,12 +42,7 @@ function InfoRow({
 export default function ContactPage() {
   return (
     <div className="nw-fade">
-      <PageBanner
-        eyebrow="GET IN TOUCH"
-        title="Contact NordWash"
-        subtitle="Questions, quotes or cosmic enquiries — our Earth-based crew replies faster than light."
-        illustrations={["phone", "alien"]}
-      />
+      <PageBanner image="hero_contact" alt="Contact NordWash — our crew replies faster than light" />
 
       <Section pb={50}>
         <div

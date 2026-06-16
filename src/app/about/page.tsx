@@ -10,12 +10,7 @@ export default function AboutPage() {
   return (
     <div className="nw-fade">
       {/* 1) HERO */}
-      <PageBanner
-        eyebrow="FROM THE NORTH STAR"
-        title="About NordWash"
-        subtitle="From the North Star, with freshness — meet the cosmic crew behind your fresh, folded laundry."
-        illustrations={["alien", "ufo"]}
-      />
+      <PageBanner image="hero_about" alt="About NordWash — from the North Star, with freshness" />
 
       {/* 2) MEET THE CREW */}
       <Section>

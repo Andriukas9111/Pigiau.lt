@@ -32,12 +32,7 @@ const SUPPORT: { icon: IconName; color: string; bg: string; title: string; sub: 
 export default function FaqPage() {
   return (
     <div className="nw-fade">
-      <PageBanner
-        eyebrow="FAQ & HELP CENTER"
-        title="How can we help?"
-        subtitle="Answers to the most common cosmic-laundry questions — and a crew that replies faster than light."
-        illustrations={["alien", "ufo"]}
-      />
+      <PageBanner image="hero_faq" alt="FAQ & Help Center — answers faster than light" />
 
       <FaqClient />
 

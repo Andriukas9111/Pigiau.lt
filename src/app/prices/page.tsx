@@ -333,12 +333,7 @@ function HowEstimate() {
 export default function PricesPage() {
   return (
     <div className="nw-fade">
-      <PageBanner
-        eyebrow="PRICES & LIVE CALCULATOR"
-        title="Build Your Wash"
-        subtitle="Choose a service, set the details and watch your price update live. No asteroids, no hidden fees."
-        illustrations={["basket", "stopwatch"]}
-      />
+      <PageBanner image="hero_prices" alt="Prices & live calculator — see your price instantly" />
 
       <Section>
         <div style={{ textAlign: "center", marginBottom: 26 }}>

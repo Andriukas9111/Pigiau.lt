@@ -9,12 +9,7 @@ export default function LocationsPage() {
   return (
     <div className="nw-fade">
       {/* 1) HERO */}
-      <PageBanner
-        eyebrow="FIND A NORDWASH STATION"
-        title="Our Locations"
-        subtitle="Door-to-door across Lithuania — find your nearest beam station, or let our crew come to you."
-        illustrations={["van", "map"]}
-      />
+      <PageBanner image="hero_locations" alt="Our locations — find a NordWash station across Lithuania" />
 
       {/* 2) STATIONS + STICKY MAP */}
       <Section>

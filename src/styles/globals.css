@@ -121,14 +121,90 @@ body {
   }
 }
 
+@keyframes nwFadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
 .nw-fade {
-  animation: nwRise 0.5s ease both;
+  animation: nwFadeIn 0.45s ease both;
 }
 .nw-float {
   animation: nwFloat 5s ease-in-out infinite;
 }
 .nw-float-s {
   animation: nwFloatS 6s ease-in-out infinite;
+}
+
+/* ----------------------------------------------------------------------------
+   Scroll reveal — sections rise + fade as they enter the viewport.
+   Gated behind .nw-js so content is always visible without JS.
+---------------------------------------------------------------------------- */
+@media (scripting: enabled) {
+  .nw-reveal {
+    opacity: 0;
+    transform: translateY(28px);
+    transition: opacity 0.7s ease, transform 0.7s cubic-bezier(0.16, 0.84, 0.34, 1);
+    will-change: opacity, transform;
+  }
+  .nw-reveal.nw-in {
+    opacity: 1;
+    transform: none;
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .nw-reveal {
+    opacity: 1 !important;
+    transform: none !important;
+    transition: none !important;
+  }
+}
+
+/* ----------------------------------------------------------------------------
+   Hero scene image (ported from the prototype) — image bleeds right with a
+   left-edge fade so it blends into the text column.
+---------------------------------------------------------------------------- */
+.nw-heroP {
+  position: relative;
+  min-height: 430px;
+  overflow: hidden;
+}
+.nw-heroImg {
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  height: 100%;
+  width: 62%;
+  object-fit: contain;
+  object-position: bottom right;
+  z-index: 1;
+  -webkit-mask-image: linear-gradient(to right, transparent 0, rgba(0, 0, 0, 0.35) 14%, #000 34%);
+  mask-image: linear-gradient(to right, transparent 0, rgba(0, 0, 0, 0.35) 14%, #000 34%);
+}
+.nw-heroTxt {
+  position: relative;
+  z-index: 3;
+  max-width: 54%;
+  padding: 40px 44px;
+}
+@media (max-width: 900px) {
+  .nw-heroP {
+    min-height: 0;
+  }
+  .nw-heroImg {
+    position: static;
+    width: 100%;
+    height: auto;
+    -webkit-mask-image: none;
+    mask-image: none;
+  }
+  .nw-heroTxt {
+    max-width: 100%;
+    padding: 30px;
+  }
 }
 
 /* ----------------------------------------------------------------------------

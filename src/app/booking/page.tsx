@@ -7,12 +7,7 @@ export const metadata: Metadata = { title: "Book Your Wash" };
 export default function BookingPage() {
   return (
     <div className="nw-fade">
-      <PageBanner
-        eyebrow="BOOK A PICKUP"
-        title="Book Your Wash"
-        subtitle="Five quick steps and our crew beams in to collect your laundry. Free pickup & delivery included."
-        illustrations={["pickup", "van"]}
-      />
+      <PageBanner image="hero_booking" alt="Book your wash — five quick steps to a cosmic-clean pickup" />
       <BookingFlow />
     </div>
   );
