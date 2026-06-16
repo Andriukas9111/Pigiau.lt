@@ -85,6 +85,7 @@ export function SceneHero({
           loading="eager"
           fetchPriority="high"
         />
+        <div className="nw-heroFade" aria-hidden="true" />
         <div className="nw-heroTxt">
           <EyebrowPill>{eyebrow}</EyebrowPill>
           <h1

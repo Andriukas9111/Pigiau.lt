@@ -93,9 +93,9 @@ function HowItWorks() {
             <div
               style={{
                 position: "absolute",
-                top: 46,
-                left: "14%",
-                right: "14%",
+                top: 62,
+                left: "16%",
+                right: "16%",
                 borderTop: "2px dashed #CFE2F7",
                 zIndex: 0,
               }}
@@ -104,8 +104,8 @@ function HowItWorks() {
               <div key={st.n} style={{ flex: 1, textAlign: "center", position: "relative", zIndex: 1 }}>
                 <div
                   style={{
-                    width: 92,
-                    height: 92,
+                    width: 124,
+                    height: 124,
                     borderRadius: "50%",
                     background: "#fff",
                     border: "2px solid #E3EEFA",
@@ -113,9 +113,9 @@ function HowItWorks() {
                     display: "flex",
                     alignItems: "center",
                     justifyContent: "center",
-                    margin: "0 auto 8px",
+                    margin: "0 auto 10px",
                     overflow: "hidden",
-                    padding: 7,
+                    padding: 6,
                   }}
                 >
                   <Illustration name={st.img} />

@@ -1,13 +1,18 @@
 "use client";
 
+import { usePathname } from "next/navigation";
 import { useEffect } from "react";
 
 /**
- * Reveals every `.nw-reveal` element as it scrolls into view (adds `.nw-in`).
- * Respects prefers-reduced-motion and degrades to "always visible" without JS
- * (the hidden state is gated behind the `.nw-js` class set before paint).
+ * Scroll reveal that is robust on client-side navigation and can never leave
+ * content stuck hidden:
+ *  - sections are visible by default (SSR / no-JS safe);
+ *  - elements already in view are shown immediately (no flash);
+ *  - only below-the-fold elements are hidden (off-screen) and revealed on scroll;
+ *  - re-runs on every route change so freshly-rendered pages animate correctly.
  */
 export function ScrollAnim() {
+  const pathname = usePathname();
   useEffect(() => {
     const els = Array.from(document.querySelectorAll<HTMLElement>(".nw-reveal"));
     const reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
@@ -24,10 +29,19 @@ export function ScrollAnim() {
           }
         }
       },
-      { rootMargin: "0px 0px -7% 0px", threshold: 0.06 },
+      { rootMargin: "0px 0px -7% 0px", threshold: 0.05 },
     );
-    for (const el of els) io.observe(el);
+    const vh = window.innerHeight || document.documentElement.clientHeight;
+    for (const el of els) {
+      if (el.classList.contains("nw-in")) continue;
+      if (el.getBoundingClientRect().top < vh * 0.92) {
+        el.classList.add("nw-in"); // in/near view → show now (no flash, never stuck)
+      } else {
+        el.classList.add("nw-prep"); // below fold → hide, then reveal on scroll
+        io.observe(el);
+      }
+    }
     return () => io.disconnect();
-  }, []);
+  }, [pathname]);
   return null;
 }
