@@ -303,7 +303,7 @@ export function BookingFlow() {
                   sub="Choose what you need cleaned. We'll handle the rest."
                 />
                 <div
-                  className="nw-grid-3"
+                  className="nw-grid-3 nw-slider"
                   style={{ display: "grid", gridTemplateColumns: "repeat(3,1fr)", gap: 12 }}
                 >
                   {SERVICES.map((s, i) => {

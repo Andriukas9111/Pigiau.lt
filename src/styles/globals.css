@@ -76,6 +76,20 @@ body {
   border: 0;
 }
 
+/* Visible keyboard focus indicator (mouse clicks don't trigger it). */
+:focus-visible {
+  outline: 3px solid #1e8be8;
+  outline-offset: 2px;
+  border-radius: 6px;
+}
+a,
+button,
+input,
+select,
+textarea {
+  outline-color: #1e8be8;
+}
+
 /* ----------------------------------------------------------------------------
    Keyframes (ported from the prototype)
 ---------------------------------------------------------------------------- */
@@ -361,5 +375,77 @@ input[type="range"] {
   }
   .nw-foot {
     grid-template-columns: 1fr 1fr !important;
+  }
+}
+
+/* ----------------------------------------------------------------------------
+   Mobile (2026): horizontal swipeable sliders instead of long vertical stacks.
+   Add `nw-slider` to a card grid; on phones it becomes an edge-to-edge,
+   scroll-snapping carousel that shows a peek of the next card.
+---------------------------------------------------------------------------- */
+@media (max-width: 760px) {
+  .nw-slider {
+    display: flex !important;
+    flex-wrap: nowrap !important;
+    grid-template-columns: none !important;
+    overflow-x: auto;
+    overscroll-behavior-x: contain;
+    scroll-snap-type: x mandatory;
+    -webkit-overflow-scrolling: touch;
+    gap: 12px !important;
+    padding: 4px 18px 12px !important;
+    margin-left: -18px !important;
+    margin-right: -18px !important;
+    scrollbar-width: none;
+  }
+  .nw-slider::-webkit-scrollbar {
+    display: none;
+  }
+  .nw-slider > * {
+    scroll-snap-align: center;
+    flex: 0 0 80% !important;
+    max-width: 80%;
+    min-width: 0;
+  }
+  /* a touch hint that there's more to swipe */
+  .nw-slider-wrap {
+    position: relative;
+  }
+}
+
+/* ----------------------------------------------------------------------------
+   Mobile header compaction — keep the CTA on one line, never wrap.
+---------------------------------------------------------------------------- */
+.nw-book-btn {
+  white-space: nowrap;
+}
+@media (max-width: 600px) {
+  .nw-book-btn {
+    font-size: 11.5px !important;
+    padding: 10px 14px !important;
+    gap: 6px !important;
+    letter-spacing: 0 !important;
+  }
+  .nw-logo-tag {
+    display: none !important;
+  }
+  .nw-logo-name {
+    font-size: 18px !important;
+  }
+}
+
+/* General mobile polish */
+@media (max-width: 760px) {
+  .nw-section-h2 {
+    font-size: 24px !important;
+  }
+}
+@media (max-width: 560px) {
+  /* never let a button's label wrap to two lines */
+  button,
+  .nw-btn-primary,
+  .nw-btn-ghost,
+  a[class*="nw-btn"] {
+    white-space: nowrap;
   }
 }

@@ -1,6 +1,7 @@
 import { Footer } from "@/components/layout/Footer";
 import { Header } from "@/components/layout/Header";
 import { ScrollAnim } from "@/components/motion/ScrollAnim";
+import { JsonLd } from "@/components/seo/JsonLd";
 import type { Metadata, Viewport } from "next";
 import { Nunito_Sans, Poppins } from "next/font/google";
 import type { ReactNode } from "react";
@@ -68,6 +69,7 @@ export default function RootLayout({ children }: { children: ReactNode }) {
         <main id="main">{children}</main>
         <Footer />
         <ScrollAnim />
+        <JsonLd />
       </body>
     </html>
   );

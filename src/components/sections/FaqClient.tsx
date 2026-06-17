@@ -47,7 +47,10 @@ export function FaqClient() {
 
       {/* category cards */}
       <Section mt={26}>
-        <div className="nw-grid-6" style={{ display: "grid", gridTemplateColumns: "repeat(6,1fr)", gap: 14 }}>
+        <div
+          className="nw-grid-6 nw-slider"
+          style={{ display: "grid", gridTemplateColumns: "repeat(6,1fr)", gap: 14 }}
+        >
           {FAQ_CATS.map((c) => (
             <div
               key={c.name}

@@ -292,7 +292,7 @@ export default function LocationsPage() {
               Each station has its own alien in charge.
             </p>
             <div
-              className="nw-grid-5"
+              className="nw-grid-5 nw-slider"
               style={{ display: "grid", gridTemplateColumns: "repeat(5,1fr)", gap: 14 }}
             >
               {BRANCH_CHARS.map((b) => (
@@ -356,7 +356,10 @@ export default function LocationsPage() {
 
       {/* 5) THREE INFO CARDS */}
       <Section>
-        <div className="nw-grid-3" style={{ display: "grid", gridTemplateColumns: "repeat(3,1fr)", gap: 20 }}>
+        <div
+          className="nw-grid-3 nw-slider"
+          style={{ display: "grid", gridTemplateColumns: "repeat(3,1fr)", gap: 20 }}
+        >
           {/* (a) Open late */}
           <div
             style={{

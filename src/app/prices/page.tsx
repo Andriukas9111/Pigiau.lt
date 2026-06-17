@@ -38,7 +38,10 @@ function Packages() {
             Pick a bundle, save a few light-years
           </h2>
         </div>
-        <div className="nw-grid-5" style={{ display: "grid", gridTemplateColumns: "repeat(5,1fr)", gap: 14 }}>
+        <div
+          className="nw-grid-5 nw-slider"
+          style={{ display: "grid", gridTemplateColumns: "repeat(5,1fr)", gap: 14 }}
+        >
           {PACKAGES.map((p) => {
             const popular = p.tag === "POPULAR";
             return (

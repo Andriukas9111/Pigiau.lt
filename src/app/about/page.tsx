@@ -35,7 +35,7 @@ export default function AboutPage() {
             </h2>
           </div>
           <div
-            className="nw-grid-4"
+            className="nw-grid-4 nw-slider"
             style={{ display: "grid", gridTemplateColumns: "repeat(4,1fr)", gap: 20 }}
           >
             {CREW.map((c) => (
@@ -150,7 +150,7 @@ export default function AboutPage() {
             <Eyebrow>OUR VALUES</Eyebrow>
           </div>
           <div
-            className="nw-grid-4"
+            className="nw-grid-4 nw-slider"
             style={{ display: "grid", gridTemplateColumns: "repeat(4,1fr)", gap: 18 }}
           >
             {VALUES.map((v) => (

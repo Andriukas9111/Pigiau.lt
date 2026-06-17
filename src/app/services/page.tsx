@@ -31,7 +31,7 @@ export default function ServicesPage() {
             <Eyebrow>OUR COSMIC SERVICES</Eyebrow>
           </div>
           <div
-            className="nw-grid-4"
+            className="nw-grid-4 nw-slider"
             style={{ display: "grid", gridTemplateColumns: "repeat(4,1fr)", gap: 20 }}
           >
             {SERVICES.map((s) => (
@@ -154,7 +154,7 @@ export default function ServicesPage() {
             <Eyebrow>WHY CHOOSE NORDWASH.LT</Eyebrow>
           </div>
           <div
-            className="nw-grid-4"
+            className="nw-grid-4 nw-slider"
             style={{ display: "grid", gridTemplateColumns: "repeat(4,1fr)", gap: 18 }}
           >
             {WHY_CHOOSE.map((w) => (

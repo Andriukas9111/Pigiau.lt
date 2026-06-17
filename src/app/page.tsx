@@ -39,7 +39,10 @@ function ServicesPreview() {
             Whatever the mess, we beam it clean
           </h2>
         </div>
-        <div className="nw-grid-6" style={{ display: "grid", gridTemplateColumns: "repeat(6,1fr)", gap: 14 }}>
+        <div
+          className="nw-grid-6 nw-slider"
+          style={{ display: "grid", gridTemplateColumns: "repeat(6,1fr)", gap: 14 }}
+        >
           {SERVICES.slice(0, 6).map((s) => (
             <Link
               key={s.key}
@@ -171,7 +174,7 @@ function ReviewsLocations() {
             WHAT OUR CUSTOMERS SAY
           </Eyebrow>
           <div
-            className="nw-grid-3"
+            className="nw-grid-3 nw-slider"
             style={{ display: "grid", gridTemplateColumns: "repeat(3,1fr)", gap: 12, flex: 1 }}
           >
             {REVIEWS.map((r) => (

@@ -49,7 +49,7 @@ export function Header() {
           </span>
           <span style={{ textAlign: "left", lineHeight: 1 }}>
             <span
-              className="fh"
+              className="fh nw-logo-name"
               style={{
                 display: "block",
                 fontWeight: 800,
@@ -61,6 +61,7 @@ export function Header() {
               {BRAND.name}
             </span>
             <span
+              className="nw-logo-tag"
               style={{
                 display: "block",
                 fontSize: 9,
@@ -100,7 +101,7 @@ export function Header() {
         <div style={{ display: "flex", alignItems: "center", gap: 10 }}>
           <Link
             href="/booking"
-            className="nw-btn-primary fh"
+            className="nw-btn-primary fh nw-book-btn"
             style={{
               display: "inline-flex",
               alignItems: "center",
