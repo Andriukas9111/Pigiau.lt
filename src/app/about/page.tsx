@@ -43,7 +43,7 @@ export default function AboutPage() {
             </h2>
           </div>
           <div
-            className="nw-grid-4 nw-slider"
+            className="nw-grid-4 nw-grid-2up"
             style={{ display: "grid", gridTemplateColumns: "repeat(4,1fr)", gap: 20 }}
           >
             {CREW.map((c) => (

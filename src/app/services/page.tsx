@@ -126,8 +126,20 @@ export default function ServicesPage() {
                     textAlign: "center",
                   }}
                 >
-                  <div style={{ marginBottom: 6 }}>
-                    <Icon name={f.icon} size={24} c="#1E8BE8" />
+                  <div
+                    style={{
+                      width: 40,
+                      height: 40,
+                      borderRadius: 12,
+                      background: "linear-gradient(145deg,#5BB4F5 0%,#1E8BE8 60%,#1366B2 100%)",
+                      boxShadow: "0 6px 14px rgba(30,139,232,.24)",
+                      display: "flex",
+                      alignItems: "center",
+                      justifyContent: "center",
+                      margin: "0 auto 8px",
+                    }}
+                  >
+                    <Icon name={f.icon} size={20} c="#fff" sw={2.2} />
                   </div>
                   <div className="fh" style={{ fontWeight: 700, fontSize: 13, color: "#09245B" }}>
                     {f.name}
