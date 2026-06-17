@@ -151,10 +151,10 @@ export default function ServicesPage() {
       <Section>
         <Card pad={40}>
           <div style={{ textAlign: "center", marginBottom: 28 }}>
-            <Eyebrow>WHY CHOOSE NORDWASH.LT</Eyebrow>
+            <Eyebrow>WHY CHOOSE NORDWASH</Eyebrow>
           </div>
           <div
-            className="nw-grid-4 nw-slider"
+            className="nw-grid-4 nw-grid-2up"
             style={{ display: "grid", gridTemplateColumns: "repeat(4,1fr)", gap: 18 }}
           >
             {WHY_CHOOSE.map((w) => (
@@ -168,8 +168,20 @@ export default function ServicesPage() {
                   textAlign: "center",
                 }}
               >
-                <div style={{ marginBottom: 8 }}>
-                  <Icon name={w.icon} size={30} c="#1E8BE8" />
+                <div
+                  style={{
+                    width: 58,
+                    height: 58,
+                    borderRadius: 18,
+                    background: "linear-gradient(145deg,#5BB4F5 0%,#1E8BE8 60%,#1366B2 100%)",
+                    boxShadow: "0 8px 18px rgba(30,139,232,.28)",
+                    display: "flex",
+                    alignItems: "center",
+                    justifyContent: "center",
+                    margin: "0 auto 12px",
+                  }}
+                >
+                  <Icon name={w.icon} size={28} c="#fff" sw={2.2} />
                 </div>
                 <h4
                   className="fh"

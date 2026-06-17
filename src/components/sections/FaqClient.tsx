@@ -48,7 +48,7 @@ export function FaqClient() {
       {/* category cards */}
       <Section mt={26}>
         <div
-          className="nw-grid-6 nw-slider"
+          className="nw-grid-6 nw-grid-2up"
           style={{ display: "grid", gridTemplateColumns: "repeat(6,1fr)", gap: 14 }}
         >
           {FAQ_CATS.map((c) => (
@@ -67,17 +67,18 @@ export function FaqClient() {
             >
               <div
                 style={{
-                  width: 46,
-                  height: 46,
-                  borderRadius: 14,
-                  background: "#F2F9FF",
+                  width: 50,
+                  height: 50,
+                  borderRadius: 15,
+                  background: "linear-gradient(145deg,#5BB4F5 0%,#1E8BE8 60%,#1366B2 100%)",
+                  boxShadow: "0 8px 16px rgba(30,139,232,.26)",
                   display: "flex",
                   alignItems: "center",
                   justifyContent: "center",
                   margin: "0 auto 10px",
                 }}
               >
-                <Icon name={c.icon} c="#1E8BE8" size={22} />
+                <Icon name={c.icon} c="#fff" size={24} sw={2.2} />
               </div>
               <div
                 className="fh"

@@ -303,7 +303,7 @@ export function BookingFlow() {
                   sub="Choose what you need cleaned. We'll handle the rest."
                 />
                 <div
-                  className="nw-grid-3 nw-slider"
+                  className="nw-grid-3 nw-grid-2up"
                   style={{ display: "grid", gridTemplateColumns: "repeat(3,1fr)", gap: 12 }}
                 >
                   {SERVICES.map((s, i) => {
@@ -342,7 +342,7 @@ export function BookingFlow() {
                 </div>
                 <label style={{ ...labelStyle, marginTop: 20 }}>Load size</label>
                 <div
-                  className="nw-grid-4"
+                  className="nw-grid-4 nw-grid-2up"
                   style={{ display: "grid", gridTemplateColumns: "repeat(4,1fr)", gap: 10 }}
                 >
                   {SIZES.map((z) => {
@@ -475,7 +475,7 @@ export function BookingFlow() {
                 </div>
                 <label style={labelStyle}>Choose a time slot</label>
                 <div
-                  className="nw-grid-3"
+                  className="nw-grid-3 nw-grid-2up"
                   style={{ display: "grid", gridTemplateColumns: "repeat(3,1fr)", gap: 10 }}
                 >
                   {TIMES.map((t) => {
@@ -532,7 +532,7 @@ export function BookingFlow() {
                 <StepHead n={5} title="Review & Pay" />
                 <label style={labelStyle}>Payment method</label>
                 <div
-                  className="nw-grid-4"
+                  className="nw-grid-4 nw-grid-2up"
                   style={{ display: "grid", gridTemplateColumns: "repeat(4,1fr)", gap: 10, marginBottom: 20 }}
                 >
                   {PAY_METHODS.map((p) => {

@@ -356,10 +356,7 @@ export default function LocationsPage() {
 
       {/* 5) THREE INFO CARDS */}
       <Section>
-        <div
-          className="nw-grid-3 nw-slider"
-          style={{ display: "grid", gridTemplateColumns: "repeat(3,1fr)", gap: 20 }}
-        >
+        <div className="nw-grid-3" style={{ display: "grid", gridTemplateColumns: "repeat(3,1fr)", gap: 20 }}>
           {/* (a) Open late */}
           <div
             style={{

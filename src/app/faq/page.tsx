@@ -49,7 +49,7 @@ export default function FaqPage() {
             </h3>
           </div>
           <div
-            className="nw-grid-3 nw-slider"
+            className="nw-grid-3"
             style={{ display: "grid", gridTemplateColumns: "repeat(3,1fr)", gap: 18 }}
           >
             {SUPPORT.map((s) => (

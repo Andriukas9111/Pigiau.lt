@@ -112,19 +112,19 @@ export default function AboutPage() {
                 <div key={st.title} style={{ position: "relative", zIndex: 1, textAlign: "center" }}>
                   <div
                     style={{
-                      width: 70,
-                      height: 70,
+                      width: 72,
+                      height: 72,
                       borderRadius: "50%",
-                      background: "#fff",
-                      border: "2px solid #E3EEFA",
-                      boxShadow: "0 8px 18px rgba(31,109,200,.10)",
+                      background: "linear-gradient(145deg,#5BB4F5 0%,#1E8BE8 58%,#1366B2 100%)",
+                      border: "4px solid #fff",
+                      boxShadow: "0 10px 22px rgba(30,139,232,.32)",
                       display: "flex",
                       alignItems: "center",
                       justifyContent: "center",
                       margin: "0 auto 12px",
                     }}
                   >
-                    <Icon name={st.icon} size={30} c="#1E8BE8" />
+                    <Icon name={st.icon} size={32} c="#fff" sw={2.2} />
                   </div>
                   <div className="fh" style={{ fontWeight: 800, fontSize: 13.5, color: "#1E8BE8" }}>
                     {st.year}
@@ -150,7 +150,7 @@ export default function AboutPage() {
             <Eyebrow>OUR VALUES</Eyebrow>
           </div>
           <div
-            className="nw-grid-4 nw-slider"
+            className="nw-grid-4 nw-grid-2up"
             style={{ display: "grid", gridTemplateColumns: "repeat(4,1fr)", gap: 18 }}
           >
             {VALUES.map((v) => (
@@ -166,17 +166,18 @@ export default function AboutPage() {
               >
                 <div
                   style={{
-                    width: 54,
-                    height: 54,
-                    borderRadius: 16,
-                    background: "#F2F9FF",
+                    width: 58,
+                    height: 58,
+                    borderRadius: 18,
+                    background: "linear-gradient(145deg,#5BB4F5 0%,#1E8BE8 60%,#1366B2 100%)",
+                    boxShadow: "0 8px 18px rgba(30,139,232,.28)",
                     display: "flex",
                     alignItems: "center",
                     justifyContent: "center",
                     margin: "0 auto 14px",
                   }}
                 >
-                  <Icon name={v.icon} size={26} c="#1E8BE8" />
+                  <Icon name={v.icon} size={28} c="#fff" sw={2.2} />
                 </div>
                 <h4
                   className="fh"
