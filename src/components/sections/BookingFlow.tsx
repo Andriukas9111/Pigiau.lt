@@ -79,6 +79,7 @@ export function BookingFlow() {
   const [confirmed, setConfirmed] = useState(false);
   const [submitting, setSubmitting] = useState(false);
   const [delivered, setDelivered] = useState(false);
+  const [showErrors, setShowErrors] = useState(false);
   const [service, setService] = useState(0);
   const [size, setSize] = useState("medium");
   const [date, setDate] = useState<number | null>(null);
@@ -111,8 +112,33 @@ export function BookingFlow() {
   const svcTitle = SERVICES[service].title;
   const sizeName = SIZES.find((z) => z.key === size)?.name ?? "";
 
+  const stepValid = (n: number) => {
+    if (n === 2) return !!(form.name.trim() && form.phone.trim() && form.street.trim());
+    if (n === 3) return date !== null;
+    return true;
+  };
+  const goNext = () => {
+    if (!stepValid(step)) {
+      setShowErrors(true);
+      return;
+    }
+    setShowErrors(false);
+    setStep(Math.min(5, step + 1));
+  };
+  const goStep = (n: number) => {
+    setShowErrors(false);
+    setStep(n);
+  };
+  const reqStyle = (val: string): CSSProperties =>
+    showErrors && !val.trim() ? { ...inputStyle, borderColor: "#E89B9B", background: "#FFF7F7" } : inputStyle;
+
   async function confirmBooking() {
     if (submitting) return;
+    if (!stepValid(2) || !stepValid(3)) {
+      setShowErrors(true);
+      setStep(!stepValid(2) ? 2 : 3);
+      return;
+    }
     setSubmitting(true);
     const dayObj = days.find((d) => d.day === date);
     try {
@@ -176,7 +202,7 @@ export function BookingFlow() {
               <button
                 key={name}
                 type="button"
-                onClick={() => setStep(n)}
+                onClick={() => goStep(n)}
                 style={{
                   flex: 1,
                   textAlign: "center",
@@ -453,7 +479,7 @@ export function BookingFlow() {
                       value={form.name}
                       onChange={(e) => setForm({ ...form, name: e.target.value })}
                       placeholder="Your name"
-                      style={inputStyle}
+                      style={reqStyle(form.name)}
                     />
                   </div>
                   <div>
@@ -462,7 +488,7 @@ export function BookingFlow() {
                       value={form.phone}
                       onChange={(e) => setForm({ ...form, phone: e.target.value })}
                       placeholder="+370 …"
-                      style={inputStyle}
+                      style={reqStyle(form.phone)}
                     />
                   </div>
                 </div>
@@ -472,9 +498,14 @@ export function BookingFlow() {
                     value={form.street}
                     onChange={(e) => setForm({ ...form, street: e.target.value })}
                     placeholder="Street, building, apt."
-                    style={inputStyle}
+                    style={reqStyle(form.street)}
                   />
                 </div>
+                {showErrors && !stepValid(2) && (
+                  <p style={{ fontSize: 12.5, color: "#C9544C", margin: "12px 0 0", fontWeight: 600 }}>
+                    Please add your name, phone and street so our crew can reach you.
+                  </p>
+                )}
                 <div
                   className="nw-grid-2c"
                   style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 14 }}
@@ -505,6 +536,11 @@ export function BookingFlow() {
             {step === 3 && (
               <div style={cardStyle}>
                 <StepHead n={3} title="Date & Time" />
+                {showErrors && date === null && (
+                  <p style={{ fontSize: 12.5, color: "#C9544C", margin: "0 0 12px", fontWeight: 600 }}>
+                    Please pick a pickup day to continue.
+                  </p>
+                )}
                 <label style={labelStyle}>Pick a day</label>
                 <div style={{ display: "flex", gap: 10, flexWrap: "wrap", marginBottom: 20 }}>
                   {days.map((d) => {
@@ -665,7 +701,7 @@ export function BookingFlow() {
               {step > 1 ? (
                 <button
                   type="button"
-                  onClick={() => setStep(Math.max(1, step - 1))}
+                  onClick={() => goStep(Math.max(1, step - 1))}
                   className="nw-btn-ghost fh"
                   style={{
                     background: "#fff",
@@ -687,7 +723,7 @@ export function BookingFlow() {
               {step !== 5 && (
                 <button
                   type="button"
-                  onClick={() => setStep(Math.min(5, step + 1))}
+                  onClick={goNext}
                   className="nw-btn-primary fh"
                   style={{
                     display: "inline-flex",
