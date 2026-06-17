@@ -4,10 +4,25 @@ import { FaqClient } from "@/components/sections/FaqClient";
 import { Btn } from "@/components/ui/Button";
 import { Card, Section } from "@/components/ui/Container";
 import { Eyebrow } from "@/components/ui/Eyebrow";
-import { BRAND } from "@/lib/data";
+import { BRAND, FAQS } from "@/lib/data";
 import type { Metadata } from "next";
 
-export const metadata: Metadata = { title: "FAQ & Help" };
+export const metadata: Metadata = {
+  title: "FAQ & Help",
+  description:
+    "Answers about NordWash pickup & delivery, pricing, turnaround times, fabric care and payments — premium laundry & dry cleaning across Lithuania.",
+  alternates: { canonical: "/faq" },
+};
+
+const faqSchema = {
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  mainEntity: FAQS.map((f) => ({
+    "@type": "Question",
+    name: f.q,
+    acceptedAnswer: { "@type": "Answer", text: f.a },
+  })),
+};
 
 const SUPPORT: { icon: IconName; color: string; bg: string; title: string; sub: string; cta: string }[] = [
   {
@@ -32,6 +47,8 @@ const SUPPORT: { icon: IconName; color: string; bg: string; title: string; sub: 
 export default function FaqPage() {
   return (
     <div className="nw-fade">
+      {/* biome-ignore lint/security/noDangerouslySetInnerHtml: static FAQ schema, no user input */}
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(faqSchema) }} />
       <PageBanner
         image="hero_faq"
         title="FAQ & Help Center"

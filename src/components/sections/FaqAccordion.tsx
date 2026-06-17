@@ -40,7 +40,7 @@ export function FaqAccordion({ items, defaultOpen = -1 }: { items: FaqItem[]; de
                 color: "#09245B",
               }}
             >
-              {f.q}
+              <span style={{ flex: 1, minWidth: 0 }}>{f.q}</span>
               <span style={{ fontSize: 23, color: "#1E8BE8", fontWeight: 400, flex: "none", lineHeight: 1 }}>
                 {isOpen ? "–" : "+"}
               </span>

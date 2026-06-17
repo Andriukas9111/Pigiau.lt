@@ -10,7 +10,12 @@ import { COMPARE_COLS, COMPARE_ROWS, PACKAGES, PRICE_FAQ } from "@/lib/data";
 import type { Metadata } from "next";
 import Link from "next/link";
 
-export const metadata: Metadata = { title: "Prices & Live Calculator" };
+export const metadata: Metadata = {
+  title: "Prices & Live Calculator",
+  description:
+    "Build your wash and see your price instantly. Transparent laundry & dry-cleaning prices with free pickup & delivery in most of Lithuania — no hidden fees.",
+  alternates: { canonical: "/prices" },
+};
 
 const STEPS = [
   { n: "1", t: "Choose", d: "Pick your service and options.", c: "#1E8BE8" },

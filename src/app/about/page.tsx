@@ -5,6 +5,14 @@ import { Btn } from "@/components/ui/Button";
 import { Card, Section } from "@/components/ui/Container";
 import { Eyebrow } from "@/components/ui/Eyebrow";
 import { CREW, STATS, STORY, VALUES } from "@/lib/data";
+import type { Metadata } from "next";
+
+export const metadata: Metadata = {
+  title: "About Us",
+  description:
+    "Meet the cosmic crew behind NordWash — premium laundry & dry cleaning born under the North Star, now delivering fresh, folded laundry across Lithuania.",
+  alternates: { canonical: "/about" },
+};
 
 export default function AboutPage() {
   return (

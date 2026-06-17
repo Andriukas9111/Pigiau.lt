@@ -145,7 +145,7 @@ export function FaqClient() {
                       color: "#09245B",
                     }}
                   >
-                    {f.q}
+                    <span style={{ flex: 1, minWidth: 0 }}>{f.q}</span>
                     <span
                       style={{ fontSize: 24, color: "#1E8BE8", fontWeight: 400, flex: "none", lineHeight: 1 }}
                     >

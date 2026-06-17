@@ -4,6 +4,14 @@ import { ClosingCta, PageBanner } from "@/components/sections/Banners";
 import { Btn } from "@/components/ui/Button";
 import { Card, Section } from "@/components/ui/Container";
 import { BRANCH_CHARS, ROUTES, STATIONS } from "@/lib/data";
+import type { Metadata } from "next";
+
+export const metadata: Metadata = {
+  title: "Locations",
+  description:
+    "Find your nearest NordWash station in Vilnius, Kaunas, Klaipėda, Šiauliai or Panevėžys — or book door-to-door laundry pickup & delivery across Lithuania.",
+  alternates: { canonical: "/locations" },
+};
 
 export default function LocationsPage() {
   return (

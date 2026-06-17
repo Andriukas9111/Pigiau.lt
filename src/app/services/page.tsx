@@ -6,7 +6,15 @@ import { Btn } from "@/components/ui/Button";
 import { Card, Section } from "@/components/ui/Container";
 import { Eyebrow } from "@/components/ui/Eyebrow";
 import { FABRICS, SERVICES, WHY_CHOOSE } from "@/lib/data";
+import type { Metadata } from "next";
 import Link from "next/link";
+
+export const metadata: Metadata = {
+  title: "Services",
+  description:
+    "North Star Wash, steam press, disguise dry clean, stain rescue, blanket refresh & express fold — premium laundry & dry-cleaning services delivered across Lithuania.",
+  alternates: { canonical: "/services" },
+};
 
 export default function ServicesPage() {
   return (

@@ -30,13 +30,25 @@ export const metadata: Metadata = {
   description:
     "Premium laundry, dry cleaning & cosmic care delivered across Lithuania. Free pickup, 24h express, 100% satisfaction. Book a wash today.",
   keywords: ["laundry", "dry cleaning", "Lithuania", "pickup", "Vilnius", "Kaunas", "Klaipėda", "NordWash"],
+  alternates: { canonical: "/" },
   openGraph: {
     type: "website",
     siteName: "NordWash",
+    url: "https://www.nordwash.lt",
     title: "NordWash — Cosmic Laundry for Humans & Aliens",
     description: "Premium laundry & dry cleaning delivered across Lithuania. Free pickup, 24h express.",
     locale: "en",
+    images: [
+      { url: "/og.png", width: 1200, height: 630, alt: "NordWash — Cosmic Laundry for Humans & Aliens" },
+    ],
   },
+  twitter: {
+    card: "summary_large_image",
+    title: "NordWash — Cosmic Laundry for Humans & Aliens",
+    description: "Premium laundry & dry cleaning delivered across Lithuania.",
+    images: ["/og.png"],
+  },
+  robots: { index: true, follow: true },
   icons: { icon: "/icon.svg" },
 };
 

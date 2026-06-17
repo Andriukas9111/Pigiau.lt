@@ -8,7 +8,12 @@ import { Email } from "@/components/ui/Email";
 import { BRAND } from "@/lib/data";
 import type { Metadata } from "next";
 
-export const metadata: Metadata = { title: "Contact" };
+export const metadata: Metadata = {
+  title: "Contact",
+  description:
+    "Get in touch with NordWash — call +370 681 25504 or email hello@nordwash.lt. Questions, quotes and business enquiries for laundry across Lithuania.",
+  alternates: { canonical: "/contact" },
+};
 
 function InfoRow({
   icon,
@@ -132,42 +137,19 @@ export default function ContactPage() {
             <div
               style={{
                 position: "relative",
-                height: 200,
                 borderRadius: 18,
                 overflow: "hidden",
-                background: "linear-gradient(135deg,#E9F4FF,#DBEEFF)",
+                background: "linear-gradient(135deg,#EAF4FF,#DBEEFF)",
                 border: "1px solid #DCEBFB",
                 display: "flex",
                 alignItems: "center",
                 justifyContent: "center",
+                padding: "14px 16px",
               }}
             >
-              <div
-                aria-hidden="true"
-                style={{
-                  position: "absolute",
-                  inset: 0,
-                  backgroundImage:
-                    "linear-gradient(#cfe2f7 1px,transparent 1px),linear-gradient(90deg,#cfe2f7 1px,transparent 1px)",
-                  backgroundSize: "38px 38px",
-                  opacity: 0.5,
-                }}
-              />
-              <div
-                style={{
-                  position: "relative",
-                  display: "flex",
-                  flexDirection: "column",
-                  alignItems: "center",
-                  gap: 6,
-                  color: "#1E8BE8",
-                }}
-              >
-                <Icon name="pin" c="#1E8BE8" size={34} />
-                <b className="fh" style={{ fontSize: 13, color: "#09245B" }}>
-                  Klaipėda
-                </b>
-              </div>
+              <span style={{ width: "100%", maxWidth: 380, display: "block" }}>
+                <Illustration name="map" alt="NordWash locations across Lithuania" />
+              </span>
             </div>
             <div
               style={{
