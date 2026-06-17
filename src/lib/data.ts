@@ -1,125 +1,157 @@
 import type { IconName } from "@/components/icons";
 import type { IllustrationName } from "@/components/illustrations";
+import { T, type Tx } from "@/lib/i18n";
 
 /* ---------------------------------------------------------------- brand --- */
 export const BRAND = {
   name: "NordWash",
   domainLabel: ".lt",
-  tagline: "COSMIC CLEAN. EARTH READY.",
+  tagline: T("COSMIC CLEAN. EARTH READY.", "KOSMINĖ ŠVARA. PARUOŠTA ŽEMEI."),
   phone: "+370 681 25504",
   phoneHref: "+37068125504",
   email: "hello@nordwash.lt",
   web: "www.nordwash.lt",
   hours: [
-    { d: "Mon – Fri", h: "08:00 – 20:00" },
-    { d: "Saturday", h: "09:00 – 18:00" },
-    { d: "Sunday", h: "10:00 – 16:00" },
+    { d: T("Mon – Fri", "Pir – Pen"), h: "08:00 – 20:00" },
+    { d: T("Saturday", "Šeštadienis"), h: "09:00 – 18:00" },
+    { d: T("Sunday", "Sekmadienis"), h: "10:00 – 16:00" },
   ],
-  copyright: "© 2026 NordWash.lt — Intergalactic Laundry Services. All rights reserved.",
+  copyright: T(
+    "© 2026 NordWash.lt — Intergalactic Laundry Services. All rights reserved.",
+    "© 2026 NordWash.lt — Tarpgalaktinės skalbimo paslaugos. Visos teisės saugomos.",
+  ),
 } as const;
 
 /* --------------------------------------------------------------- routes --- */
-export const NAV = [
-  { label: "Services", href: "/services" },
-  { label: "How It Works", href: "/#how" },
-  { label: "Prices", href: "/prices" },
-  { label: "Locations", href: "/locations" },
-  { label: "About Us", href: "/about" },
-  { label: "Contact", href: "/contact" },
-] as const;
+export interface NavItem {
+  label: Tx;
+  href: string;
+}
+export const NAV: NavItem[] = [
+  { label: T("Services", "Paslaugos"), href: "/services" },
+  { label: T("How It Works", "Kaip tai veikia"), href: "/#how" },
+  { label: T("Prices", "Kainos"), href: "/prices" },
+  { label: T("Locations", "Skyriai"), href: "/locations" },
+  { label: T("About Us", "Apie mus"), href: "/about" },
+  { label: T("Contact", "Kontaktai"), href: "/contact" },
+];
 
 /* ------------------------------------------------------------- services --- */
 export interface Service {
   key: string;
-  title: string;
+  title: Tx;
   img: IllustrationName;
-  desc: string;
-  quote: string;
+  desc: Tx;
+  quote: Tx;
   price: number;
 }
 export const SERVICES: Service[] = [
   {
     key: "wash",
-    title: "North Star Wash",
+    title: T("North Star Wash", "Šiaurinės žvaigždės skalbimas"),
     img: "wash",
-    desc: "Deep clean with Arctic-ion bubbles. Bright. Fresh. Stellar.",
-    quote: "Out-of-this-world clean.",
+    desc: T(
+      "Deep clean with Arctic-ion bubbles. Bright. Fresh. Stellar.",
+      "Gilus valymas su Arkties jonų burbuliukais. Šviežia. Spindinčiai švaru.",
+    ),
+    quote: T("Out-of-this-world clean.", "Nežemiškai švaru."),
     price: 17.5,
   },
   {
     key: "press",
-    title: "Steam Beam Press",
+    title: T("Steam Beam Press", "Garų spindulio lyginimas"),
     img: "press",
-    desc: "Wrinkle? What wrinkle? Precision steam for perfect results.",
-    quote: "So smooth, it's illegal.",
+    desc: T(
+      "Wrinkle? What wrinkle? Precision steam for perfect results.",
+      "Raukšlės? Kokios raukšlės? Tikslūs garai tobulam rezultatui.",
+    ),
+    quote: T("So smooth, it's illegal.", "Taip glotnu, kad net neteisėta."),
     price: 14.0,
   },
   {
     key: "disguise",
-    title: "Disguise Dry Clean",
+    title: T("Disguise Dry Clean", "Maskuotės sausas valymas"),
     img: "disguise",
-    desc: "From human suits to invisible cloaks. We clean it all.",
-    quote: "Blend in. (Literally.)",
+    desc: T(
+      "From human suits to invisible cloaks. We clean it all.",
+      "Nuo žmogiškų kostiumų iki nematomų apsiaustų. Išvalome viską.",
+    ),
+    quote: T("Blend in. (Literally.)", "Įsiliekite. (Tiesiogine prasme.)"),
     price: 19.9,
   },
   {
     key: "stain",
-    title: "Emergency Stain Rescue",
+    title: T("Emergency Stain Rescue", "Skubus dėmių gelbėjimas"),
     img: "stain",
-    desc: "Coffee. Ketchup. Meteor dust. We have got you.",
-    quote: "Stains don't stand a chance.",
+    desc: T(
+      "Coffee. Ketchup. Meteor dust. We have got you.",
+      "Kava. Kečupas. Meteorų dulkės. Mes jus išgelbėsime.",
+    ),
+    quote: T("Stains don't stand a chance.", "Dėmės neturi jokių šansų."),
     price: 12.0,
   },
   {
     key: "blanket",
-    title: "Space Blanket Refresh",
+    title: T("Space Blanket Refresh", "Kosminių antklodžių gaiva"),
     img: "blanket",
-    desc: "Quilts, duvets & even cosmic sleeping bags. Fluffy again.",
-    quote: "Nap like a nebula.",
+    desc: T(
+      "Quilts, duvets & even cosmic sleeping bags. Fluffy again.",
+      "Antklodės, dygsniuotos ir net kosminiai miegmaišiai. Vėl purūs.",
+    ),
+    quote: T("Nap like a nebula.", "Snūstelėkite kaip ūkas."),
     price: 18.5,
   },
   {
     key: "fold",
-    title: "Express Fold & Beam",
+    title: T("Express Fold & Beam", "Greitas lankstymas ir pristatymas"),
     img: "fold",
-    desc: "Folded with precision. Beamed to your door. Neat as a nebula.",
-    quote: "Folded. Fast. Flawless.",
+    desc: T(
+      "Folded with precision. Beamed to your door. Neat as a nebula.",
+      "Tiksliai sulankstyta. Pristatyta prie durų. Tvarkinga kaip ūkas.",
+    ),
+    quote: T("Folded. Fast. Flawless.", "Sulankstyta. Greitai. Nepriekaištingai."),
     price: 11.0,
   },
   {
     key: "pickup",
-    title: "Pickup & Delivery",
+    title: T("Pickup & Delivery", "Paėmimas ir pristatymas"),
     img: "pickup",
-    desc: "We pick up, clean, and deliver across Lithuania. No teleport required.",
-    quote: "You relax. We zoom.",
+    desc: T(
+      "We pick up, clean, and deliver across Lithuania. No teleport required.",
+      "Paimame, išvalome ir pristatome visoje Lietuvoje. Teleportacijos nereikia.",
+    ),
+    quote: T("You relax. We zoom.", "Jūs ilsitės. Mes skriejame."),
     price: 4.5,
   },
   {
     key: "suit",
-    title: "Deluxe Human Suit Refresh",
+    title: T("Deluxe Human Suit Refresh", "Prabangaus žmogaus kostiumo gaiva"),
     img: "suit",
-    desc: "For meetings, dates, and definitely-not-cover-story emergencies.",
-    quote: "Look human. Smell stellar.",
+    desc: T(
+      "For meetings, dates, and definitely-not-cover-story emergencies.",
+      "Susitikimams, pasimatymams ir tikrai-ne-priedangai skirtoms situacijoms.",
+    ),
+    quote: T("Look human. Smell stellar.", "Atrodyk žmogiškai. Kvepėk žvaigždiškai."),
     price: 24.0,
   },
 ];
 
 export interface CalcService {
-  name: string;
+  name: Tx;
   base: number;
 }
 export const CALC_SERVICES: CalcService[] = [
-  { name: "Standard Wash & Fold", base: 12 },
-  { name: "Steam Press", base: 14 },
-  { name: "Disguise Dry Clean", base: 19.9 },
-  { name: "Emergency Stain Rescue", base: 12 },
-  { name: "Space Blanket Refresh", base: 18.5 },
-  { name: "Express Fold & Beam", base: 11 },
+  { name: T("Standard Wash & Fold", "Standartinis skalbimas ir lankstymas"), base: 12 },
+  { name: T("Steam Press", "Garų lyginimas"), base: 14 },
+  { name: T("Disguise Dry Clean", "Maskuotės sausas valymas"), base: 19.9 },
+  { name: T("Emergency Stain Rescue", "Skubus dėmių gelbėjimas"), base: 12 },
+  { name: T("Space Blanket Refresh", "Kosminių antklodžių gaiva"), base: 18.5 },
+  { name: T("Express Fold & Beam", "Greitas lankstymas ir pristatymas"), base: 11 },
 ];
 
 /* -------------------------------------------------------------- reviews --- */
 export interface Review {
-  quote: string;
+  quote: Tx;
   name: string;
   city: string;
   kind: "user" | "alien";
@@ -127,21 +159,27 @@ export interface Review {
 }
 export const REVIEWS: Review[] = [
   {
-    quote: "My shirts have never been this fresh — even my soul.",
+    quote: T(
+      "My shirts have never been this fresh — even my soul.",
+      "Mano marškiniai dar niekada nebuvo tokie švieži — net mano siela.",
+    ),
     name: "Mantas",
     city: "Vilnius",
     kind: "user",
     bg: "#E2F0D6",
   },
   {
-    quote: "They cleaned my disguise perfectly. 10/10 would infiltrate again.",
+    quote: T(
+      "They cleaned my disguise perfectly. 10/10 would infiltrate again.",
+      "Jie puikiai išvalė mano maskuotę. 10/10, vėl įsiskverbčiau.",
+    ),
     name: "Ziggy Z.",
     city: "Kaunas",
     kind: "alien",
     bg: "#D6E6FB",
   },
   {
-    quote: "Fast, friendly and absolutely out of this world!",
+    quote: T("Fast, friendly and absolutely out of this world!", "Greita, draugiška ir visiškai nežemiška!"),
     name: "Eglė",
     city: "Klaipėda",
     kind: "user",
@@ -151,241 +189,302 @@ export const REVIEWS: Review[] = [
 
 export interface City {
   name: string;
-  hub: string;
+  hub: Tx;
   color: string;
 }
 export const CITIES: City[] = [
-  { name: "Vilnius", hub: "North Star Hub", color: "#76C043" },
-  { name: "Kaunas", hub: "Alien Beam Station", color: "#7C5BD6" },
-  { name: "Klaipėda", hub: "Coastal Clean Base", color: "#1E8BE8" },
+  { name: "Vilnius", hub: T("North Star Hub", "Šiaurinės žvaigždės centras"), color: "#76C043" },
+  { name: "Kaunas", hub: T("Alien Beam Station", "Ateivių spindulio stotis"), color: "#7C5BD6" },
+  { name: "Klaipėda", hub: T("Coastal Clean Base", "Pajūrio švaros bazė"), color: "#1E8BE8" },
 ];
 
 /* ------------------------------------------------------ calculator data --- */
 export interface Extra {
   key: string;
-  name: string;
+  name: Tx;
   price: number;
 }
 export const CALC_EXTRAS: Extra[] = [
-  { key: "stain", name: "Stain Treatment", price: 2 },
-  { key: "hypo", name: "Hypoallergenic", price: 2 },
-  { key: "scent", name: "Scent Booster", price: 1.5 },
-  { key: "steam", name: "Steam Press", price: 2 },
-  { key: "eco", name: "Eco Wash", price: 1 },
+  { key: "stain", name: T("Stain Treatment", "Dėmių valymas"), price: 2 },
+  { key: "hypo", name: T("Hypoallergenic", "Hipoalerginis"), price: 2 },
+  { key: "scent", name: T("Scent Booster", "Kvapo stiprintuvas"), price: 1.5 },
+  { key: "steam", name: T("Steam Press", "Garų lyginimas"), price: 2 },
+  { key: "eco", name: T("Eco Wash", "Ekologiškas skalbimas"), price: 1 },
 ];
 
 export interface Urgency {
   key: string;
-  name: string;
+  name: Tx;
   sub: string;
   price: number;
 }
 export const URGENCY: Urgency[] = [
-  { key: "standard", name: "Standard", sub: "48–72h", price: 0 },
-  { key: "priority", name: "Priority", sub: "24h", price: 3 },
-  { key: "express", name: "Express", sub: "12h", price: 6 },
+  { key: "standard", name: T("Standard", "Standartinis"), sub: "48–72h", price: 0 },
+  { key: "priority", name: T("Priority", "Prioritetinis"), sub: "24h", price: 3 },
+  { key: "express", name: T("Express", "Ekspresas"), sub: "12h", price: 6 },
 ];
 
 export interface CType {
   key: string;
-  name: string;
+  name: Tx;
   mult: number;
 }
 export const CTYPES: CType[] = [
-  { key: "everyday", name: "Everyday", mult: 1 },
-  { key: "mixed", name: "Mixed", mult: 1.05 },
-  { key: "delicate", name: "Delicate", mult: 1.2 },
-  { key: "bedding", name: "Bedding", mult: 1.15 },
+  { key: "everyday", name: T("Everyday", "Kasdienis"), mult: 1 },
+  { key: "mixed", name: T("Mixed", "Mišrus"), mult: 1.05 },
+  { key: "delicate", name: T("Delicate", "Subtilus"), mult: 1.2 },
+  { key: "bedding", name: T("Bedding", "Patalynė"), mult: 1.15 },
 ];
-export const HOME_TYPES = [
-  { key: "everyday", name: "Everyday" },
-  { key: "mixed", name: "Mixed Load" },
-  { key: "delicate", name: "Delicate" },
-  { key: "bedding", name: "Bedding" },
+export const HOME_TYPES: { key: string; name: Tx }[] = [
+  { key: "everyday", name: T("Everyday", "Kasdienis") },
+  { key: "mixed", name: T("Mixed Load", "Mišrus krūvis") },
+  { key: "delicate", name: T("Delicate", "Subtilus") },
+  { key: "bedding", name: T("Bedding", "Patalynė") },
 ];
 
 /* ------------------------------------------------------------- packages --- */
 export interface Pkg {
-  name: string;
+  name: Tx;
   price: number;
-  tag: string;
+  tag: Tx | "";
   color: string;
-  feats: string[];
+  feats: Tx[];
 }
 export const PACKAGES: Pkg[] = [
   {
-    name: "Basic Wash",
+    name: T("Basic Wash", "Bazinis skalbimas"),
     price: 16,
     tag: "",
     color: "#1E8BE8",
-    feats: ["Up to 6kg wash & fold", "Standard 48–72h", "Free pickup & delivery", "Fresh scent included"],
-  },
-  {
-    name: "Steam & Press",
-    price: 21,
-    tag: "POPULAR",
-    color: "#76C043",
-    feats: ["Wash + precision steam press", "Up to 6kg", "Priority 24h option", "Wrinkle-free guarantee"],
-  },
-  {
-    name: "Family Load",
-    price: 42,
-    tag: "BEST VALUE",
-    color: "#7C5BD6",
     feats: [
-      "Up to 18kg mixed load",
-      "Wash, fold & press",
-      "Free pickup & delivery",
-      "Stain treatment included",
+      T("Up to 6kg wash & fold", "Iki 6 kg skalbimas ir lankstymas"),
+      T("Standard 48–72h", "Standartinis 48–72 val."),
+      T("Free pickup & delivery", "Nemokamas paėmimas ir pristatymas"),
+      T("Fresh scent included", "Šviežias kvapas įskaičiuotas"),
     ],
   },
   {
-    name: "Express 24h",
-    price: 39,
-    tag: "FAST",
-    color: "#F2A53B",
-    feats: ["Guaranteed 24h turnaround", "Up to 8kg", "Priority handling", "Real-time tracking"],
+    name: T("Steam & Press", "Garai ir lyginimas"),
+    price: 21,
+    tag: T("POPULAR", "POPULIARU"),
+    color: "#76C043",
+    feats: [
+      T("Wash + precision steam press", "Skalbimas + tikslus garų lyginimas"),
+      T("Up to 6kg", "Iki 6 kg"),
+      T("Priority 24h option", "Prioritetas per 24 val."),
+      T("Wrinkle-free guarantee", "Garantija be raukšlių"),
+    ],
   },
   {
-    name: "Alien Disguise Rescue",
+    name: T("Family Load", "Šeimos krūvis"),
+    price: 42,
+    tag: T("BEST VALUE", "GERIAUSIA KAINA"),
+    color: "#7C5BD6",
+    feats: [
+      T("Up to 18kg mixed load", "Iki 18 kg mišrus krūvis"),
+      T("Wash, fold & press", "Skalbimas, lankstymas ir lyginimas"),
+      T("Free pickup & delivery", "Nemokamas paėmimas ir pristatymas"),
+      T("Stain treatment included", "Dėmių valymas įskaičiuotas"),
+    ],
+  },
+  {
+    name: T("Express 24h", "Ekspresas 24 val."),
+    price: 39,
+    tag: T("FAST", "GREITAI"),
+    color: "#F2A53B",
+    feats: [
+      T("Guaranteed 24h turnaround", "Garantuotas atlikimas per 24 val."),
+      T("Up to 8kg", "Iki 8 kg"),
+      T("Priority handling", "Prioritetinis aptarnavimas"),
+      T("Real-time tracking", "Stebėjimas realiu laiku"),
+    ],
+  },
+  {
+    name: T("Alien Disguise Rescue", "Ateivių maskuotės gelbėjimas"),
     price: 28,
     tag: "",
     color: "#2BB1A8",
-    feats: ["Special items · 24–48h", "Stain rescue included", "Delicate cosmic care", "Steam finish"],
+    feats: [
+      T("Special items · 24–48h", "Ypatingi daiktai · 24–48 val."),
+      T("Stain rescue included", "Dėmių gelbėjimas įskaičiuotas"),
+      T("Delicate cosmic care", "Subtili kosminė priežiūra"),
+      T("Steam finish", "Garų apdaila"),
+    ],
   },
 ];
 
-export const COMPARE_COLS = ["Basic Wash", "Steam & Press", "Family Load", "Express 24h", "Disguise Rescue"];
+export const COMPARE_COLS: Tx[] = [
+  T("Basic Wash", "Bazinis skalbimas"),
+  T("Steam & Press", "Garai ir lyginimas"),
+  T("Family Load", "Šeimos krūvis"),
+  T("Express 24h", "Ekspresas 24 val."),
+  T("Disguise Rescue", "Maskuotės gelbėjimas"),
+];
 export interface CompareRow {
-  label: string;
-  cells: string[];
+  label: Tx;
+  cells: (Tx | string)[];
 }
 export const COMPARE_ROWS: CompareRow[] = [
-  { label: "Wash", cells: ["y", "y", "y", "y", "y"] },
-  { label: "Dry", cells: ["y", "y", "y", "y", "y"] },
-  { label: "Fold", cells: ["y", "y", "y", "y", "—"] },
-  { label: "Steam Press", cells: ["—", "y", "y", "y", "y"] },
-  { label: "Stain Treatment", cells: ["—", "—", "y", "—", "y"] },
-  { label: "Max Weight", cells: ["6kg", "6kg", "18kg", "8kg", "Per item"] },
-  { label: "Turnaround", cells: ["48–72h", "24h", "48–72h", "24h", "24–48h"] },
-  { label: "Pickup & Delivery", cells: ["+€4.50", "+€4.50", "Free", "Free", "+€4.50"] },
+  { label: T("Wash", "Skalbimas"), cells: ["y", "y", "y", "y", "y"] },
+  { label: T("Dry", "Džiovinimas"), cells: ["y", "y", "y", "y", "y"] },
+  { label: T("Fold", "Lankstymas"), cells: ["y", "y", "y", "y", "—"] },
+  { label: T("Steam Press", "Garų lyginimas"), cells: ["—", "y", "y", "y", "y"] },
+  { label: T("Stain Treatment", "Dėmių valymas"), cells: ["—", "—", "y", "—", "y"] },
+  {
+    label: T("Max Weight", "Maks. svoris"),
+    cells: ["6kg", "6kg", "18kg", "8kg", T("Per item", "Už vienetą")],
+  },
+  {
+    label: T("Turnaround", "Atlikimo laikas"),
+    cells: [
+      T("48–72h", "48–72 val."),
+      T("24h", "24 val."),
+      T("48–72h", "48–72 val."),
+      T("24h", "24 val."),
+      T("24–48h", "24–48 val."),
+    ],
+  },
+  {
+    label: T("Pickup & Delivery", "Paėmimas ir pristatymas"),
+    cells: ["+€4.50", "+€4.50", T("Free", "Nemokamai"), T("Free", "Nemokamai"), "+€4.50"],
+  },
 ];
 
 export interface FaqItem {
-  q: string;
-  a: string;
+  q: Tx;
+  a: Tx;
 }
 export const PRICE_FAQ: FaqItem[] = [
   {
-    q: "How is the price calculated?",
-    a: "We combine your service, weight, urgency and extras. Pickup & delivery is free in most zones. The live total updates as you choose.",
+    q: T("How is the price calculated?", "Kaip apskaičiuojama kaina?"),
+    a: T(
+      "We combine your service, weight, urgency and extras. Pickup & delivery is free in most zones. The live total updates as you choose.",
+      "Sujungiame paslaugą, svorį, skubumą ir priedus. Paėmimas ir pristatymas daugumoje zonų nemokamas. Bendra suma atsinaujina realiu laiku.",
+    ),
   },
   {
-    q: "Are there any hidden fees?",
-    a: "None. No asteroids, no surprises. The total you see is the total you pay.",
+    q: T("Are there any hidden fees?", "Ar yra paslėptų mokesčių?"),
+    a: T(
+      "None. No asteroids, no surprises. The total you see is the total you pay.",
+      "Jokių. Jokių asteroidų, jokių staigmenų. Matoma suma yra ta, kurią sumokate.",
+    ),
   },
   {
-    q: "Do you offer discounts?",
-    a: "Yes — first orders get 10% off with code HELLOEARTH, and Star Members save 10% on every order.",
+    q: T("Do you offer discounts?", "Ar taikote nuolaidas?"),
+    a: T(
+      "Yes — first orders get 10% off with code HELLOEARTH, and Star Members save 10% on every order.",
+      "Taip — pirmiems užsakymams 10 % nuolaida su kodu HELLOEARTH, o „Star“ nariai sutaupo 10 % kiekvienam užsakymui.",
+    ),
   },
   {
-    q: "What if my load is heavier than estimated?",
-    a: "We weigh on pickup and only adjust if it's significantly different — and we'll always message you first.",
+    q: T("What if my load is heavier than estimated?", "O jei krūvis sunkesnis nei numatyta?"),
+    a: T(
+      "We weigh on pickup and only adjust if it's significantly different — and we'll always message you first.",
+      "Pasveriame paimdami ir koreguojame tik tada, jei svoris gerokai skiriasi — ir visada pirma jums pranešame.",
+    ),
   },
 ];
 
 /* ------------------------------------------------------------ locations --- */
 export interface Station {
   city: string;
-  name: string;
+  name: Tx;
   addr: string;
   hours: string;
   color: string;
   img: IllustrationName;
-  tags: string[];
+  tags: Tx[];
   rating: string;
 }
 export const STATIONS: Station[] = [
   {
     city: "Vilnius",
-    name: "North Star Hub",
+    name: T("North Star Hub", "Šiaurinės žvaigždės centras"),
     addr: "Gedimino pr. 24, Vilnius",
     hours: "08:00 – 20:00",
     color: "#76C043",
     img: "wash",
-    tags: ["Wash & Fold", "Dry Clean", "Express"],
+    tags: [
+      T("Wash & Fold", "Skalbimas ir lankstymas"),
+      T("Dry Clean", "Sausas valymas"),
+      T("Express", "Ekspresas"),
+    ],
     rating: "4.9",
   },
   {
     city: "Kaunas",
-    name: "Alien Beam Station",
+    name: T("Alien Beam Station", "Ateivių spindulio stotis"),
     addr: "Laisvės al. 60, Kaunas",
     hours: "08:00 – 20:00",
     color: "#7C5BD6",
     img: "press",
-    tags: ["Wash & Fold", "Steam Press", "Pickup"],
+    tags: [
+      T("Wash & Fold", "Skalbimas ir lankstymas"),
+      T("Steam Press", "Garų lyginimas"),
+      T("Pickup", "Paėmimas"),
+    ],
     rating: "4.8",
   },
   {
     city: "Klaipėda",
-    name: "Coastal Clean Base",
+    name: T("Coastal Clean Base", "Pajūrio švaros bazė"),
     addr: "Taikos pr. 32, Klaipėda",
     hours: "09:00 – 19:00",
     color: "#1E8BE8",
     img: "blanket",
-    tags: ["Wash & Fold", "Blankets", "Pickup"],
+    tags: [T("Wash & Fold", "Skalbimas ir lankstymas"), T("Blankets", "Antklodės"), T("Pickup", "Paėmimas")],
     rating: "4.9",
   },
   {
     city: "Šiauliai",
-    name: "Northern Lights Point",
+    name: T("Northern Lights Point", "Šiaurės pašvaistės taškas"),
     addr: "Vilniaus g. 141, Šiauliai",
     hours: "09:00 – 18:00",
     color: "#F2A53B",
     img: "stain",
-    tags: ["Wash & Fold", "Dry Clean"],
+    tags: [T("Wash & Fold", "Skalbimas ir lankstymas"), T("Dry Clean", "Sausas valymas")],
     rating: "4.7",
   },
   {
     city: "Panevėžys",
-    name: "Meteor Drop Stop",
+    name: T("Meteor Drop Stop", "Meteorų nusileidimo stotelė"),
     addr: "Respublikos g. 40, Panevėžys",
     hours: "09:00 – 18:00",
     color: "#E0608A",
     img: "suit",
-    tags: ["Wash & Fold", "Pickup"],
+    tags: [T("Wash & Fold", "Skalbimas ir lankstymas"), T("Pickup", "Paėmimas")],
     rating: "4.8",
   },
 ];
 
 export interface Route {
-  name: string;
-  days: string;
+  name: Tx;
+  days: Tx;
   cities: string;
   color: string;
 }
 export const ROUTES: Route[] = [
   {
-    name: "Route North",
-    days: "Mon / Thu",
+    name: T("Route North", "Šiaurės maršrutas"),
+    days: T("Mon / Thu", "Pir / Ket"),
     cities: "Vilnius · Utena · Panevėžys · Šiauliai",
     color: "#76C043",
   },
   {
-    name: "Route Central",
-    days: "Tue / Fri",
+    name: T("Route Central", "Centrinis maršrutas"),
+    days: T("Tue / Fri", "Ant / Pen"),
     cities: "Vilnius · Kaunas · Alytus · Marijampolė",
     color: "#1E8BE8",
   },
   {
-    name: "Route West",
-    days: "Wed / Sat",
+    name: T("Route West", "Vakarų maršrutas"),
+    days: T("Wed / Sat", "Tre / Šeš"),
     cities: "Kaunas · Klaipėda · Palanga · Kretinga",
     color: "#7C5BD6",
   },
   {
-    name: "Route South",
-    days: "Tue / Sat",
+    name: T("Route South", "Pietų maršrutas"),
+    days: T("Tue / Sat", "Ant / Šeš"),
     cities: "Kaunas · Prienai · Alytus · Druskininkai",
     color: "#E0608A",
   },
@@ -393,216 +492,352 @@ export const ROUTES: Route[] = [
 
 export interface BranchChar {
   name: string;
-  role: string;
+  role: Tx;
   city: string;
   img: IllustrationName;
   color: string;
 }
 export const BRANCH_CHARS: BranchChar[] = [
-  { name: "Vili", role: "Chief Clean Officer", city: "Vilnius", img: "wash", color: "#76C043" },
-  { name: "Beammy", role: "Laundry Technician", city: "Kaunas", img: "press", color: "#7C5BD6" },
-  { name: "Klapio", role: "Wave Wrangler", city: "Klaipėda", img: "blanket", color: "#1E8BE8" },
-  { name: "Solaris", role: "Spin Scientist", city: "Šiauliai", img: "fold", color: "#F2A53B" },
-  { name: "Orbi", role: "Steam Specialist", city: "Panevėžys", img: "suit", color: "#E0608A" },
+  {
+    name: "Vili",
+    role: T("Chief Clean Officer", "Vyriausiasis švaros vadovas"),
+    city: "Vilnius",
+    img: "wash",
+    color: "#76C043",
+  },
+  {
+    name: "Beammy",
+    role: T("Laundry Technician", "Skalbimo technikas"),
+    city: "Kaunas",
+    img: "press",
+    color: "#7C5BD6",
+  },
+  {
+    name: "Klapio",
+    role: T("Wave Wrangler", "Bangų sutramdytojas"),
+    city: "Klaipėda",
+    img: "blanket",
+    color: "#1E8BE8",
+  },
+  {
+    name: "Solaris",
+    role: T("Spin Scientist", "Sukimosi mokslininkas"),
+    city: "Šiauliai",
+    img: "fold",
+    color: "#F2A53B",
+  },
+  {
+    name: "Orbi",
+    role: T("Steam Specialist", "Garų specialistas"),
+    city: "Panevėžys",
+    img: "suit",
+    color: "#E0608A",
+  },
 ];
 
 /* ---------------------------------------------------------------- about --- */
 export interface Crew {
   name: string;
-  role: string;
+  role: Tx;
   img: IllustrationName;
   color: string;
-  bio: string;
+  bio: Tx;
 }
 export const CREW: Crew[] = [
   {
     name: "Zygz",
-    role: "Wash Operator",
+    role: T("Wash Operator", "Skalbimo operatorius"),
     img: "wash",
     color: "#76C043",
-    bio: "Master of Arctic-ion bubbles. Has never met a stain he respects.",
+    bio: T(
+      "Master of Arctic-ion bubbles. Has never met a stain he respects.",
+      "Arkties jonų burbuliukų meistras. Dar nesutiko dėmės, kurią gerbtų.",
+    ),
   },
   {
     name: "Luna",
-    role: "Steam Specialist",
+    role: T("Steam Specialist", "Garų specialistė"),
     img: "press",
     color: "#7C5BD6",
-    bio: "Turns wrinkles into distant memories with one steam beam.",
+    bio: T(
+      "Turns wrinkles into distant memories with one steam beam.",
+      "Vienu garų spinduliu raukšles paverčia tolimais prisiminimais.",
+    ),
   },
   {
     name: "E.Tiketas",
-    role: "Disguise Consultant",
+    role: T("Disguise Consultant", "Maskuotės konsultantas"),
     img: "disguise",
     color: "#1E8BE8",
-    bio: "Keeps your human suit convincingly human. Mustache optional.",
+    bio: T(
+      "Keeps your human suit convincingly human. Mustache optional.",
+      "Pasirūpina, kad žmogiškas kostiumas atrodytų įtikinamai žmogiškai. Ūsai – pasirinktinai.",
+    ),
   },
   {
     name: "Foldor",
-    role: "Folding Expert",
+    role: T("Folding Expert", "Lankstymo ekspertas"),
     img: "fold",
     color: "#2E74D0",
-    bio: "Folds with mathematical precision. Dreams in perfect squares.",
+    bio: T(
+      "Folds with mathematical precision. Dreams in perfect squares.",
+      "Lanksto matematiniu tikslumu. Sapnuoja tobulus kvadratus.",
+    ),
   },
 ];
 
 export interface StoryItem {
   icon: IconName;
-  year: string;
-  title: string;
-  desc: string;
+  year: Tx;
+  title: Tx;
+  desc: Tx;
 }
 export const STORY: StoryItem[] = [
   {
     icon: "globe",
-    year: "Light Years Ago",
-    title: "A Tidy Home Planet",
-    desc: "Near the North Star, laundry was a science and freshness a duty.",
+    year: T("Light Years Ago", "Prieš šviesmečius"),
+    title: T("A Tidy Home Planet", "Tvarkinga gimtoji planeta"),
+    desc: T(
+      "Near the North Star, laundry was a science and freshness a duty.",
+      "Prie Šiaurinės žvaigždės skalbimas buvo mokslas, o šviežumas – pareiga.",
+    ),
   },
   {
     icon: "rocket",
-    year: "Year 0",
-    title: "We Packed Up",
-    desc: "We found Earthlings struggle with laundry. So we came to help.",
+    year: T("Year 0", "0-iniai metai"),
+    title: T("We Packed Up", "Susikuprinome"),
+    desc: T(
+      "We found Earthlings struggle with laundry. So we came to help.",
+      "Pastebėjome, kad žemiečiai kankinasi su skalbiniais. Tad atvykome padėti.",
+    ),
   },
   {
     icon: "ufo",
-    year: "Year 1",
-    title: "First Landing",
-    desc: "Landed. Studied socks. Understood stains. Built NordWash.",
+    year: T("Year 1", "1-ieji metai"),
+    title: T("First Landing", "Pirmasis nusileidimas"),
+    desc: T(
+      "Landed. Studied socks. Understood stains. Built NordWash.",
+      "Nusileidome. Ištyrėme kojines. Supratome dėmes. Sukūrėme NordWash.",
+    ),
   },
   {
     icon: "droplet",
-    year: "Year 2",
-    title: "First Earth Hub",
-    desc: "Opened our first Earth laundry hub. Humans were… impressed.",
+    year: T("Year 2", "2-ieji metai"),
+    title: T("First Earth Hub", "Pirmasis centras Žemėje"),
+    desc: T(
+      "Opened our first Earth laundry hub. Humans were… impressed.",
+      "Atidarėme pirmąjį skalbimo centrą Žemėje. Žmonės buvo… sužavėti.",
+    ),
   },
   {
     icon: "star",
-    year: "Year 3+",
-    title: "Going Cosmic",
-    desc: "More locations, more freshness, more happy humans every day.",
+    year: T("Year 3+", "3+ metai"),
+    title: T("Going Cosmic", "Plečiamės kosmiškai"),
+    desc: T(
+      "More locations, more freshness, more happy humans every day.",
+      "Vis daugiau skyrių, daugiau šviežumo ir laimingų žmonių kasdien.",
+    ),
   },
   {
     icon: "sparkles",
-    year: "The Future",
-    title: "Across the Galaxy",
-    desc: "Expanding across the planet. Maybe the galaxy. One load at a time.",
+    year: T("The Future", "Ateitis"),
+    title: T("Across the Galaxy", "Per visą galaktiką"),
+    desc: T(
+      "Expanding across the planet. Maybe the galaxy. One load at a time.",
+      "Plečiamės po visą planetą. Galbūt ir galaktiką. Po vieną krūvį.",
+    ),
   },
 ];
 
 export interface ValueItem {
   icon: IconName;
-  title: string;
-  desc: string;
+  title: Tx;
+  desc: Tx;
 }
 export const VALUES: ValueItem[] = [
-  { icon: "leaf", title: "Planet First", desc: "Eco detergents and low-water cycles on every load." },
-  { icon: "shield", title: "Care & Safety", desc: "Gentle, fabric-specific programs. No abductions." },
-  { icon: "bolt", title: "Always Fast", desc: "Express options that feel genuinely intergalactic." },
-  { icon: "smile", title: "Human (ish) Touch", desc: "Friendly crew, real support, happy customers." },
+  {
+    icon: "leaf",
+    title: T("Planet First", "Pirma – planeta"),
+    desc: T(
+      "Eco detergents and low-water cycles on every load.",
+      "Ekologiškos priemonės ir mažo vandens naudojimo ciklai kiekvienam krūviui.",
+    ),
+  },
+  {
+    icon: "shield",
+    title: T("Care & Safety", "Priežiūra ir sauga"),
+    desc: T(
+      "Gentle, fabric-specific programs. No abductions.",
+      "Švelnios, audiniui pritaikytos programos. Jokių pagrobimų.",
+    ),
+  },
+  {
+    icon: "bolt",
+    title: T("Always Fast", "Visada greitai"),
+    desc: T(
+      "Express options that feel genuinely intergalactic.",
+      "Ekspreso galimybės, kurios atrodo tikrai tarpgalaktiškai.",
+    ),
+  },
+  {
+    icon: "smile",
+    title: T("Human (ish) Touch", "Žmogiškas (beveik) prisilietimas"),
+    desc: T(
+      "Friendly crew, real support, happy customers.",
+      "Draugiška komanda, tikra pagalba, laimingi klientai.",
+    ),
+  },
 ];
 
 export interface Stat {
   num: string;
-  label: string;
+  label: Tx;
 }
 export const STATS: Stat[] = [
-  { num: "25,000+", label: "Happy Humans" },
-  { num: "1.2M+", label: "Loads Washed" },
-  { num: "98.7%", label: "Satisfaction Rate" },
-  { num: "24", label: "Earth Locations" },
-  { num: "4.9★", label: "Average Rating" },
+  { num: "25,000+", label: T("Happy Humans", "Laimingi žmonės") },
+  { num: "1.2M+", label: T("Loads Washed", "Išskalbti krūviai") },
+  { num: "98.7%", label: T("Satisfaction Rate", "Pasitenkinimo lygis") },
+  { num: "24", label: T("Earth Locations", "Vietos Žemėje") },
+  { num: "4.9★", label: T("Average Rating", "Vidutinis įvertinimas") },
 ];
 
 /* ------------------------------------------------------------------ faq --- */
 export interface FaqCat {
   icon: IconName;
-  name: string;
+  name: Tx;
 }
 export const FAQ_CATS: FaqCat[] = [
-  { icon: "truck", name: "Pickup & Delivery" },
-  { icon: "tag", name: "Pricing & Payment" },
-  { icon: "shirt", name: "Services & Fabrics" },
-  { icon: "clock", name: "Timing & Turnaround" },
-  { icon: "shield", name: "Care & Safety" },
-  { icon: "chat", name: "Account & Support" },
+  { icon: "truck", name: T("Pickup & Delivery", "Paėmimas ir pristatymas") },
+  { icon: "tag", name: T("Pricing & Payment", "Kainos ir mokėjimai") },
+  { icon: "shirt", name: T("Services & Fabrics", "Paslaugos ir audiniai") },
+  { icon: "clock", name: T("Timing & Turnaround", "Laikas ir atlikimas") },
+  { icon: "shield", name: T("Care & Safety", "Priežiūra ir sauga") },
+  { icon: "chat", name: T("Account & Support", "Paskyra ir pagalba") },
 ];
 export const FAQS: FaqItem[] = [
   {
-    q: "How does pickup and delivery work?",
-    a: "Book online, pick a time slot, and our crew collects your laundry and returns it clean, folded and fresh — usually within 48–72 hours.",
+    q: T("How does pickup and delivery work?", "Kaip vyksta paėmimas ir pristatymas?"),
+    a: T(
+      "Book online, pick a time slot, and our crew collects your laundry and returns it clean, folded and fresh — usually within 48–72 hours.",
+      "Užsisakykite internetu, pasirinkite laiką, o mūsų komanda paims skalbinius ir grąžins juos švarius, sulankstytus ir šviežius — paprastai per 48–72 valandas.",
+    ),
   },
   {
-    q: "How fast do you deliver?",
-    a: "Standard turnaround is 48–72 hours. Priority is 24h and Express is as fast as 12h in selected zones.",
+    q: T("How fast do you deliver?", "Kaip greitai pristatote?"),
+    a: T(
+      "Standard turnaround is 48–72 hours. Priority is 24h and Express is as fast as 12h in selected zones.",
+      "Standartinis atlikimas – 48–72 valandos. Prioritetinis – 24 val., o ekspresas – net 12 val. tam tikrose zonose.",
+    ),
   },
   {
-    q: "Do you clean suits and costumes?",
-    a: "Yes — one of our specialities, especially when the suit looks suspiciously non-human.",
+    q: T("Do you clean suits and costumes?", "Ar valote kostiumus ir aprangą?"),
+    a: T(
+      "Yes — one of our specialities, especially when the suit looks suspiciously non-human.",
+      "Taip — tai viena mūsų specialybių, ypač kai kostiumas atrodo įtartinai nežmogiškas.",
+    ),
   },
   {
-    q: "Is it safe for delicate fabrics?",
-    a: "Absolutely. We select a gentle, fabric-specific program for every item.",
+    q: T("Is it safe for delicate fabrics?", "Ar saugu subtiliems audiniams?"),
+    a: T(
+      "Absolutely. We select a gentle, fabric-specific program for every item.",
+      "Be abejo. Kiekvienam daiktui parenkame švelnią, audiniui pritaikytą programą.",
+    ),
   },
   {
-    q: "Which areas do you cover?",
-    a: "Vilnius, Kaunas, Klaipėda, Šiauliai and Panevėžys, with more beam stations landing soon.",
+    q: T("Which areas do you cover?", "Kokias vietoves aptarnaujate?"),
+    a: T(
+      "Vilnius, Kaunas, Klaipėda, Šiauliai and Panevėžys, with more beam stations landing soon.",
+      "Vilnių, Kauną, Klaipėdą, Šiaulius ir Panevėžį, o netrukus nusileis dar daugiau stočių.",
+    ),
   },
   {
-    q: "How do I pay?",
-    a: "Card, Apple Pay, PayPal or cash on delivery. First orders get 10% off with code HELLOEARTH.",
+    q: T("How do I pay?", "Kaip galiu sumokėti?"),
+    a: T(
+      "Card, Apple Pay, PayPal or cash on delivery. First orders get 10% off with code HELLOEARTH.",
+      "Kortele, Apple Pay, PayPal arba grynais pristatant. Pirmiems užsakymams 10 % nuolaida su kodu HELLOEARTH.",
+    ),
   },
   {
-    q: "What if something goes wrong?",
-    a: "We offer a free rewash, and our support crew replies faster than light. 100% satisfaction or we'll make it right.",
+    q: T("What if something goes wrong?", "O jei kažkas nepavyksta?"),
+    a: T(
+      "We offer a free rewash, and our support crew replies faster than light. 100% satisfaction or we'll make it right.",
+      "Pasiūlome nemokamą perskalbimą, o mūsų pagalbos komanda atsako greičiau nei šviesa. 100 % pasitenkinimas arba viską ištaisysime.",
+    ),
   },
   {
-    q: "Can I schedule recurring pickups?",
-    a: "Yes — Star Members can set weekly or biweekly pickups and save 10% on every order.",
+    q: T("Can I schedule recurring pickups?", "Ar galiu užsisakyti reguliarų paėmimą?"),
+    a: T(
+      "Yes — Star Members can set weekly or biweekly pickups and save 10% on every order.",
+      "Taip — „Star“ nariai gali nustatyti savaitinį ar kassavaitinį paėmimą ir sutaupyti 10 % kiekvienam užsakymui.",
+    ),
   },
 ];
 
 /* ----------------------------------------------------------- fabrics ------ */
 export interface Fabric {
   icon: IconName;
-  name: string;
-  note: string;
+  name: Tx;
+  note: Tx;
 }
 export const FABRICS: Fabric[] = [
-  { icon: "shirt", name: "Cotton", note: "Soft & breathable" },
-  { icon: "wind", name: "Linen", note: "Light & airy" },
-  { icon: "snow", name: "Wool", note: "Warm & cozy" },
-  { icon: "atom", name: "Synthetics", note: "Space-ready" },
-  { icon: "droplet", name: "Silk", note: "Smooth & delicate" },
-  { icon: "shield", name: "Leather", note: "Tough but tender" },
-  { icon: "satellite", name: "Tech Fabrics", note: "High performance" },
-  { icon: "mask", name: "Disguise Materials", note: "Human-grade (mostly)" },
+  { icon: "shirt", name: T("Cotton", "Medvilnė"), note: T("Soft & breathable", "Minkšta ir kvėpuojanti") },
+  { icon: "wind", name: T("Linen", "Linas"), note: T("Light & airy", "Lengvas ir erdvus") },
+  { icon: "snow", name: T("Wool", "Vilna"), note: T("Warm & cozy", "Šilta ir jauku") },
+  { icon: "atom", name: T("Synthetics", "Sintetika"), note: T("Space-ready", "Paruošta kosmosui") },
+  { icon: "droplet", name: T("Silk", "Šilkas"), note: T("Smooth & delicate", "Glotnus ir subtilus") },
+  { icon: "shield", name: T("Leather", "Oda"), note: T("Tough but tender", "Tvirta, bet švelni") },
+  {
+    icon: "satellite",
+    name: T("Tech Fabrics", "Techniniai audiniai"),
+    note: T("High performance", "Aukšto našumo"),
+  },
+  {
+    icon: "mask",
+    name: T("Disguise Materials", "Maskuotės medžiagos"),
+    note: T("Human-grade (mostly)", "Žmogiško lygio (beveik)"),
+  },
 ];
 
 export interface WhyItem {
   icon: IconName;
-  title: string;
-  desc: string;
+  title: Tx;
+  desc: Tx;
 }
 export const WHY_CHOOSE: WhyItem[] = [
-  { icon: "atom", title: "Alien Tech", desc: "Advanced cleaning beyond Earth standards." },
-  { icon: "leaf", title: "Eco Friendly", desc: "Gentle on fabrics, kind to the planet." },
-  { icon: "shield", title: "Human Safe", desc: "No abductions. Just fresh clothes." },
-  { icon: "smile", title: "Satisfaction", desc: "100% or we'll make it right." },
+  {
+    icon: "atom",
+    title: T("Alien Tech", "Ateivių technologijos"),
+    desc: T("Advanced cleaning beyond Earth standards.", "Pažangus valymas, pranokstantis Žemės standartus."),
+  },
+  {
+    icon: "leaf",
+    title: T("Eco Friendly", "Ekologiška"),
+    desc: T("Gentle on fabrics, kind to the planet.", "Švelnu audiniams, draugiška planetai."),
+  },
+  {
+    icon: "shield",
+    title: T("Human Safe", "Saugu žmonėms"),
+    desc: T("No abductions. Just fresh clothes.", "Jokių pagrobimų. Tik švieži drabužiai."),
+  },
+  {
+    icon: "smile",
+    title: T("Satisfaction", "Pasitenkinimas"),
+    desc: T("100% or we'll make it right.", "100 % arba viską ištaisysime."),
+  },
 ];
 
 /* -------------------------------------------------------------- booking --- */
 export interface Size {
   key: string;
-  name: string;
-  sub: string;
+  name: Tx;
+  sub: Tx;
   adj: number;
 }
 export const SIZES: Size[] = [
-  { key: "small", name: "Small", sub: "up to 5kg", adj: 0 },
-  { key: "medium", name: "Medium", sub: "5–10kg", adj: 6 },
-  { key: "large", name: "Large", sub: "10–15kg", adj: 12 },
-  { key: "xlarge", name: "X-Large", sub: "15kg+", adj: 18 },
+  { key: "small", name: T("Small", "Mažas"), sub: T("up to 5kg", "iki 5 kg"), adj: 0 },
+  { key: "medium", name: T("Medium", "Vidutinis"), sub: T("5–10kg", "5–10 kg"), adj: 6 },
+  { key: "large", name: T("Large", "Didelis"), sub: T("10–15kg", "10–15 kg"), adj: 12 },
+  { key: "xlarge", name: T("X-Large", "Labai didelis"), sub: T("15kg+", "15 kg+"), adj: 18 },
 ];
 export const TIMES = [
   "08:00 – 10:00",
@@ -612,34 +847,46 @@ export const TIMES = [
   "16:00 – 18:00",
   "18:00 – 20:00",
 ];
-export const BSTEPS = ["Select Service", "Pickup Address", "Date & Time", "Extras", "Review & Pay"];
-export const BSTEPS_SHORT = ["Service", "Pickup", "Schedule", "Extras", "Review"];
+export const BSTEPS: Tx[] = [
+  T("Select Service", "Pasirinkite paslaugą"),
+  T("Pickup Address", "Paėmimo adresas"),
+  T("Date & Time", "Data ir laikas"),
+  T("Extras", "Priedai"),
+  T("Review & Pay", "Peržiūra ir mokėjimas"),
+];
+export const BSTEPS_SHORT: Tx[] = [
+  T("Service", "Paslauga"),
+  T("Pickup", "Paėmimas"),
+  T("Schedule", "Grafikas"),
+  T("Extras", "Priedai"),
+  T("Review", "Peržiūra"),
+];
 
 export interface BExtra {
   key: "bHypo" | "bScent" | "bStain" | "bFold" | "bExpress";
-  name: string;
+  name: Tx;
   price: number;
 }
 export const BOOKING_EXTRAS: BExtra[] = [
-  { key: "bHypo", name: "Hypoallergenic", price: 2 },
-  { key: "bScent", name: "Scent Booster", price: 1.5 },
-  { key: "bStain", name: "Stain Treatment", price: 2.5 },
-  { key: "bFold", name: "Premium Fold", price: 2 },
-  { key: "bExpress", name: "Express 24h", price: 6 },
+  { key: "bHypo", name: T("Hypoallergenic", "Hipoalerginis"), price: 2 },
+  { key: "bScent", name: T("Scent Booster", "Kvapo stiprintuvas"), price: 1.5 },
+  { key: "bStain", name: T("Stain Treatment", "Dėmių valymas"), price: 2.5 },
+  { key: "bFold", name: T("Premium Fold", "Premium lankstymas"), price: 2 },
+  { key: "bExpress", name: T("Express 24h", "Ekspresas 24 val."), price: 6 },
 ];
 
-export const PAY_METHODS = [
-  { key: "card", name: "Card" },
-  { key: "apple", name: "Apple Pay" },
-  { key: "paypal", name: "PayPal" },
-  { key: "cash", name: "Cash on delivery" },
+export const PAY_METHODS: { key: string; name: Tx }[] = [
+  { key: "card", name: T("Card", "Kortelė") },
+  { key: "apple", name: T("Apple Pay", "Apple Pay") },
+  { key: "paypal", name: T("PayPal", "PayPal") },
+  { key: "cash", name: T("Cash on delivery", "Grynais pristatant") },
 ];
 
-export const SUBJECTS = [
-  "General question",
-  "Pricing & quotes",
-  "Pickup & delivery",
-  "A problem with my order",
-  "Business enquiry",
-  "Something cosmic",
+export const SUBJECTS: Tx[] = [
+  T("General question", "Bendras klausimas"),
+  T("Pricing & quotes", "Kainos ir pasiūlymai"),
+  T("Pickup & delivery", "Paėmimas ir pristatymas"),
+  T("A problem with my order", "Problema su užsakymu"),
+  T("Business enquiry", "Verslo užklausa"),
+  T("Something cosmic", "Kažkas kosmiško"),
 ];

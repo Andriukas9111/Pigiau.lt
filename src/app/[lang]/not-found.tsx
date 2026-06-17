@@ -1,8 +1,13 @@
+"use client";
+
+import { useLang } from "@/components/i18n/LangProvider";
 import { Illustration } from "@/components/illustrations";
 import { Btn } from "@/components/ui/Button";
 import { Section } from "@/components/ui/Container";
+import { localePath } from "@/lib/i18n";
 
 export default function NotFound() {
+  const { lang, tr } = useLang();
   return (
     <Section mt={40} pb={60}>
       <div
@@ -28,13 +33,16 @@ export default function NotFound() {
           404
         </div>
         <h1 className="fh" style={{ fontWeight: 800, fontSize: 24, color: "#09245B", margin: "6px 0 8px" }}>
-          This page got abducted
+          {tr("This page got abducted", "Šis puslapis buvo pagrobtas")}
         </h1>
         <p style={{ fontSize: 15, color: "#5B7194", margin: "0 auto 22px", maxWidth: 400 }}>
-          The page you're looking for drifted into another dimension. Let's beam you back to fresh laundry.
+          {tr(
+            "The page you're looking for drifted into another dimension. Let's beam you back to fresh laundry.",
+            "Ieškomas puslapis nuklydo į kitą dimensiją. Grąžinkime jus prie šviežių skalbinių.",
+          )}
         </p>
-        <Btn href="/" icon="rocket">
-          Back to home
+        <Btn href={localePath("/", lang)} icon="rocket">
+          {tr("Back to home", "Į pradžią")}
         </Btn>
       </div>
     </Section>

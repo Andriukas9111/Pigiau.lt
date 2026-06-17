@@ -5,30 +5,45 @@ import { Btn } from "@/components/ui/Button";
 import { Card, Section } from "@/components/ui/Container";
 import { Eyebrow } from "@/components/ui/Eyebrow";
 import { CREW, STATS, STORY, VALUES } from "@/lib/data";
+import { type Locale, localePath, trFor, tt } from "@/lib/i18n";
 import type { Metadata } from "next";
 
-export const metadata: Metadata = {
-  title: "About Us",
-  description:
-    "Meet the cosmic crew behind NordWash — premium laundry & dry cleaning born under the North Star, now delivering fresh, folded laundry across Lithuania.",
-  alternates: { canonical: "/about" },
-};
+export async function generateMetadata({ params }: { params: Promise<{ lang: string }> }): Promise<Metadata> {
+  const { lang } = await params;
+  const lt = lang === "lt";
+  return {
+    title: lt ? "Apie mus" : "About Us",
+    description: lt
+      ? "Susipažinkite su kosmine NordWash komanda — aukščiausios klasės skalbimo ir cheminio valymo paslaugos, gimusios prie Šiaurinės žvaigždės ir dabar pristatančios šviežius, sulankstytus skalbinius visoje Lietuvoje."
+      : "Meet the cosmic crew behind NordWash — premium laundry & dry cleaning born under the North Star, now delivering fresh, folded laundry across Lithuania.",
+    alternates: {
+      canonical: `/${lang}/about`,
+      languages: { lt: "/lt/about", en: "/en/about", "x-default": "/lt/about" },
+    },
+  };
+}
 
-export default function AboutPage() {
+export default async function AboutPage({ params }: { params: Promise<{ lang: string }> }) {
+  const { lang } = await params;
+  const l = lang as Locale;
+  const tr = trFor(l);
   return (
     <div className="nw-fade">
       {/* 1) HERO */}
       <PageBanner
         image="hero_about"
-        title="About NordWash"
-        alt="About NordWash — from the North Star, with freshness"
+        title={tr("About NordWash", "Apie NordWash")}
+        alt={tr(
+          "About NordWash — from the North Star, with freshness",
+          "Apie NordWash — nuo Šiaurinės žvaigždės su šviežumu",
+        )}
       />
 
       {/* 2) MEET THE CREW */}
       <Section>
         <Card>
           <div style={{ textAlign: "center", marginBottom: 34 }}>
-            <Eyebrow>MEET THE CREW</Eyebrow>
+            <Eyebrow>{tr("MEET THE CREW", "SUSIPAŽINKITE SU KOMANDA")}</Eyebrow>
             <h2
               className="fh"
               style={{
@@ -39,7 +54,7 @@ export default function AboutPage() {
                 letterSpacing: "-.5px",
               }}
             >
-              The aliens behind your fresh laundry
+              {tr("The aliens behind your fresh laundry", "Ateiviai, kuriantys jūsų šviežius skalbinius")}
             </h2>
           </div>
           <div
@@ -86,9 +101,11 @@ export default function AboutPage() {
                     margin: "8px 0 10px",
                   }}
                 >
-                  {c.role}
+                  {tt(c.role, l)}
                 </div>
-                <p style={{ fontSize: 12.5, lineHeight: 1.55, color: "#6E86A8", margin: 0 }}>{c.bio}</p>
+                <p style={{ fontSize: 12.5, lineHeight: 1.55, color: "#6E86A8", margin: 0 }}>
+                  {tt(c.bio, l)}
+                </p>
               </div>
             ))}
           </div>
@@ -99,7 +116,7 @@ export default function AboutPage() {
       <Section>
         <Card>
           <div style={{ textAlign: "center", marginBottom: 34 }}>
-            <Eyebrow>OUR STORY</Eyebrow>
+            <Eyebrow>{tr("OUR STORY", "MŪSŲ ISTORIJA")}</Eyebrow>
           </div>
           <div style={{ position: "relative" }}>
             <div
@@ -117,7 +134,7 @@ export default function AboutPage() {
                 }}
               />
               {STORY.map((st) => (
-                <div key={st.title} style={{ position: "relative", zIndex: 1, textAlign: "center" }}>
+                <div key={st.icon} style={{ position: "relative", zIndex: 1, textAlign: "center" }}>
                   <div
                     style={{
                       width: 72,
@@ -135,15 +152,17 @@ export default function AboutPage() {
                     <Icon name={st.icon} size={32} c="#fff" sw={2.2} />
                   </div>
                   <div className="fh" style={{ fontWeight: 800, fontSize: 13.5, color: "#1E8BE8" }}>
-                    {st.year}
+                    {tt(st.year, l)}
                   </div>
                   <h4
                     className="fh"
                     style={{ fontWeight: 700, fontSize: 13.5, color: "#09245B", margin: "6px 0 6px" }}
                   >
-                    {st.title}
+                    {tt(st.title, l)}
                   </h4>
-                  <p style={{ fontSize: 11.5, lineHeight: 1.5, color: "#7089AB", margin: 0 }}>{st.desc}</p>
+                  <p style={{ fontSize: 11.5, lineHeight: 1.5, color: "#7089AB", margin: 0 }}>
+                    {tt(st.desc, l)}
+                  </p>
                 </div>
               ))}
             </div>
@@ -155,7 +174,7 @@ export default function AboutPage() {
       <Section>
         <Card>
           <div style={{ textAlign: "center", marginBottom: 32 }}>
-            <Eyebrow>OUR VALUES</Eyebrow>
+            <Eyebrow>{tr("OUR VALUES", "MŪSŲ VERTYBĖS")}</Eyebrow>
           </div>
           <div
             className="nw-grid-4 nw-grid-2up"
@@ -163,7 +182,7 @@ export default function AboutPage() {
           >
             {VALUES.map((v) => (
               <div
-                key={v.title}
+                key={v.icon}
                 style={{
                   background: "#FbFdFF",
                   border: "1px solid #EAF2FC",
@@ -191,9 +210,11 @@ export default function AboutPage() {
                   className="fh"
                   style={{ fontWeight: 700, fontSize: 16, color: "#09245B", margin: "0 0 7px" }}
                 >
-                  {v.title}
+                  {tt(v.title, l)}
                 </h4>
-                <p style={{ fontSize: 12.5, lineHeight: 1.55, color: "#7089AB", margin: 0 }}>{v.desc}</p>
+                <p style={{ fontSize: 12.5, lineHeight: 1.55, color: "#7089AB", margin: 0 }}>
+                  {tt(v.desc, l)}
+                </p>
               </div>
             ))}
           </div>
@@ -224,7 +245,7 @@ export default function AboutPage() {
             }}
           >
             {STATS.map((s) => (
-              <div key={s.label}>
+              <div key={s.num}>
                 <div
                   className="fh"
                   style={{ fontWeight: 800, fontSize: 40, color: "#B8F35A", lineHeight: 1 }}
@@ -232,7 +253,7 @@ export default function AboutPage() {
                   {s.num}
                 </div>
                 <div style={{ fontSize: 13.5, color: "#cfe0ff", marginTop: 8, fontWeight: 600 }}>
-                  {s.label}
+                  {tt(s.label, l)}
                 </div>
               </div>
             ))}
@@ -266,15 +287,18 @@ export default function AboutPage() {
                 letterSpacing: "-.5px",
               }}
             >
-              Want to meet the crew?
+              {tr("Want to meet the crew?", "Norite susipažinti su komanda?")}
             </h3>
             <p style={{ fontSize: 16, color: "#48618A", margin: "0 0 20px" }}>
-              Send your laundry our way — first contact is on us, with 10% off.
+              {tr(
+                "Send your laundry our way — first contact is on us, with 10% off.",
+                "Atsiųskite savo skalbinius mums — pirmasis kontaktas mūsų sąskaita, su 10% nuolaida.",
+              )}
             </p>
             <div className="nw-btnrow" style={{ display: "flex", gap: 14 }}>
-              <Btn href="/booking">Book a pickup</Btn>
-              <Btn href="/contact" variant="ghost">
-                Say hello
+              <Btn href={localePath("/booking", l)}>{tr("Book a pickup", "Užsisakyk paėmimą")}</Btn>
+              <Btn href={localePath("/contact", l)} variant="ghost">
+                {tr("Say hello", "Pasisveikink")}
               </Btn>
             </div>
           </div>

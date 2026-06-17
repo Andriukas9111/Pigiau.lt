@@ -1,14 +1,17 @@
 "use client";
 
+import { useLang } from "@/components/i18n/LangProvider";
 import { Illustration } from "@/components/illustrations";
 import { ExtraToggle, Field, selectStyle } from "@/components/ui/Controls";
 import { HOME_TYPES, SERVICES } from "@/lib/data";
+import { localePath } from "@/lib/i18n";
 import { type HomeState, homeTotal, money } from "@/lib/pricing";
 import { useState } from "react";
 
 const HOME_SERVICES = SERVICES.slice(0, 6);
 
 export function HomeCalc() {
+  const { lang, tt, tr } = useLang();
   const [s, setS] = useState<HomeState>({
     service: 0,
     weight: 5,
@@ -22,10 +25,10 @@ export function HomeCalc() {
     <div>
       <div style={{ display: "flex", alignItems: "baseline", gap: 10, marginBottom: 18 }}>
         <div className="fh" style={{ fontWeight: 800, fontSize: 16, letterSpacing: "1px", color: "#1E8BE8" }}>
-          INSTANT PRICE CALCULATOR
+          {tr("INSTANT PRICE CALCULATOR", "GREITA KAINŲ SKAIČIUOKLĖ")}
         </div>
         <span style={{ fontSize: 12.5, fontWeight: 600, color: "#9DB4D2", fontStyle: "italic" }}>
-          Preview
+          {tr("Preview", "Peržiūra")}
         </span>
       </div>
 
@@ -33,30 +36,30 @@ export function HomeCalc() {
         className="nw-grid-2c"
         style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 12, marginBottom: 14 }}
       >
-        <Field label="Service">
+        <Field label={tr("Service", "Paslauga")}>
           <select
             value={s.service}
             onChange={(e) => setS({ ...s, service: +e.target.value })}
-            aria-label="Service"
+            aria-label={tr("Service", "Paslauga")}
             style={selectStyle}
           >
             {HOME_SERVICES.map((o, i) => (
               <option key={o.key} value={i}>
-                {o.title}
+                {tt(o.title)}
               </option>
             ))}
           </select>
         </Field>
-        <Field label="Laundry Type">
+        <Field label={tr("Laundry Type", "Skalbinių tipas")}>
           <select
             value={type}
             onChange={(e) => setType(e.target.value)}
-            aria-label="Laundry type"
+            aria-label={tr("Laundry type", "Skalbinių tipas")}
             style={selectStyle}
           >
             {HOME_TYPES.map((t) => (
               <option key={t.key} value={t.key}>
-                {t.name}
+                {tt(t.name)}
               </option>
             ))}
           </select>
@@ -74,7 +77,7 @@ export function HomeCalc() {
           marginBottom: 8,
         }}
       >
-        Weight
+        {tr("Weight", "Svoris")}
         <span style={{ color: "#1E8BE8", fontWeight: 800 }}>{s.weight} kg</span>
       </label>
       <input
@@ -91,19 +94,19 @@ export function HomeCalc() {
       <div style={{ display: "flex", flexDirection: "column", gap: 8, marginBottom: 16 }}>
         <ExtraToggle
           checked={s.steam}
-          label="Steam Finish"
+          label={tr("Steam Finish", "Garų apdaila")}
           price="+€2.00"
           onToggle={() => setS({ ...s, steam: !s.steam })}
         />
         <ExtraToggle
           checked={s.stain}
-          label="Stain Rescue"
+          label={tr("Stain Rescue", "Dėmių gelbėjimas")}
           price="+€2.50"
           onToggle={() => setS({ ...s, stain: !s.stain })}
         />
         <ExtraToggle
           checked={s.express}
-          label="Express (24h)"
+          label={tr("Express (24h)", "Ekspresas (24 val.)")}
           price="+€3.00"
           onToggle={() => setS({ ...s, express: !s.express })}
         />
@@ -126,13 +129,15 @@ export function HomeCalc() {
           <Illustration name="basket" />
         </span>
         <div style={{ flex: 1, minWidth: 110 }}>
-          <div style={{ fontSize: 11.5, color: "#7089AB", fontWeight: 600 }}>Estimated Total</div>
+          <div style={{ fontSize: 11.5, color: "#7089AB", fontWeight: 600 }}>
+            {tr("Estimated Total", "Apytikslė suma")}
+          </div>
           <div className="fh" style={{ fontWeight: 800, fontSize: 30, lineHeight: 1.05, color: "#09245B" }}>
             {money(homeTotal(s))}
           </div>
         </div>
         <a
-          href="/prices"
+          href={localePath("/prices", lang)}
           className="nw-btn-primary fh"
           style={{
             background: "#B8F35A",
@@ -145,7 +150,7 @@ export function HomeCalc() {
             textDecoration: "none",
           }}
         >
-          Full calculator →
+          {tr("Full calculator", "Pilna skaičiuoklė")} →
         </a>
       </div>
     </div>

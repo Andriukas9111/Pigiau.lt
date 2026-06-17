@@ -1,6 +1,7 @@
 import { Icon } from "@/components/icons";
 import { Illustration, type IllustrationName } from "@/components/illustrations";
 import { Section } from "@/components/ui/Container";
+import { type Locale, localePath, trFor } from "@/lib/i18n";
 import Link from "next/link";
 
 /** Intrinsic dimensions of the trimmed banner WebP (prevents layout shift). */
@@ -89,26 +90,34 @@ function BannerLink({
 }
 
 /** Home + contact promo: 10% off for Earthlings, code HELLOEARTH. */
-export function PromoBanner() {
+export function PromoBanner({ lang }: { lang: Locale }) {
+  const tr = trFor(lang);
   return (
     <BannerLink
-      href="/booking"
+      href={localePath("/booking", lang)}
       image="banner_cta"
-      alt="First order discount — 10% off for Earthlings, code HELLOEARTH"
-      label="Claim 10% off your first order"
+      alt={tr(
+        "First order discount — 10% off for Earthlings, code HELLOEARTH",
+        "Nuolaida pirmam užsakymui — 10 % žemiečiams, kodas HELLOEARTH",
+      )}
+      label={tr("Claim 10% off your first order", "Atsiimkite 10 % nuolaidą pirmam užsakymui")}
       pb={50}
     />
   );
 }
 
 /** Services page: Star Member perks. */
-export function StarBanner() {
+export function StarBanner({ lang }: { lang: Locale }) {
+  const tr = trFor(lang);
   return (
     <BannerLink
-      href="/booking"
+      href={localePath("/booking", lang)}
       image="banner_star"
-      alt="NordWash Star Member — 10% off every order, priority pickup, free rewash"
-      label="Become a NordWash Star Member"
+      alt={tr(
+        "NordWash Star Member — 10% off every order, priority pickup, free rewash",
+        "NordWash „Star“ narys — 10 % nuolaida kiekvienam užsakymui, prioritetinis paėmimas, nemokamas perskalbimas",
+      )}
+      label={tr("Become a NordWash Star Member", "Tapk NordWash „Star“ nariu")}
     />
   );
 }

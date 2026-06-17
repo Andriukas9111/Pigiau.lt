@@ -1,10 +1,12 @@
 "use client";
 
+import { useLang } from "@/components/i18n/LangProvider";
 import { Icon, type IconName } from "@/components/icons";
 import { Illustration } from "@/components/illustrations";
 import { Section } from "@/components/ui/Container";
 import { ExtraToggle } from "@/components/ui/Controls";
 import { BOOKING_EXTRAS, BRAND, BSTEPS_SHORT, PAY_METHODS, SERVICES, SIZES, TIMES } from "@/lib/data";
+import { T, type Tx, localePath } from "@/lib/i18n";
 import { bookingExtrasTotal, bookingSubtotal, bookingTotal, money } from "@/lib/pricing";
 import { type CSSProperties, useEffect, useState } from "react";
 
@@ -28,11 +30,30 @@ const labelStyle: CSSProperties = {
   marginBottom: 6,
 };
 
-const WHAT_NEXT: { ic: IconName; t: string; d: string }[] = [
-  { ic: "truck", t: "We Collect", d: "Our driver picks up your laundry at the chosen time." },
-  { ic: "sparkles", t: "We Clean", d: "Your items are cleaned with cosmic precision." },
-  { ic: "basket", t: "We Deliver", d: "Fresh, folded and beamed back to your door." },
-  { ic: "smile", t: "You Relax", d: "Enjoy more free time. You've earned it." },
+const WHAT_NEXT: { ic: IconName; t: Tx; d: Tx }[] = [
+  {
+    ic: "truck",
+    t: T("We Collect", "Paimame"),
+    d: T(
+      "Our driver picks up your laundry at the chosen time.",
+      "Mūsų vairuotojas paima skalbinius pasirinktu laiku.",
+    ),
+  },
+  {
+    ic: "sparkles",
+    t: T("We Clean", "Išvalome"),
+    d: T("Your items are cleaned with cosmic precision.", "Jūsų daiktai išvalomi kosminiu tikslumu."),
+  },
+  {
+    ic: "basket",
+    t: T("We Deliver", "Pristatome"),
+    d: T("Fresh, folded and beamed back to your door.", "Švieži, sulankstyti ir pristatyti prie jūsų durų."),
+  },
+  {
+    ic: "smile",
+    t: T("You Relax", "Jūs ilsitės"),
+    d: T("Enjoy more free time. You've earned it.", "Mėgaukitės laisvalaikiu. Jūs jį užsitarnavote."),
+  },
 ];
 
 function StepHead({ n, title, sub }: { n: number; title: string; sub?: string }) {
@@ -75,6 +96,7 @@ const cardStyle: CSSProperties = {
 };
 
 export function BookingFlow() {
+  const { lang, tt, tr } = useLang();
   const [step, setStep] = useState(1);
   const [confirmed, setConfirmed] = useState(false);
   const [submitting, setSubmitting] = useState(false);
@@ -96,7 +118,10 @@ export function BookingFlow() {
   const [days, setDays] = useState<{ day: number; dow: string }[]>([]);
 
   useEffect(() => {
-    const dow = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
+    const dow =
+      lang === "lt"
+        ? ["Sk", "Pr", "An", "Tr", "Kt", "Pn", "Št"]
+        : ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
     setDays(
       [0, 1, 2, 3, 4, 5].map((i) => {
         const d = new Date();
@@ -104,13 +129,13 @@ export function BookingFlow() {
         return { day: d.getDate(), dow: dow[d.getDay()] };
       }),
     );
-  }, []);
+  }, [lang]);
 
   const subtotal = bookingSubtotal(service, size);
   const extrasTotal = bookingExtrasTotal(extras);
   const total = bookingTotal(service, size, extras);
-  const svcTitle = SERVICES[service].title;
-  const sizeName = SIZES.find((z) => z.key === size)?.name ?? "";
+  const svcTitle = tt(SERVICES[service].title);
+  const sizeName = tt(SIZES.find((z) => z.key === size)?.name ?? SIZES[0].name);
 
   const stepValid = (n: number) => {
     if (n === 2) return !!(form.name.trim() && form.phone.trim() && form.street.trim());
@@ -200,7 +225,7 @@ export function BookingFlow() {
             const active = step === n;
             return (
               <button
-                key={name}
+                key={i}
                 type="button"
                 onClick={() => goStep(n)}
                 style={{
@@ -237,7 +262,7 @@ export function BookingFlow() {
                   className="fh"
                   style={{ fontWeight: 700, fontSize: 12.5, color: active ? "#09245B" : "#9DB4D2" }}
                 >
-                  {name}
+                  {tt(name)}
                 </div>
               </button>
             );
@@ -281,21 +306,27 @@ export function BookingFlow() {
               className="fh"
               style={{ fontWeight: 800, fontSize: 28, color: "#09245B", margin: "0 0 10px" }}
             >
-              {delivered ? "Booking confirmed!" : "One quick step to lock it in"}
+              {delivered
+                ? tr("Booking confirmed!", "Užsakymas patvirtintas!")
+                : tr("One quick step to lock it in", "Vienas žingsnis, kad užfiksuotume")}
             </h2>
             <p
               style={{ fontSize: 15, color: "#5B7194", lineHeight: 1.6, margin: "0 auto 8px", maxWidth: 440 }}
             >
               {delivered ? (
                 <>
-                  Your <b style={{ color: "#09245B" }}>{svcTitle}</b> is scheduled for{" "}
-                  <b style={{ color: "#09245B" }}>{time}</b>. Our crew will beam in to collect it.
+                  {tr("Your", "Jūsų")} <b style={{ color: "#09245B" }}>{svcTitle}</b>{" "}
+                  {tr("is scheduled for", "suplanuota")} <b style={{ color: "#09245B" }}>{time}</b>.{" "}
+                  {tr("Our crew will beam in to collect it.", "Mūsų komanda atvyks jų paimti.")}
                 </>
               ) : (
                 <>
-                  We've saved your <b style={{ color: "#09245B" }}>{svcTitle}</b> for{" "}
-                  <b style={{ color: "#09245B" }}>{time}</b>. To lock in your pickup, just call or text us and
-                  our crew will beam straight over.
+                  {tr("We've saved your", "Išsaugojome jūsų")} <b style={{ color: "#09245B" }}>{svcTitle}</b>{" "}
+                  {tr("for", "—")} <b style={{ color: "#09245B" }}>{time}</b>.{" "}
+                  {tr(
+                    "To lock in your pickup, just call or text us and our crew will beam straight over.",
+                    "Kad užfiksuotumėte paėmimą, tiesiog paskambinkite ar parašykite mums, ir mūsų komanda iškart atvyks.",
+                  )}
                 </>
               )}
             </p>
@@ -311,7 +342,7 @@ export function BookingFlow() {
                 margin: "18px 0 24px",
               }}
             >
-              <span style={{ fontSize: 13, color: "#7089AB" }}>Order total</span>
+              <span style={{ fontSize: 13, color: "#7089AB" }}>{tr("Order total", "Užsakymo suma")}</span>
               <span className="fh" style={{ fontWeight: 800, fontSize: 22, color: "#1E8BE8" }}>
                 {money(total)}
               </span>
@@ -319,7 +350,7 @@ export function BookingFlow() {
             <div className="nw-btnrow" style={{ display: "flex", gap: 14, justifyContent: "center" }}>
               {delivered ? (
                 <a
-                  href="/"
+                  href={localePath("/", lang)}
                   className="nw-btn-primary fh"
                   style={{
                     background: "#B8F35A",
@@ -332,7 +363,7 @@ export function BookingFlow() {
                     textDecoration: "none",
                   }}
                 >
-                  Back to home
+                  {tr("Back to home", "Į pradžią")}
                 </a>
               ) : (
                 <a
@@ -349,7 +380,7 @@ export function BookingFlow() {
                     textDecoration: "none",
                   }}
                 >
-                  Call {BRAND.phone}
+                  {tr("Call", "Skambinti")} {BRAND.phone}
                 </a>
               )}
               <button
@@ -370,7 +401,7 @@ export function BookingFlow() {
                   cursor: "pointer",
                 }}
               >
-                Book another
+                {tr("Book another", "Užsisakyti dar")}
               </button>
             </div>
           </div>
@@ -394,8 +425,11 @@ export function BookingFlow() {
               <div style={cardStyle}>
                 <StepHead
                   n={1}
-                  title="Select Your Service"
-                  sub="Choose what you need cleaned. We'll handle the rest."
+                  title={tr("Select Your Service", "Pasirinkite paslaugą")}
+                  sub={tr(
+                    "Choose what you need cleaned. We'll handle the rest.",
+                    "Pasirinkite, ką reikia išvalyti. Visa kita — mūsų rūpestis.",
+                  )}
                 />
                 <div
                   className="nw-grid-3 nw-grid-2up"
@@ -415,6 +449,8 @@ export function BookingFlow() {
                           alignItems: "center",
                           textAlign: "center",
                           gap: 6,
+                          minWidth: 0,
+                          overflowWrap: "anywhere",
                           padding: "16px 12px",
                           borderRadius: 16,
                           border: `1.5px solid ${on ? "#1E8BE8" : "#EAF2FC"}`,
@@ -426,7 +462,7 @@ export function BookingFlow() {
                           <Illustration name={s.img} />
                         </span>
                         <b className="fh" style={{ fontSize: 12.5, color: "#09245B", lineHeight: 1.25 }}>
-                          {s.title}
+                          {tt(s.title)}
                         </b>
                         <span style={{ fontSize: 13, color: "#1E8BE8", fontWeight: 800 }}>
                           €{s.price.toFixed(2)}
@@ -435,7 +471,7 @@ export function BookingFlow() {
                     );
                   })}
                 </div>
-                <label style={{ ...labelStyle, marginTop: 20 }}>Load size</label>
+                <label style={{ ...labelStyle, marginTop: 20 }}>{tr("Load size", "Krūvio dydis")}</label>
                 <div
                   className="nw-grid-4 nw-grid-2up"
                   style={{ display: "grid", gridTemplateColumns: "repeat(4,1fr)", gap: 10 }}
@@ -457,8 +493,8 @@ export function BookingFlow() {
                           textAlign: "center",
                         }}
                       >
-                        <b style={{ display: "block", fontSize: 13, color: "#09245B" }}>{z.name}</b>
-                        <span style={{ fontSize: 11, color: "#8AA0C0" }}>{z.sub}</span>
+                        <b style={{ display: "block", fontSize: 13, color: "#09245B" }}>{tt(z.name)}</b>
+                        <span style={{ fontSize: 11, color: "#8AA0C0" }}>{tt(z.sub)}</span>
                       </button>
                     );
                   })}
@@ -468,45 +504,48 @@ export function BookingFlow() {
 
             {step === 2 && (
               <div style={cardStyle}>
-                <StepHead n={2} title="Pickup Address" />
+                <StepHead n={2} title={tr("Pickup Address", "Paėmimo adresas")} />
                 <div
                   className="nw-grid-2c"
                   style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 14, marginBottom: 14 }}
                 >
                   <div>
-                    <label style={labelStyle}>Full name</label>
+                    <label style={labelStyle}>{tr("Full name", "Vardas ir pavardė")}</label>
                     <input
                       value={form.name}
                       onChange={(e) => setForm({ ...form, name: e.target.value })}
-                      placeholder="Your name"
-                      aria-label="Full name"
+                      placeholder={tr("Your name", "Jūsų vardas")}
+                      aria-label={tr("Full name", "Vardas ir pavardė")}
                       style={reqStyle(form.name)}
                     />
                   </div>
                   <div>
-                    <label style={labelStyle}>Phone</label>
+                    <label style={labelStyle}>{tr("Phone", "Telefonas")}</label>
                     <input
                       value={form.phone}
                       onChange={(e) => setForm({ ...form, phone: e.target.value })}
                       placeholder="+370 …"
-                      aria-label="Phone"
+                      aria-label={tr("Phone", "Telefonas")}
                       style={reqStyle(form.phone)}
                     />
                   </div>
                 </div>
                 <div style={{ marginBottom: 14 }}>
-                  <label style={labelStyle}>Street address</label>
+                  <label style={labelStyle}>{tr("Street address", "Gatvės adresas")}</label>
                   <input
                     value={form.street}
                     onChange={(e) => setForm({ ...form, street: e.target.value })}
-                    placeholder="Street, building, apt."
-                    aria-label="Street address"
+                    placeholder={tr("Street, building, apt.", "Gatvė, pastatas, butas")}
+                    aria-label={tr("Street address", "Gatvės adresas")}
                     style={reqStyle(form.street)}
                   />
                 </div>
                 {showErrors && !stepValid(2) && (
                   <p style={{ fontSize: 12.5, color: "#C9544C", margin: "12px 0 0", fontWeight: 600 }}>
-                    Please add your name, phone and street so our crew can reach you.
+                    {tr(
+                      "Please add your name, phone and street so our crew can reach you.",
+                      "Įrašykite vardą, telefoną ir gatvę, kad mūsų komanda galėtų jus pasiekti.",
+                    )}
                   </p>
                 )}
                 <div
@@ -514,23 +553,24 @@ export function BookingFlow() {
                   style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 14 }}
                 >
                   <div>
-                    <label style={labelStyle}>City</label>
+                    <label style={labelStyle}>{tr("City", "Miestas")}</label>
                     <input
                       value={form.city}
                       onChange={(e) => setForm({ ...form, city: e.target.value })}
-                      aria-label="City"
+                      aria-label={tr("City", "Miestas")}
                       style={inputStyle}
                     />
                   </div>
                   <div>
                     <label style={labelStyle}>
-                      Note <span style={{ color: "#9DB4D2" }}>(optional)</span>
+                      {tr("Note", "Pastaba")}{" "}
+                      <span style={{ color: "#9DB4D2" }}>({tr("optional", "neprivaloma")})</span>
                     </label>
                     <input
                       value={form.note}
                       onChange={(e) => setForm({ ...form, note: e.target.value })}
-                      placeholder="Door code, etc."
-                      aria-label="Note (optional)"
+                      placeholder={tr("Door code, etc.", "Durų kodas ir pan.")}
+                      aria-label={tr("Note (optional)", "Pastaba (neprivaloma)")}
                       style={inputStyle}
                     />
                   </div>
@@ -540,13 +580,16 @@ export function BookingFlow() {
 
             {step === 3 && (
               <div style={cardStyle}>
-                <StepHead n={3} title="Date & Time" />
+                <StepHead n={3} title={tr("Date & Time", "Data ir laikas")} />
                 {showErrors && date === null && (
                   <p style={{ fontSize: 12.5, color: "#C9544C", margin: "0 0 12px", fontWeight: 600 }}>
-                    Please pick a pickup day to continue.
+                    {tr(
+                      "Please pick a pickup day to continue.",
+                      "Pasirinkite paėmimo dieną, kad galėtumėte tęsti.",
+                    )}
                   </p>
                 )}
-                <label style={labelStyle}>Pick a day</label>
+                <label style={labelStyle}>{tr("Pick a day", "Pasirinkite dieną")}</label>
                 <div style={{ display: "flex", gap: 10, flexWrap: "wrap", marginBottom: 20 }}>
                   {days.map((d) => {
                     const on = date === d.day;
@@ -583,7 +626,7 @@ export function BookingFlow() {
                     );
                   })}
                 </div>
-                <label style={labelStyle}>Choose a time slot</label>
+                <label style={labelStyle}>{tr("Choose a time slot", "Pasirinkite laiką")}</label>
                 <div
                   className="nw-grid-3 nw-grid-2up"
                   style={{ display: "grid", gridTemplateColumns: "repeat(3,1fr)", gap: 10 }}
@@ -617,7 +660,14 @@ export function BookingFlow() {
 
             {step === 4 && (
               <div style={cardStyle}>
-                <StepHead n={4} title="Extras" sub="Add a little extra cosmic care. (Optional)" />
+                <StepHead
+                  n={4}
+                  title={tr("Extras", "Priedai")}
+                  sub={tr(
+                    "Add a little extra cosmic care. (Optional)",
+                    "Pridėkite šiek tiek kosminės priežiūros. (Neprivaloma)",
+                  )}
+                />
                 <div
                   className="nw-grid-2c"
                   style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 10 }}
@@ -626,7 +676,7 @@ export function BookingFlow() {
                     <ExtraToggle
                       key={e.key}
                       checked={extras[e.key]}
-                      label={e.name}
+                      label={tt(e.name)}
                       price={`+€${e.price.toFixed(2)}`}
                       onToggle={() => setExtras({ ...extras, [e.key]: !extras[e.key] })}
                       pad="12px 14px"
@@ -639,8 +689,8 @@ export function BookingFlow() {
 
             {step === 5 && (
               <div style={cardStyle}>
-                <StepHead n={5} title="Review & Pay" />
-                <label style={labelStyle}>Payment method</label>
+                <StepHead n={5} title={tr("Review & Pay", "Peržiūra ir mokėjimas")} />
+                <label style={labelStyle}>{tr("Payment method", "Mokėjimo būdas")}</label>
                 <div
                   className="nw-grid-4 nw-grid-2up"
                   style={{ display: "grid", gridTemplateColumns: "repeat(4,1fr)", gap: 10, marginBottom: 20 }}
@@ -664,7 +714,7 @@ export function BookingFlow() {
                           fontSize: 12.5,
                         }}
                       >
-                        {p.name}
+                        {tt(p.name)}
                       </button>
                     );
                   })}
@@ -692,11 +742,13 @@ export function BookingFlow() {
                     boxShadow: "0 10px 24px rgba(184,243,90,.4)",
                   }}
                 >
-                  {submitting ? "Confirming…" : `Confirm & Pay ${money(total)}`}
+                  {submitting
+                    ? tr("Confirming…", "Patvirtinama…")
+                    : `${tr("Confirm & Pay", "Patvirtinti ir mokėti")} ${money(total)}`}
                   {!submitting && <Icon name="rocket" c="#09245B" size={17} sw={2} />}
                 </button>
                 <div style={{ textAlign: "center", fontSize: 11.5, color: "#9DB4D2", marginTop: 12 }}>
-                  Your payment is secure & encrypted.
+                  {tr("Your payment is secure & encrypted.", "Jūsų mokėjimas saugus ir šifruotas.")}
                 </div>
               </div>
             )}
@@ -719,7 +771,7 @@ export function BookingFlow() {
                     cursor: "pointer",
                   }}
                 >
-                  ← Back
+                  ← {tr("Back", "Atgal")}
                 </button>
               ) : (
                 <span />
@@ -745,7 +797,7 @@ export function BookingFlow() {
                     boxShadow: "0 10px 24px rgba(184,243,90,.4)",
                   }}
                 >
-                  Continue
+                  {tr("Continue", "Tęsti")}
                   <Icon name="arrow" c="#09245B" size={16} sw={2} />
                 </button>
               )}
@@ -759,7 +811,7 @@ export function BookingFlow() {
                 className="fh"
                 style={{ fontWeight: 800, fontSize: 17, color: "#09245B", marginBottom: 16 }}
               >
-                Your Order Summary
+                {tr("Your Order Summary", "Jūsų užsakymo santrauka")}
               </div>
               <div style={{ display: "flex", alignItems: "center", gap: 12, marginBottom: 16 }}>
                 <span style={{ width: 54, height: 54, flex: "none" }}>
@@ -769,11 +821,11 @@ export function BookingFlow() {
                   className="fh"
                   style={{ fontWeight: 700, fontSize: 14, color: "#09245B", lineHeight: 1.35 }}
                 >
-                  Clean clothes.
+                  {tr("Clean clothes.", "Švarūs drabužiai.")}
                   <br />
-                  Happy planet.
+                  {tr("Happy planet.", "Laiminga planeta.")}
                   <br />
-                  No probe.
+                  {tr("No probe.", "Jokių zondų.")}
                 </div>
               </div>
               <div
@@ -786,9 +838,9 @@ export function BookingFlow() {
                   fontSize: 13,
                 }}
               >
-                <Row label="Service" value={svcTitle} />
-                <Row label="Load size" value={sizeName} />
-                <Row label="Pickup" value={date ? `${time} · ${date}th` : time} />
+                <Row label={tr("Service", "Paslauga")} value={svcTitle} />
+                <Row label={tr("Load size", "Krūvio dydis")} value={sizeName} />
+                <Row label={tr("Pickup", "Paėmimas")} value={date ? `${time} · ${date}` : time} />
               </div>
               <div
                 style={{
@@ -801,9 +853,13 @@ export function BookingFlow() {
                   fontSize: 13,
                 }}
               >
-                <Row label="Subtotal" value={money(subtotal)} />
-                <Row label="Extras" value={money(extrasTotal)} />
-                <Row label="Pickup & Delivery" value="FREE" valueColor="#76C043" />
+                <Row label={tr("Subtotal", "Tarpinė suma")} value={money(subtotal)} />
+                <Row label={tr("Extras", "Priedai")} value={money(extrasTotal)} />
+                <Row
+                  label={tr("Pickup & Delivery", "Paėmimas ir pristatymas")}
+                  value={tr("FREE", "NEMOKAMAI")}
+                  valueColor="#76C043"
+                />
               </div>
               <div
                 style={{
@@ -816,7 +872,7 @@ export function BookingFlow() {
                 }}
               >
                 <span className="fh" style={{ fontWeight: 700, fontSize: 13, color: "#5B7194" }}>
-                  Estimated Total
+                  {tr("Estimated Total", "Apytikslė suma")}
                 </span>
                 <span
                   className="fh"
@@ -854,13 +910,16 @@ export function BookingFlow() {
                   className="fh"
                   style={{ fontWeight: 700, fontSize: 12, color: "#9Fc2f5", marginBottom: 4 }}
                 >
-                  Need it faster?
+                  {tr("Need it faster?", "Reikia greičiau?")}
                 </div>
                 <div className="fh" style={{ fontWeight: 800, fontSize: 19, marginBottom: 6 }}>
-                  Try Express Beam
+                  {tr("Try Express Beam", "Išbandyk ekspresą")}
                 </div>
                 <p style={{ fontSize: 12.5, color: "#cfe0ff", margin: "0 0 16px" }}>
-                  Same-day pickup & delivery in select areas.
+                  {tr(
+                    "Same-day pickup & delivery in select areas.",
+                    "Paėmimas ir pristatymas tą pačią dieną tam tikrose vietovėse.",
+                  )}
                 </p>
                 <button
                   type="button"
@@ -877,7 +936,7 @@ export function BookingFlow() {
                     cursor: "pointer",
                   }}
                 >
-                  UPGRADE TO EXPRESS
+                  {tr("UPGRADE TO EXPRESS", "PEREITI Į EKSPRESĄ")}
                 </button>
               </div>
             </div>
@@ -888,11 +947,11 @@ export function BookingFlow() {
                 className="fh"
                 style={{ fontWeight: 800, fontSize: 15, color: "#09245B", marginBottom: 16 }}
               >
-                What happens next?
+                {tr("What happens next?", "Kas vyksta toliau?")}
               </div>
               <div style={{ display: "flex", flexDirection: "column", gap: 16 }}>
                 {WHAT_NEXT.map((w) => (
-                  <div key={w.t} style={{ display: "flex", gap: 12, alignItems: "flex-start" }}>
+                  <div key={w.ic} style={{ display: "flex", gap: 12, alignItems: "flex-start" }}>
                     <div
                       style={{
                         width: 40,
@@ -912,9 +971,9 @@ export function BookingFlow() {
                         className="fh"
                         style={{ fontWeight: 700, fontSize: 13.5, color: "#09245B", display: "block" }}
                       >
-                        {w.t}
+                        {tt(w.t)}
                       </b>
-                      <span style={{ fontSize: 12, color: "#7089AB", lineHeight: 1.4 }}>{w.d}</span>
+                      <span style={{ fontSize: 12, color: "#7089AB", lineHeight: 1.4 }}>{tt(w.d)}</span>
                     </div>
                   </div>
                 ))}

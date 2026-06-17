@@ -1,16 +1,24 @@
 "use client";
 
+import { useLang } from "@/components/i18n/LangProvider";
+import { LangSwitcher } from "@/components/i18n/LangSwitcher";
 import { Icon } from "@/components/icons";
 import { Illustration } from "@/components/illustrations";
 import { BRAND, NAV } from "@/lib/data";
+import { T, localePath } from "@/lib/i18n";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useState } from "react";
 
 export function Header() {
   const [menu, setMenu] = useState(false);
+  const { lang, tt } = useLang();
   const pathname = usePathname();
-  const isActive = (href: string) => href !== "/#how" && pathname === href;
+  const isActive = (href: string) => href !== "/#how" && pathname === localePath(href, lang);
+  const mobileItems = [
+    ...NAV.filter((n) => n.href !== "/#how"),
+    { label: T("FAQ & Help", "DUK ir pagalba"), href: "/faq" },
+  ];
 
   return (
     <header className="nw-head" style={{ position: "sticky", top: 0, zIndex: 50, padding: "14px 18px" }}>
@@ -34,7 +42,7 @@ export function Header() {
       >
         {/* logo */}
         <Link
-          href="/"
+          href={localePath("/", lang)}
           onClick={() => setMenu(false)}
           style={{ display: "flex", alignItems: "center", gap: 11, textDecoration: "none" }}
         >
@@ -46,7 +54,7 @@ export function Header() {
               flex: "none",
             }}
           >
-            <Illustration name="star" />
+            <Illustration name="star" alt="" />
           </span>
           <span style={{ textAlign: "left", lineHeight: 1 }}>
             <span
@@ -72,7 +80,7 @@ export function Header() {
                 marginTop: 3,
               }}
             >
-              {BRAND.tagline}
+              {tt(BRAND.tagline)}
             </span>
           </span>
         </Link>
@@ -85,7 +93,7 @@ export function Header() {
           {NAV.map((n) => (
             <Link
               key={n.href}
-              href={n.href}
+              href={localePath(n.href, lang)}
               className="nw-link"
               style={{
                 color: isActive(n.href) ? "#1E8BE8" : "#3C5A85",
@@ -93,15 +101,18 @@ export function Header() {
                 whiteSpace: "nowrap",
               }}
             >
-              {n.label}
+              {tt(n.label)}
             </Link>
           ))}
         </nav>
 
         {/* right */}
         <div style={{ display: "flex", alignItems: "center", gap: 10 }}>
+          <span className="nw-lang-desk">
+            <LangSwitcher />
+          </span>
           <Link
-            href="/booking"
+            href={localePath("/booking", lang)}
             className="nw-btn-primary fh nw-book-btn"
             style={{
               display: "inline-flex",
@@ -118,12 +129,12 @@ export function Header() {
               textDecoration: "none",
             }}
           >
-            BOOK A WASH
+            {tt(T("BOOK A WASH", "UŽSISAKYK"))}
             <Icon name="rocket" c="#09245B" size={16} sw={2} />
           </Link>
           <button
             type="button"
-            aria-label="Open menu"
+            aria-label={tt(T("Open menu", "Atidaryti meniu"))}
             className="nw-burger"
             onClick={() => setMenu((m) => !m)}
             style={{
@@ -172,16 +183,19 @@ export function Header() {
             fontWeight: 600,
           }}
         >
-          {[...NAV.filter((n) => n.href !== "/#how"), { label: "FAQ & Help", href: "/faq" }].map((n) => (
+          {mobileItems.map((n) => (
             <Link
               key={n.href}
-              href={n.href}
+              href={localePath(n.href, lang)}
               onClick={() => setMenu(false)}
               style={{ padding: "13px 16px", borderRadius: 12, color: "#09245B", textDecoration: "none" }}
             >
-              {n.label}
+              {tt(n.label)}
             </Link>
           ))}
+          <div style={{ padding: "12px 16px 4px" }}>
+            <LangSwitcher onNavigate={() => setMenu(false)} />
+          </div>
         </div>
       )}
     </header>

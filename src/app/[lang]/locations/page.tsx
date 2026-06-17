@@ -4,23 +4,38 @@ import { ClosingCta, PageBanner } from "@/components/sections/Banners";
 import { Btn } from "@/components/ui/Button";
 import { Card, Section } from "@/components/ui/Container";
 import { BRANCH_CHARS, ROUTES, STATIONS } from "@/lib/data";
+import { type Locale, localePath, trFor, tt } from "@/lib/i18n";
 import type { Metadata } from "next";
 
-export const metadata: Metadata = {
-  title: "Locations",
-  description:
-    "Find your nearest NordWash station in Vilnius, Kaunas, Klaipėda, Šiauliai or Panevėžys — or book door-to-door laundry pickup & delivery across Lithuania.",
-  alternates: { canonical: "/locations" },
-};
+export async function generateMetadata({ params }: { params: Promise<{ lang: string }> }): Promise<Metadata> {
+  const { lang } = await params;
+  const lt = lang === "lt";
+  return {
+    title: lt ? "Skyriai" : "Locations",
+    description: lt
+      ? "Raskite artimiausią NordWash stotį Vilniuje, Kaune, Klaipėdoje, Šiauliuose ar Panevėžyje — arba užsisakykite skalbinių paėmimą ir pristatymą nuo durų iki durų visoje Lietuvoje."
+      : "Find your nearest NordWash station in Vilnius, Kaunas, Klaipėda, Šiauliai or Panevėžys — or book door-to-door laundry pickup & delivery across Lithuania.",
+    alternates: {
+      canonical: `/${lang}/locations`,
+      languages: { lt: "/lt/locations", en: "/en/locations", "x-default": "/lt/locations" },
+    },
+  };
+}
 
-export default function LocationsPage() {
+export default async function LocationsPage({ params }: { params: Promise<{ lang: string }> }) {
+  const { lang } = await params;
+  const l = lang as Locale;
+  const tr = trFor(l);
   return (
     <div className="nw-fade">
       {/* 1) HERO */}
       <PageBanner
         image="hero_locations"
-        title="Our Locations"
-        alt="Our locations — find a NordWash station across Lithuania"
+        title={tr("Our Locations", "Mūsų skyriai")}
+        alt={tr(
+          "Our locations — find a NordWash station across Lithuania",
+          "Mūsų skyriai — raskite NordWash stotį visoje Lietuvoje",
+        )}
       />
 
       {/* 2) STATIONS + STICKY MAP */}
@@ -66,7 +81,9 @@ export default function LocationsPage() {
                   <div style={{ display: "flex", justifyContent: "space-between", alignItems: "flex-start" }}>
                     <h2 className="fh" style={{ fontWeight: 700, fontSize: 17, color: "#09245B", margin: 0 }}>
                       {s.city}{" "}
-                      <span style={{ color: "#9AAEC9", fontWeight: 600, fontSize: 13 }}>· {s.name}</span>
+                      <span style={{ color: "#9AAEC9", fontWeight: 600, fontSize: 13 }}>
+                        · {tt(s.name, l)}
+                      </span>
                     </h2>
                     <span
                       className="fh"
@@ -95,12 +112,12 @@ export default function LocationsPage() {
                     }}
                   >
                     <Icon name="clock" size={15} c="#1E8BE8" />
-                    Open daily {s.hours}
+                    {tr("Open daily", "Atidaryta kasdien")} {s.hours}
                   </div>
                   <div style={{ display: "flex", flexWrap: "wrap", gap: 7 }}>
-                    {s.tags.map((t) => (
+                    {s.tags.map((t, i) => (
                       <span
-                        key={t}
+                        key={i}
                         style={{
                           background: "#F2F9FF",
                           border: "1px solid #E3EEFA",
@@ -111,7 +128,7 @@ export default function LocationsPage() {
                           borderRadius: 999,
                         }}
                       >
-                        {t}
+                        {tt(t, l)}
                       </span>
                     ))}
                   </div>
@@ -138,7 +155,9 @@ export default function LocationsPage() {
               <Illustration name="map" />
             </span>
             <div style={{ marginTop: 8 }}>
-              <Btn href="/booking">Book a pickup near you</Btn>
+              <Btn href={localePath("/booking", l)}>
+                {tr("Book a pickup near you", "Užsisakyk paėmimą netoliese")}
+              </Btn>
             </div>
           </div>
         </div>
@@ -174,7 +193,7 @@ export default function LocationsPage() {
                 marginBottom: 6,
               }}
             >
-              ✦ WE COME TO YOU
+              ✦ {tr("WE COME TO YOU", "MES ATVYKSTAME PAS JUS")}
             </div>
             <h2
               className="fh"
@@ -186,16 +205,40 @@ export default function LocationsPage() {
                 letterSpacing: "-.5px",
               }}
             >
-              Door-to-door, across the galaxy (and Lithuania)
+              {tr(
+                "Door-to-door, across the galaxy (and Lithuania)",
+                "Nuo durų iki durų, per visą galaktiką (ir Lietuvą)",
+              )}
             </h2>
             <div
               className="nw-grid-3"
               style={{ display: "grid", gridTemplateColumns: "repeat(3,1fr)", gap: 16 }}
             >
               {[
-                { n: 1, title: "Book a slot", desc: "Choose a 2-hour window that suits you." },
-                { n: 2, title: "We collect", desc: "Our courier picks up — contact-free if you like." },
-                { n: 3, title: "We return", desc: "Fresh, folded and beamed back to your door." },
+                {
+                  n: 1,
+                  title: tr("Book a slot", "Užsisakyk laiką"),
+                  desc: tr(
+                    "Choose a 2-hour window that suits you.",
+                    "Pasirinkite jums tinkantį 2 val. langą.",
+                  ),
+                },
+                {
+                  n: 2,
+                  title: tr("We collect", "Mes paimame"),
+                  desc: tr(
+                    "Our courier picks up — contact-free if you like.",
+                    "Mūsų kurjeris paima — be kontakto, jei pageidaujate.",
+                  ),
+                },
+                {
+                  n: 3,
+                  title: tr("We return", "Mes grąžiname"),
+                  desc: tr(
+                    "Fresh, folded and beamed back to your door.",
+                    "Švarius, sulankstytus ir spinduliu grąžintus prie jūsų durų.",
+                  ),
+                },
               ].map((step) => (
                 <div
                   key={step.n}
@@ -239,13 +282,13 @@ export default function LocationsPage() {
                 className="fh"
                 style={{ fontWeight: 800, color: "#1E8BE8", fontSize: 14, letterSpacing: "1px" }}
               >
-                PICKUP & DELIVERY ROUTES
+                {tr("PICKUP & DELIVERY ROUTES", "PAĖMIMO IR PRISTATYMO MARŠRUTAI")}
               </div>
             </div>
             <div style={{ display: "flex", flexDirection: "column", gap: 14 }}>
               {ROUTES.map((r) => (
                 <div
-                  key={r.name}
+                  key={r.color}
                   style={{
                     display: "flex",
                     alignItems: "flex-start",
@@ -267,13 +310,13 @@ export default function LocationsPage() {
                   <div style={{ flex: 1 }}>
                     <div style={{ display: "flex", justifyContent: "space-between" }}>
                       <b className="fh" style={{ fontWeight: 700, fontSize: 14, color: "#09245B" }}>
-                        {r.name}
+                        {tt(r.name, l)}
                       </b>
                       <span
                         className="fh"
                         style={{ fontWeight: 700, fontSize: 12, color: r.color, whiteSpace: "nowrap" }}
                       >
-                        {r.days}
+                        {tt(r.days, l)}
                       </span>
                     </div>
                     <div style={{ fontSize: 12.5, color: "#7089AB", marginTop: 3 }}>{r.cities}</div>
@@ -282,8 +325,8 @@ export default function LocationsPage() {
               ))}
             </div>
             <div style={{ marginTop: 18 }}>
-              <Btn href="/booking" variant="ghost" full fontSize={13.5} padding="13px">
-                View full routes
+              <Btn href={localePath("/booking", l)} variant="ghost" full fontSize={13.5} padding="13px">
+                {tr("View full routes", "Žiūrėti visus maršrutus")}
               </Btn>
             </div>
           </Card>
@@ -294,10 +337,10 @@ export default function LocationsPage() {
               className="fh"
               style={{ fontWeight: 800, color: "#1E8BE8", fontSize: 14, letterSpacing: "1px" }}
             >
-              BRANCH CHARACTERS
+              {tr("BRANCH CHARACTERS", "SKYRIŲ PERSONAŽAI")}
             </div>
             <p style={{ fontSize: 13, color: "#7089AB", margin: "6px 0 22px" }}>
-              Each station has its own alien in charge.
+              {tr("Each station has its own alien in charge.", "Kiekvieną stotį prižiūri savas ateivis.")}
             </p>
             <div
               className="nw-grid-5 nw-slider"
@@ -341,7 +384,7 @@ export default function LocationsPage() {
                       marginTop: 3,
                     }}
                   >
-                    {b.role}
+                    {tt(b.role, l)}
                   </span>
                   <span
                     className="fh"
@@ -390,10 +433,13 @@ export default function LocationsPage() {
               <Icon name="clock" size={26} c="#1E8BE8" />
             </div>
             <h3 className="fh" style={{ fontWeight: 700, fontSize: 17, color: "#09245B", margin: "0 0 7px" }}>
-              Open late for busy humans
+              {tr("Open late for busy humans", "Dirbame ilgiau užimtiems žmonėms")}
             </h3>
             <p style={{ fontSize: 13, color: "#7089AB", lineHeight: 1.55 }}>
-              Most stations open early and close late — because laundry doesn't sleep, and neither do we.
+              {tr(
+                "Most stations open early and close late — because laundry doesn't sleep, and neither do we.",
+                "Dauguma stočių atsidaro anksti ir užsidaro vėlai — nes skalbiniai nemiega, o ir mes ne.",
+              )}
             </p>
           </div>
 
@@ -422,13 +468,16 @@ export default function LocationsPage() {
               <Icon name="chat" size={26} c="#76C043" />
             </div>
             <h3 className="fh" style={{ fontWeight: 700, fontSize: 17, color: "#09245B", margin: "0 0 7px" }}>
-              Real humans, real help
+              {tr("Real humans, real help", "Tikri žmonės, tikra pagalba")}
             </h3>
             <p style={{ fontSize: 13, color: "#7089AB", lineHeight: 1.55, marginBottom: 14 }}>
-              Need help choosing a station or route? Our Earth-based team is here.
+              {tr(
+                "Need help choosing a station or route? Our Earth-based team is here.",
+                "Reikia pagalbos pasirenkant stotį ar maršrutą? Mūsų Žemės komanda jau čia.",
+              )}
             </p>
-            <Btn href="/contact" variant="ghost" fontSize={12.5} padding="10px 18px">
-              Contact us
+            <Btn href={localePath("/contact", l)} variant="ghost" fontSize={12.5} padding="10px 18px">
+              {tr("Contact us", "Susisiekite")}
             </Btn>
           </div>
 
@@ -457,13 +506,16 @@ export default function LocationsPage() {
               <Icon name="chat" size={26} c="#7C5BD6" />
             </div>
             <h3 className="fh" style={{ fontWeight: 700, fontSize: 17, color: "#09245B", margin: "0 0 7px" }}>
-              Questions about locations?
+              {tr("Questions about locations?", "Klausimų apie skyrius?")}
             </h3>
             <p style={{ fontSize: 13, color: "#7089AB", lineHeight: 1.55, marginBottom: 14 }}>
-              Check our FAQ or talk to our support squad — faster than light.
+              {tr(
+                "Check our FAQ or talk to our support squad — faster than light.",
+                "Peržiūrėkite mūsų DUK arba pasikalbėkite su pagalbos komanda — greičiau už šviesą.",
+              )}
             </p>
-            <Btn href="/faq" variant="ghost" fontSize={12.5} padding="10px 18px">
-              View FAQ
+            <Btn href={localePath("/faq", l)} variant="ghost" fontSize={12.5} padding="10px 18px">
+              {tr("View FAQ", "Žiūrėti DUK")}
             </Btn>
           </div>
         </div>
@@ -471,10 +523,13 @@ export default function LocationsPage() {
 
       {/* 6) CLOSING CTA */}
       <ClosingCta
-        title="Not sure if we reach you?"
-        subtitle="Drop us a message — we are expanding our beam network all the time."
-        cta="Check my area"
-        href="/contact"
+        title={tr("Not sure if we reach you?", "Nežinote, ar jus pasiekiame?")}
+        subtitle={tr(
+          "Drop us a message — we are expanding our beam network all the time.",
+          "Parašykite mums — nuolat plečiame savo spindulio tinklą.",
+        )}
+        cta={tr("Check my area", "Patikrinti mano vietovę")}
+        href={localePath("/contact", l)}
         illustration="ufo"
       />
     </div>

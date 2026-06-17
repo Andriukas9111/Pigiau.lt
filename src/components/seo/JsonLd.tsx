@@ -1,14 +1,19 @@
 import { BRAND } from "@/lib/data";
+import type { Locale } from "@/lib/i18n";
 
 const SITE = "https://www.nordwash.lt";
 
-const data = {
+const buildData = (lang: Locale) => ({
   "@context": "https://schema.org",
   "@type": "LocalBusiness",
   "@id": `${SITE}/#business`,
   name: "NordWash",
-  description: "Premium laundry, dry cleaning & cosmic care delivered across Lithuania.",
-  url: SITE,
+  description:
+    lang === "lt"
+      ? "Premium skalbimas, cheminis valymas ir kosminė priežiūra visoje Lietuvoje."
+      : "Premium laundry, dry cleaning & cosmic care delivered across Lithuania.",
+  inLanguage: lang === "lt" ? "lt" : "en",
+  url: `${SITE}/${lang}`,
   image: `${SITE}/og.png`,
   logo: `${SITE}/icon.svg`,
   telephone: BRAND.phone,
@@ -31,11 +36,12 @@ const data = {
     { "@type": "OpeningHoursSpecification", dayOfWeek: "Saturday", opens: "09:00", closes: "18:00" },
     { "@type": "OpeningHoursSpecification", dayOfWeek: "Sunday", opens: "10:00", closes: "16:00" },
   ],
-};
+});
 
-export function JsonLd() {
+export function JsonLd({ lang }: { lang: Locale }) {
+  const json = JSON.stringify(buildData(lang));
   return (
     // biome-ignore lint/security/noDangerouslySetInnerHtml: static structured data, no user input
-    <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(data) }} />
+    <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: json }} />
   );
 }

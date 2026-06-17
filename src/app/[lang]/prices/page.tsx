@@ -7,29 +7,32 @@ import { Btn } from "@/components/ui/Button";
 import { Card, Section } from "@/components/ui/Container";
 import { Eyebrow } from "@/components/ui/Eyebrow";
 import { COMPARE_COLS, COMPARE_ROWS, PACKAGES, PRICE_FAQ } from "@/lib/data";
+import { type Locale, localePath, trFor, tt } from "@/lib/i18n";
 import type { Metadata } from "next";
 import Link from "next/link";
 
-export const metadata: Metadata = {
-  title: "Prices & Live Calculator",
-  description:
-    "Build your wash and see your price instantly. Transparent laundry & dry-cleaning prices with free pickup & delivery in most of Lithuania — no hidden fees.",
-  alternates: { canonical: "/prices" },
-};
+export async function generateMetadata({ params }: { params: Promise<{ lang: string }> }): Promise<Metadata> {
+  const { lang } = await params;
+  const lt = lang === "lt";
+  return {
+    title: lt ? "Kainos" : "Prices & Live Calculator",
+    description: lt
+      ? "Susidėliokite skalbimą ir iškart pamatykite kainą. Skaidrios skalbimo ir cheminio valymo kainos su nemokamu paėmimu ir pristatymu didžiojoje Lietuvos dalyje — jokių paslėptų mokesčių."
+      : "Build your wash and see your price instantly. Transparent laundry & dry-cleaning prices with free pickup & delivery in most of Lithuania — no hidden fees.",
+    alternates: {
+      canonical: `/${lang}/prices`,
+      languages: { lt: "/lt/prices", en: "/en/prices", "x-default": "/lt/prices" },
+    },
+  };
+}
 
-const STEPS = [
-  { n: "1", t: "Choose", d: "Pick your service and options.", c: "#1E8BE8" },
-  { n: "2", t: "Adjust", d: "Set weight, extras & urgency.", c: "#1E8BE8" },
-  { n: "3", t: "See Price", d: "Watch your total update live.", c: "#1E8BE8" },
-  { n: "4", t: "Book", d: "Confirm & we handle the rest.", c: "#76C043" },
-];
-
-function Packages() {
+function Packages({ l }: { l: Locale }) {
+  const tr = trFor(l);
   return (
     <Section>
       <Card>
         <div style={{ textAlign: "center", marginBottom: 34 }}>
-          <Eyebrow>POPULAR PACKAGES</Eyebrow>
+          <Eyebrow>{tr("POPULAR PACKAGES", "POPULIARŪS PAKETAI")}</Eyebrow>
           <h2
             className="fh"
             style={{
@@ -40,7 +43,7 @@ function Packages() {
               letterSpacing: "-.5px",
             }}
           >
-            Pick a bundle, save a few light-years
+            {tr("Pick a bundle, save a few light-years", "Rinkitės paketą ir sutaupykite kelis šviesmečius")}
           </h2>
         </div>
         <div
@@ -48,10 +51,10 @@ function Packages() {
           style={{ display: "grid", gridTemplateColumns: "repeat(5,1fr)", gap: 14 }}
         >
           {PACKAGES.map((p) => {
-            const popular = p.tag === "POPULAR";
+            const popular = p.name.en === "Steam & Press";
             return (
               <div
-                key={p.name}
+                key={p.name.en}
                 style={{
                   position: "relative",
                   background: "#FbFdFF",
@@ -81,14 +84,14 @@ function Packages() {
                       whiteSpace: "nowrap",
                     }}
                   >
-                    {p.tag}
+                    {tt(p.tag, l)}
                   </span>
                 )}
                 <h3
                   className="fh"
                   style={{ fontWeight: 700, fontSize: 17, color: "#09245B", margin: "6px 0 4px" }}
                 >
-                  {p.name}
+                  {tt(p.name, l)}
                 </h3>
                 <div style={{ display: "flex", alignItems: "flex-end", gap: 4, marginBottom: 16 }}>
                   <span
@@ -97,12 +100,14 @@ function Packages() {
                   >
                     €{p.price}
                   </span>
-                  <span style={{ fontSize: 12, color: "#9AAEC9", marginBottom: 4 }}>/ order</span>
+                  <span style={{ fontSize: 12, color: "#9AAEC9", marginBottom: 4 }}>
+                    {tr("/ order", "/ užsakymas")}
+                  </span>
                 </div>
                 <div style={{ display: "flex", flexDirection: "column", gap: 9, flex: 1, marginBottom: 18 }}>
-                  {p.feats.map((f) => (
+                  {p.feats.map((f, i) => (
                     <div
-                      key={f}
+                      key={i}
                       style={{
                         display: "flex",
                         alignItems: "flex-start",
@@ -113,12 +118,12 @@ function Packages() {
                       }}
                     >
                       <Icon name="check" c="#76C043" size={16} sw={2.4} style={{ marginTop: 1 }} />
-                      {f}
+                      {tt(f, l)}
                     </div>
                   ))}
                 </div>
                 <Link
-                  href="/booking"
+                  href={localePath("/booking", l)}
                   className="nw-btn-ghost fh"
                   style={{
                     width: "100%",
@@ -133,7 +138,7 @@ function Packages() {
                     textDecoration: "none",
                   }}
                 >
-                  Choose {p.name}
+                  {tr("Choose", "Rinktis")} {tt(p.name, l)}
                 </Link>
               </div>
             );
@@ -144,12 +149,13 @@ function Packages() {
   );
 }
 
-function Compare() {
+function Compare({ l }: { l: Locale }) {
+  const tr = trFor(l);
   return (
     <Section>
       <Card pad={40}>
         <div style={{ textAlign: "center", marginBottom: 24 }}>
-          <Eyebrow>COMPARE PACKAGES</Eyebrow>
+          <Eyebrow>{tr("COMPARE PACKAGES", "PALYGINKITE PAKETUS")}</Eyebrow>
         </div>
         <div className="nw-scroll" style={{ overflowX: "auto" }}>
           <table style={{ width: "100%", borderCollapse: "collapse", minWidth: 640 }}>
@@ -165,11 +171,11 @@ function Compare() {
                     color: "#9AAEC9",
                   }}
                 >
-                  Feature
+                  {tr("Feature", "Savybė")}
                 </th>
-                {COMPARE_COLS.map((c) => (
+                {COMPARE_COLS.map((c, i) => (
                   <th
-                    key={c}
+                    key={i}
                     className="fh"
                     style={{
                       padding: "12px 10px",
@@ -179,14 +185,14 @@ function Compare() {
                       textAlign: "center",
                     }}
                   >
-                    {c}
+                    {tt(c, l)}
                   </th>
                 ))}
               </tr>
             </thead>
             <tbody>
-              {COMPARE_ROWS.map((r) => (
-                <tr key={r.label} style={{ borderTop: "1px solid #EEF4FB" }}>
+              {COMPARE_ROWS.map((r, ri) => (
+                <tr key={ri} style={{ borderTop: "1px solid #EEF4FB" }}>
                   <td
                     className="fh"
                     style={{
@@ -197,26 +203,29 @@ function Compare() {
                       color: "#5B7194",
                     }}
                   >
-                    {r.label}
+                    {tt(r.label, l)}
                   </td>
-                  {r.cells.map((cell, i) => (
-                    <td key={i} style={{ padding: "13px 10px", textAlign: "center" }}>
-                      {cell === "y" ? (
-                        <Icon name="check" c="#76C043" size={17} sw={2.6} />
-                      ) : (
-                        <span
-                          className="fh"
-                          style={{
-                            color: cell === "—" ? "#C2D2E6" : "#5B7194",
-                            fontWeight: cell === "—" ? 400 : 700,
-                            fontSize: 12.5,
-                          }}
-                        >
-                          {cell}
-                        </span>
-                      )}
-                    </td>
-                  ))}
+                  {r.cells.map((cell, i) => {
+                    const c = tt(cell, l);
+                    return (
+                      <td key={i} style={{ padding: "13px 10px", textAlign: "center" }}>
+                        {c === "y" ? (
+                          <Icon name="check" c="#76C043" size={17} sw={2.6} />
+                        ) : (
+                          <span
+                            className="fh"
+                            style={{
+                              color: c === "—" ? "#C2D2E6" : "#5B7194",
+                              fontWeight: c === "—" ? 400 : 700,
+                              fontSize: 12.5,
+                            }}
+                          >
+                            {c}
+                          </span>
+                        )}
+                      </td>
+                    );
+                  })}
                 </tr>
               ))}
             </tbody>
@@ -227,7 +236,34 @@ function Compare() {
   );
 }
 
-function HowEstimate() {
+function HowEstimate({ l }: { l: Locale }) {
+  const tr = trFor(l);
+  const STEPS = [
+    {
+      n: "1",
+      t: tr("Choose", "Pasirinkite"),
+      d: tr("Pick your service and options.", "Pasirinkite paslaugą ir parinktis."),
+      c: "#1E8BE8",
+    },
+    {
+      n: "2",
+      t: tr("Adjust", "Pakoreguokite"),
+      d: tr("Set weight, extras & urgency.", "Nustatykite svorį, priedus ir skubumą."),
+      c: "#1E8BE8",
+    },
+    {
+      n: "3",
+      t: tr("See Price", "Pamatykite kainą"),
+      d: tr("Watch your total update live.", "Stebėkite, kaip suma atsinaujina realiu laiku."),
+      c: "#1E8BE8",
+    },
+    {
+      n: "4",
+      t: tr("Book", "Užsakykite"),
+      d: tr("Confirm & we handle the rest.", "Patvirtinkite, o visa kita pasirūpinsime mes."),
+      c: "#76C043",
+    },
+  ];
   return (
     <Section>
       <div
@@ -236,9 +272,10 @@ function HowEstimate() {
       >
         <Card pad={36}>
           <div style={{ textAlign: "center", marginBottom: 26 }}>
-            <Eyebrow>HOW THE ESTIMATE WORKS</Eyebrow>
+            <Eyebrow>{tr("HOW THE ESTIMATE WORKS", "KAIP VEIKIA SKAIČIUOKLĖ")}</Eyebrow>
           </div>
           <div
+            className="nw-grid-4"
             style={{ display: "grid", gridTemplateColumns: "repeat(4,1fr)", gap: 8, position: "relative" }}
           >
             <div
@@ -294,7 +331,10 @@ function HowEstimate() {
               textAlign: "center",
             }}
           >
-            Prices include tax. Final price may vary slightly based on exact weight after the laundry check.
+            {tr(
+              "Prices include tax. Final price may vary slightly based on exact weight after the laundry check.",
+              "Kainos su mokesčiais. Galutinė kaina gali šiek tiek skirtis pagal tikslų svorį po skalbinių patikros.",
+            )}
           </div>
         </Card>
         <div
@@ -320,17 +360,22 @@ function HowEstimate() {
               marginBottom: 14,
             }}
           >
-            PICKUP & DELIVERY ACROSS LITHUANIA
+            {tr("PICKUP & DELIVERY ACROSS LITHUANIA", "PAĖMIMAS IR PRISTATYMAS VISOJE LIETUVOJE")}
           </div>
           <span style={{ width: "100%", maxWidth: 300, marginBottom: 14, display: "block" }}>
             <Illustration name="map" />
           </span>
           <p style={{ fontSize: 13, color: "#3C5A85", lineHeight: 1.55, margin: "0 0 6px" }}>
-            We pick up and deliver to your door anywhere in Lithuania.
+            {tr(
+              "We pick up and deliver to your door anywhere in Lithuania.",
+              "Paimame ir pristatome iki jūsų durų bet kurioje Lietuvos vietoje.",
+            )}
           </p>
           <div className="fh" style={{ fontWeight: 800, fontSize: 15, color: "#09245B" }}>
-            Flat rate €4.50{" "}
-            <span style={{ fontWeight: 600, color: "#7089AB", fontSize: 13 }}>· one-way or round trip</span>
+            {tr("Flat rate €4.50", "Fiksuotas tarifas €4.50")}{" "}
+            <span style={{ fontWeight: 600, color: "#7089AB", fontSize: 13 }}>
+              {tr("· one-way or round trip", "· į vieną pusę arba pirmyn ir atgal")}
+            </span>
           </div>
         </div>
       </div>
@@ -338,30 +383,41 @@ function HowEstimate() {
   );
 }
 
-export default function PricesPage() {
+export default async function PricesPage({ params }: { params: Promise<{ lang: string }> }) {
+  const { lang } = await params;
+  const l = lang as Locale;
+  const tr = trFor(l);
   return (
     <div className="nw-fade">
       <PageBanner
         image="hero_prices"
-        title="Prices & Live Calculator"
-        alt="Prices & live calculator — see your price instantly"
+        title={tr("Prices & Live Calculator", "Kainos ir gyva skaičiuoklė")}
+        alt={tr(
+          "Prices & live calculator — see your price instantly",
+          "Kainos ir gyva skaičiuoklė — pamatykite kainą iškart",
+        )}
       />
 
       <Section>
         <div style={{ textAlign: "center", marginBottom: 26 }}>
-          <Eyebrow>BUILD YOUR WASH · SEE YOUR PRICE INSTANTLY</Eyebrow>
+          <Eyebrow>
+            {tr(
+              "BUILD YOUR WASH · SEE YOUR PRICE INSTANTLY",
+              "SUSIDĖLIOKITE SKALBIMĄ · PAMATYKITE KAINĄ IŠKART",
+            )}
+          </Eyebrow>
         </div>
         <PriceCalculator />
       </Section>
 
-      <Packages />
-      <Compare />
-      <HowEstimate />
+      <Packages l={l} />
+      <Compare l={l} />
+      <HowEstimate l={l} />
 
       <Section>
         <Card pad={40}>
           <div style={{ textAlign: "center", marginBottom: 24 }}>
-            <Eyebrow>PRICING QUESTIONS</Eyebrow>
+            <Eyebrow>{tr("PRICING QUESTIONS", "KAINODAROS KLAUSIMAI")}</Eyebrow>
           </div>
           <FaqAccordion items={PRICE_FAQ} />
         </Card>
@@ -392,13 +448,16 @@ export default function PricesPage() {
                 letterSpacing: "-.5px",
               }}
             >
-              Happy with your estimate?
+              {tr("Happy with your estimate?", "Patenkinti įvertinimu?")}
             </h3>
             <p style={{ fontSize: 16, color: "#48618A", margin: "0 0 20px" }}>
-              Lock it in — book a pickup and our crew handles the rest.
+              {tr(
+                "Lock it in — book a pickup and our crew handles the rest.",
+                "Užfiksuokite — užsisakykite paėmimą, o visa kita pasirūpins mūsų komanda.",
+              )}
             </p>
-            <Btn href="/booking" icon="rocket">
-              BOOK A PICKUP
+            <Btn href={localePath("/booking", l)} icon="rocket">
+              {tr("BOOK A PICKUP", "UŽSISAKYTI PAĖMIMĄ")}
             </Btn>
           </div>
           <span className="nw-float" style={{ width: 160, display: "block" }}>

@@ -2,16 +2,17 @@ import { Icon } from "@/components/icons";
 import { Illustration } from "@/components/illustrations";
 import { Email } from "@/components/ui/Email";
 import { BRAND } from "@/lib/data";
+import { type Locale, T, localePath, trFor, tt } from "@/lib/i18n";
 import Link from "next/link";
 import type { ReactNode } from "react";
 
 const QUICK = [
-  { label: "Services", href: "/services" },
-  { label: "Prices", href: "/prices" },
-  { label: "Locations", href: "/locations" },
-  { label: "About Us", href: "/about" },
-  { label: "FAQ & Help", href: "/faq" },
-  { label: "Contact", href: "/contact" },
+  { label: T("Services", "Paslaugos"), href: "/services" },
+  { label: T("Prices", "Kainos"), href: "/prices" },
+  { label: T("Locations", "Skyriai"), href: "/locations" },
+  { label: T("About Us", "Apie mus"), href: "/about" },
+  { label: T("FAQ & Help", "DUK ir pagalba"), href: "/faq" },
+  { label: T("Contact", "Kontaktai"), href: "/contact" },
 ];
 
 function ColTitle({ children }: { children: ReactNode }) {
@@ -44,7 +45,8 @@ function Social({ children }: { children: ReactNode }) {
   );
 }
 
-export function Footer() {
+export function Footer({ lang }: { lang: Locale }) {
+  const tr = trFor(lang);
   return (
     <footer
       style={{
@@ -67,15 +69,17 @@ export function Footer() {
         <div>
           <div style={{ display: "flex", alignItems: "center", gap: 10, marginBottom: 14 }}>
             <span style={{ width: 34, height: 34, flex: "none" }}>
-              <Illustration name="star" />
+              <Illustration name="star" alt="" />
             </span>
             <span className="fh" style={{ fontWeight: 800, fontSize: 20, color: "#fff" }}>
               {BRAND.name}
             </span>
           </div>
           <p style={{ fontSize: 13.5, lineHeight: 1.6, color: "#9FB6DD", margin: "0 0 16px", maxWidth: 230 }}>
-            Cosmic clean. Earth ready. Premium laundry, dry cleaning & cosmic care — delivered across
-            Lithuania.
+            {tr(
+              "Cosmic clean. Earth ready. Premium laundry, dry cleaning & cosmic care — delivered across Lithuania.",
+              "Kosminė švara. Paruošta Žemei. Premium skalbimas, cheminis valymas ir kosminė priežiūra — visoje Lietuvoje.",
+            )}
           </p>
           <div style={{ display: "flex", gap: 10 }}>
             <Social>
@@ -95,16 +99,16 @@ export function Footer() {
 
         {/* quick links */}
         <div>
-          <ColTitle>QUICK LINKS</ColTitle>
+          <ColTitle>{tr("QUICK LINKS", "NUORODOS")}</ColTitle>
           <div style={{ display: "flex", flexDirection: "column", gap: 11, fontSize: 13.5 }}>
             {QUICK.map((q) => (
               <Link
                 key={q.href}
-                href={q.href}
+                href={localePath(q.href, lang)}
                 className="nw-link"
                 style={{ color: "#9FB6DD", textDecoration: "none" }}
               >
-                {q.label}
+                {tt(q.label, lang)}
               </Link>
             ))}
           </div>
@@ -112,7 +116,7 @@ export function Footer() {
 
         {/* contact */}
         <div>
-          <ColTitle>CONTACT US</ColTitle>
+          <ColTitle>{tr("CONTACT US", "KONTAKTAI")}</ColTitle>
           <div
             style={{ display: "flex", flexDirection: "column", gap: 12, fontSize: 13.5, color: "#9FB6DD" }}
           >
@@ -144,18 +148,19 @@ export function Footer() {
               <Icon name="globe" c="#7FB2F0" size={17} /> {BRAND.web}
             </span>
             <span style={{ display: "flex", alignItems: "center", gap: 9 }}>
-              <span style={{ color: "#B8F35A" }}>●</span> Live Chat — faster than light
+              <span style={{ color: "#B8F35A" }}>●</span>{" "}
+              {tr("Live Chat — faster than light", "Tiesioginis pokalbis — greičiau nei šviesa")}
             </span>
           </div>
         </div>
 
         {/* hours */}
         <div>
-          <ColTitle>HOURS</ColTitle>
+          <ColTitle>{tr("HOURS", "DARBO LAIKAS")}</ColTitle>
           <div style={{ display: "flex", flexDirection: "column", gap: 9, fontSize: 13, color: "#9FB6DD" }}>
             {BRAND.hours.map((h) => (
-              <span key={h.d}>
-                {h.d}
+              <span key={h.h}>
+                {tt(h.d, lang)}
                 <br />
                 <b style={{ color: "#cfe0ff" }}>{h.h}</b>
               </span>
@@ -165,7 +170,7 @@ export function Footer() {
 
         {/* we accept */}
         <div>
-          <ColTitle>WE ACCEPT</ColTitle>
+          <ColTitle>{tr("WE ACCEPT", "PRIIMAME")}</ColTitle>
           <div style={{ display: "flex", flexWrap: "wrap", gap: 8, marginBottom: 14 }}>
             <span
               className="fh"
@@ -223,9 +228,9 @@ export function Footer() {
           <div style={{ fontSize: 11.5, color: "#7E97C4", lineHeight: 1.5, display: "flex", gap: 6 }}>
             <Icon name="lock" c="#7E97C4" size={13} sw={2} />
             <span>
-              Secure payments.
+              {tr("Secure payments.", "Saugūs mokėjimai.")}
               <br />
-              No abductions. (We promise.)
+              {tr("No abductions. (We promise.)", "Jokių pagrobimų. (Pažadame.)")}
             </span>
           </div>
         </div>
@@ -245,21 +250,29 @@ export function Footer() {
           color: "#7E97C4",
         }}
       >
-        <span>{BRAND.copyright}</span>
+        <span>{tt(BRAND.copyright, lang)}</span>
         <span style={{ display: "inline-flex", gap: 18 }}>
-          <Link href="/privacy" className="nw-link" style={{ color: "#9FB6DD", textDecoration: "none" }}>
-            Privacy
+          <Link
+            href={localePath("/privacy", lang)}
+            className="nw-link"
+            style={{ color: "#9FB6DD", textDecoration: "none" }}
+          >
+            {tr("Privacy", "Privatumas")}
           </Link>
-          <Link href="/terms" className="nw-link" style={{ color: "#9FB6DD", textDecoration: "none" }}>
-            Terms
+          <Link
+            href={localePath("/terms", lang)}
+            className="nw-link"
+            style={{ color: "#9FB6DD", textDecoration: "none" }}
+          >
+            {tr("Terms", "Sąlygos")}
           </Link>
         </span>
         <span style={{ display: "inline-flex", alignItems: "center", gap: 5 }}>
-          Made with
+          {tr("Made with", "Sukurta su")}
           <svg width="13" height="13" viewBox="0 0 24 24" fill="#76C043" aria-hidden="true">
             <path d="M12 21s-7-4.5-9.5-9A5 5 0 0 1 12 6a5 5 0 0 1 9.5 6c-2.5 4.5-9.5 9-9.5 9z" />
           </svg>
-          in the North.
+          {tr("in the North.", "Šiaurėje.")}
         </span>
       </div>
     </footer>

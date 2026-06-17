@@ -6,14 +6,27 @@ import { Btn } from "@/components/ui/Button";
 import { Section } from "@/components/ui/Container";
 import { Email } from "@/components/ui/Email";
 import { BRAND } from "@/lib/data";
+import { type Locale, localePath, trFor } from "@/lib/i18n";
 import type { Metadata } from "next";
 
-export const metadata: Metadata = {
-  title: "Contact",
-  description:
-    "Get in touch with NordWash — call +370 681 25504 or email hello@nordwash.lt. Questions, quotes and business enquiries for laundry across Lithuania.",
-  alternates: { canonical: "/contact" },
-};
+export async function generateMetadata({
+  params,
+}: {
+  params: Promise<{ lang: string }>;
+}): Promise<Metadata> {
+  const { lang } = await params;
+  const lt = lang === "lt";
+  return {
+    title: lt ? "Kontaktai" : "Contact",
+    description: lt
+      ? "Susisiekite su NordWash — skambinkite +370 681 25504 arba rašykite hello@nordwash.lt. Klausimai, pasiūlymai ir verslo užklausos dėl skalbimo visoje Lietuvoje."
+      : "Get in touch with NordWash — call +370 681 25504 or email hello@nordwash.lt. Questions, quotes and business enquiries for laundry across Lithuania.",
+    alternates: {
+      canonical: `/${lang}/contact`,
+      languages: { lt: "/lt/contact", en: "/en/contact", "x-default": "/lt/contact" },
+    },
+  };
+}
 
 function InfoRow({
   icon,
@@ -44,13 +57,19 @@ function InfoRow({
   );
 }
 
-export default function ContactPage() {
+export default async function ContactPage({ params }: { params: Promise<{ lang: string }> }) {
+  const { lang } = await params;
+  const l = lang as Locale;
+  const tr = trFor(l);
   return (
     <div className="nw-fade">
       <PageBanner
         image="hero_contact"
-        title="Contact NordWash"
-        alt="Contact NordWash — our crew replies faster than light"
+        title={tr("Contact NordWash", "Susisiekite su NordWash")}
+        alt={tr(
+          "Contact NordWash — our crew replies faster than light",
+          "Susisiekite su NordWash — mūsų komanda atsako greičiau nei šviesa",
+        )}
       />
 
       <Section pb={50}>
@@ -72,12 +91,16 @@ export default function ContactPage() {
               }}
             >
               <h3 className="fh" style={{ fontWeight: 800, fontSize: 18, margin: "0 0 18px" }}>
-                Reach us directly
+                {tr("Reach us directly", "Susisiekite tiesiogiai")}
               </h3>
               <div style={{ display: "flex", flexDirection: "column", gap: 16, fontSize: 14 }}>
-                <InfoRow icon="phone" label="Phone" value={BRAND.phone} />
-                <InfoRow icon="mail" label="Email" value={<Email />} />
-                <InfoRow icon="clock" label="Hours" value="Mon–Sun · 08:00 – 20:00" />
+                <InfoRow icon="phone" label={tr("Phone", "Telefonas")} value={BRAND.phone} />
+                <InfoRow icon="mail" label={tr("Email", "El. paštas")} value={<Email />} />
+                <InfoRow
+                  icon="clock"
+                  label={tr("Hours", "Darbo laikas")}
+                  value={tr("Mon–Sun · 08:00 – 20:00", "Pir–Sek · 08:00 – 20:00")}
+                />
               </div>
             </div>
             <div
@@ -94,13 +117,16 @@ export default function ContactPage() {
                 className="fh"
                 style={{ fontWeight: 800, fontSize: 16, color: "#09245B", margin: "0 0 6px" }}
               >
-                Business enquiries
+                {tr("Business enquiries", "Verslo užklausos")}
               </h3>
               <p style={{ fontSize: 13, color: "#6E86A8", lineHeight: 1.55, margin: "0 0 14px" }}>
-                Hotels, gyms, studios? We offer cosmic rates for recurring volume.
+                {tr(
+                  "Hotels, gyms, studios? We offer cosmic rates for recurring volume.",
+                  "Viešbučiai, sporto klubai, studijos? Siūlome kosmiškas kainas reguliariems kiekiams.",
+                )}
               </p>
-              <Btn href="/booking" variant="ghost" fontSize={13} padding="11px 20px">
-                Request a quote
+              <Btn href={localePath("/booking", l)} variant="ghost" fontSize={13} padding="11px 20px">
+                {tr("Request a quote", "Gauti pasiūlymą")}
               </Btn>
             </div>
           </div>
@@ -132,7 +158,7 @@ export default function ContactPage() {
                 marginBottom: 16,
               }}
             >
-              OUR LOCATION&nbsp;<span style={{ color: "#7FD0F5" }}>✦</span>
+              {tr("OUR LOCATION", "MŪSŲ VIETA")}&nbsp;<span style={{ color: "#7FD0F5" }}>✦</span>
             </div>
             <div
               style={{
@@ -148,7 +174,10 @@ export default function ContactPage() {
               }}
             >
               <span style={{ width: "100%", maxWidth: 380, display: "block" }}>
-                <Illustration name="map" alt="NordWash locations across Lithuania" />
+                <Illustration
+                  name="map"
+                  alt={tr("NordWash locations across Lithuania", "NordWash skyriai visoje Lietuvoje")}
+                />
               </span>
             </div>
             <div
@@ -163,14 +192,20 @@ export default function ContactPage() {
             >
               <div>
                 <b className="fh" style={{ fontSize: 15, color: "#09245B" }}>
-                  NordWash HQ — North Star Hub
+                  {tr("NordWash HQ — North Star Hub", "NordWash būstinė — Šiaurinės žvaigždės centras")}
                 </b>
                 <div style={{ fontSize: 13, color: "#6E86A8", marginTop: 4 }}>
-                  Liepojos g. 82, Klaipėda, Lithuania
+                  {tr("Liepojos g. 82, Klaipėda, Lithuania", "Liepojos g. 82, Klaipėda, Lietuva")}
                 </div>
               </div>
-              <Btn href="/locations" variant="ghost" fontSize={12.5} padding="11px 18px" icon="pin">
-                All locations
+              <Btn
+                href={localePath("/locations", l)}
+                variant="ghost"
+                fontSize={12.5}
+                padding="11px 18px"
+                icon="pin"
+              >
+                {tr("All locations", "Visi skyriai")}
               </Btn>
             </div>
           </div>
@@ -203,11 +238,13 @@ export default function ContactPage() {
                   marginBottom: 8,
                 }}
               >
-                BUSINESS & PICKUP SUPPORT
+                {tr("BUSINESS & PICKUP SUPPORT", "VERSLO IR PAĖMIMO PAGALBA")}
               </div>
               <p style={{ fontSize: 14, color: "#48618A", lineHeight: 1.55, margin: "0 0 14px" }}>
-                Business account, bulk order, or recurring pickups? We offer custom solutions for offices,
-                hotels, rentals and gyms across Lithuania.
+                {tr(
+                  "Business account, bulk order, or recurring pickups? We offer custom solutions for offices, hotels, rentals and gyms across Lithuania.",
+                  "Verslo paskyra, didelis užsakymas ar reguliarus paėmimas? Siūlome individualius sprendimus biurams, viešbučiams, nuomos objektams ir sporto klubams visoje Lietuvoje.",
+                )}
               </p>
               <div
                 style={{
@@ -219,23 +256,25 @@ export default function ContactPage() {
                   marginBottom: 16,
                 }}
               >
-                {["Scheduled pickups", "Volume discounts & priority support", "Flexible invoicing"].map(
-                  (x) => (
-                    <span key={x} style={{ display: "flex", alignItems: "center", gap: 8 }}>
-                      <span style={{ color: "#76C043" }}>✦</span> {x}
-                    </span>
-                  ),
-                )}
+                {[
+                  tr("Scheduled pickups", "Suplanuoti paėmimai"),
+                  tr("Volume discounts & priority support", "Nuolaidos už kiekį ir prioritetinė pagalba"),
+                  tr("Flexible invoicing", "Lankstus sąskaitų išrašymas"),
+                ].map((x) => (
+                  <span key={x} style={{ display: "flex", alignItems: "center", gap: 8 }}>
+                    <span style={{ color: "#76C043" }}>✦</span> {x}
+                  </span>
+                ))}
               </div>
-              <Btn href="/booking" fontSize={13} padding="13px 22px">
-                Business inquiries
+              <Btn href={localePath("/booking", l)} fontSize={13} padding="13px 22px">
+                {tr("Business inquiries", "Verslo užklausos")}
               </Btn>
             </div>
           </div>
         </div>
       </Section>
 
-      <PromoBanner />
+      <PromoBanner lang={l} />
     </div>
   );
 }

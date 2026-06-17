@@ -1,9 +1,11 @@
 "use client";
 
+import { useLang } from "@/components/i18n/LangProvider";
 import type { FaqItem } from "@/lib/data";
 import { useState } from "react";
 
 export function FaqAccordion({ items, defaultOpen = -1 }: { items: FaqItem[]; defaultOpen?: number }) {
+  const { tt } = useLang();
   const [open, setOpen] = useState(defaultOpen);
   return (
     <div style={{ display: "flex", flexDirection: "column", gap: 12 }}>
@@ -11,7 +13,7 @@ export function FaqAccordion({ items, defaultOpen = -1 }: { items: FaqItem[]; de
         const isOpen = open === i;
         return (
           <div
-            key={f.q}
+            key={i}
             style={{
               border: "1.5px solid #EAF2FC",
               borderRadius: 16,
@@ -40,14 +42,14 @@ export function FaqAccordion({ items, defaultOpen = -1 }: { items: FaqItem[]; de
                 color: "#09245B",
               }}
             >
-              <span style={{ flex: 1, minWidth: 0 }}>{f.q}</span>
+              <span style={{ flex: 1, minWidth: 0 }}>{tt(f.q)}</span>
               <span style={{ fontSize: 23, color: "#1E8BE8", fontWeight: 400, flex: "none", lineHeight: 1 }}>
                 {isOpen ? "–" : "+"}
               </span>
             </button>
             {isOpen && (
               <div style={{ padding: "0 22px 20px", fontSize: 14, lineHeight: 1.6, color: "#5B7194" }}>
-                {f.a}
+                {tt(f.a)}
               </div>
             )}
           </div>

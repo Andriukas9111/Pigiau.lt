@@ -1,16 +1,18 @@
 "use client";
 
+import { useLang } from "@/components/i18n/LangProvider";
 import { Icon } from "@/components/icons";
 import { Card, Section } from "@/components/ui/Container";
 import { FAQS, FAQ_CATS } from "@/lib/data";
 import { useState } from "react";
 
 export function FaqClient() {
+  const { tt, tr } = useLang();
   const [query, setQuery] = useState("");
   const [open, setOpen] = useState(0);
 
   const filtered = FAQS.map((f, i) => ({ ...f, i })).filter(
-    (f) => !query || `${f.q} ${f.a}`.toLowerCase().includes(query.toLowerCase()),
+    (f) => !query || `${tt(f.q)} ${tt(f.a)}`.toLowerCase().includes(query.toLowerCase()),
   );
 
   return (
@@ -27,8 +29,8 @@ export function FaqClient() {
               setQuery(e.target.value);
               setOpen(-1);
             }}
-            placeholder="Search the cosmos for answers…"
-            aria-label="Search FAQ"
+            placeholder={tr("Search the cosmos for answers…", "Ieškokite atsakymų kosmose…")}
+            aria-label={tr("Search FAQ", "Ieškoti DUK")}
             className="fh"
             style={{
               width: "100%",
@@ -53,7 +55,7 @@ export function FaqClient() {
         >
           {FAQ_CATS.map((c) => (
             <div
-              key={c.name}
+              key={c.icon}
               className="nw-svc"
               style={{
                 background: "#fff",
@@ -84,7 +86,7 @@ export function FaqClient() {
                 className="fh"
                 style={{ fontWeight: 700, fontSize: 12.5, color: "#09245B", lineHeight: 1.3 }}
               >
-                {c.name}
+                {tt(c.name)}
               </div>
             </div>
           ))}
@@ -104,19 +106,22 @@ export function FaqClient() {
               textAlign: "center",
             }}
           >
-            Frequently asked questions
+            {tr("Frequently asked questions", "Dažniausiai užduodami klausimai")}
           </h2>
           <div style={{ display: "flex", flexDirection: "column", gap: 12 }}>
             {filtered.length === 0 && (
               <p style={{ textAlign: "center", color: "#7089AB", fontSize: 14 }}>
-                No answers in this galaxy — try another search, or contact our crew.
+                {tr(
+                  "No answers in this galaxy — try another search, or contact our crew.",
+                  "Šioje galaktikoje atsakymų nėra — pabandykite kitą paiešką arba susisiekite su mūsų komanda.",
+                )}
               </p>
             )}
             {filtered.map((f) => {
               const isOpen = open === f.i;
               return (
                 <div
-                  key={f.q}
+                  key={f.i}
                   style={{
                     border: "1.5px solid #EAF2FC",
                     borderRadius: 16,
@@ -145,7 +150,7 @@ export function FaqClient() {
                       color: "#09245B",
                     }}
                   >
-                    <span style={{ flex: 1, minWidth: 0 }}>{f.q}</span>
+                    <span style={{ flex: 1, minWidth: 0 }}>{tt(f.q)}</span>
                     <span
                       style={{ fontSize: 24, color: "#1E8BE8", fontWeight: 400, flex: "none", lineHeight: 1 }}
                     >
@@ -154,7 +159,7 @@ export function FaqClient() {
                   </button>
                   {isOpen && (
                     <div style={{ padding: "0 22px 20px", fontSize: 14, lineHeight: 1.6, color: "#5B7194" }}>
-                      {f.a}
+                      {tt(f.a)}
                     </div>
                   )}
                 </div>

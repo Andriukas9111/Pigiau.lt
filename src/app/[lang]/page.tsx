@@ -7,25 +7,42 @@ import { Btn } from "@/components/ui/Button";
 import { Card, Section } from "@/components/ui/Container";
 import { Eyebrow } from "@/components/ui/Eyebrow";
 import { CITIES, REVIEWS, SERVICES } from "@/lib/data";
+import { type Locale, localePath, trFor, tt } from "@/lib/i18n";
+import type { Metadata } from "next";
 import Link from "next/link";
 
 const STEPS = [
-  { n: "1", img: "phone" as const, title: "Book Online", desc: "Choose your service and pick a time." },
-  { n: "2", img: "ufo" as const, title: "We Pick Up", desc: "Our couriers swoop in faster than light." },
-  {
-    n: "3",
-    img: "deliver" as const,
-    title: "We Clean & Deliver",
-    desc: "Fresh, folded and beamed to your door.",
-  },
+  { n: "1", img: "phone" as const },
+  { n: "2", img: "ufo" as const },
+  { n: "3", img: "deliver" as const },
 ];
 
-function ServicesPreview() {
+export async function generateMetadata({
+  params,
+}: {
+  params: Promise<{ lang: string }>;
+}): Promise<Metadata> {
+  const { lang } = await params;
+  const l = lang as Locale;
+  const tr = trFor(l);
+  return {
+    description: tr(
+      "Cosmic laundry for humans & aliens. Free pickup & delivery across Lithuania, 24h express and 100% satisfaction — out-of-this-world clean.",
+      "Kosminis skalbimas žmonėms ir ateiviams. Nemokamas paėmimas ir pristatymas visoje Lietuvoje, 24 val. ekspresas ir 100 % pasitenkinimas — nežemiškai švaru.",
+    ),
+    alternates: {
+      canonical: `/${lang}`,
+      languages: { lt: "/lt", en: "/en", "x-default": "/lt" },
+    },
+  };
+}
+
+function ServicesPreview({ l, tr }: { l: Locale; tr: (en: string, lt: string) => string }) {
   return (
     <Section>
       <Card>
         <div style={{ textAlign: "center", marginBottom: 30 }}>
-          <Eyebrow>OUR COSMIC SERVICES</Eyebrow>
+          <Eyebrow>{tr("OUR COSMIC SERVICES", "MŪSŲ KOSMINĖS PASLAUGOS")}</Eyebrow>
           <h2
             className="fh"
             style={{
@@ -36,7 +53,10 @@ function ServicesPreview() {
               letterSpacing: "-.5px",
             }}
           >
-            Whatever the mess, we beam it clean
+            {tr(
+              "Whatever the mess, we beam it clean",
+              "Kad ir kokia netvarka, mes ją išspinduliuojame švarią",
+            )}
           </h2>
         </div>
         <div
@@ -46,7 +66,7 @@ function ServicesPreview() {
           {SERVICES.slice(0, 6).map((s) => (
             <Link
               key={s.key}
-              href="/services"
+              href={localePath("/services", l)}
               className="nw-svc"
               style={{
                 background: "#FbFdFF",
@@ -65,15 +85,15 @@ function ServicesPreview() {
                 className="fh"
                 style={{ fontWeight: 700, fontSize: 14, margin: "0 0 6px", color: "#09245B" }}
               >
-                {s.title}
+                {tt(s.title, l)}
               </h3>
-              <p style={{ fontSize: 11.5, lineHeight: 1.5, color: "#6E86A8", margin: 0 }}>{s.desc}</p>
+              <p style={{ fontSize: 11.5, lineHeight: 1.5, color: "#6E86A8", margin: 0 }}>{tt(s.desc, l)}</p>
             </Link>
           ))}
         </div>
         <div style={{ textAlign: "center", marginTop: 30 }}>
-          <Btn href="/services" variant="ghost" fontSize={14} padding="13px 26px">
-            See all 8 services →
+          <Btn href={localePath("/services", l)} variant="ghost" fontSize={14} padding="13px 26px">
+            {tr("See all 8 services →", "Visos 8 paslaugos →")}
           </Btn>
         </div>
       </Card>
@@ -81,7 +101,24 @@ function ServicesPreview() {
   );
 }
 
-function HowItWorks() {
+function HowItWorks({ l, tr }: { l: Locale; tr: (en: string, lt: string) => string }) {
+  const steps = [
+    {
+      ...STEPS[0],
+      title: tr("Book Online", "Užsisakyk internetu"),
+      desc: tr("Choose your service and pick a time.", "Pasirink paslaugą ir patogų laiką."),
+    },
+    {
+      ...STEPS[1],
+      title: tr("We Pick Up", "Paimame"),
+      desc: tr("Our couriers swoop in faster than light.", "Mūsų kurjeriai atskrieja greičiau už šviesą."),
+    },
+    {
+      ...STEPS[2],
+      title: tr("We Clean & Deliver", "Išvalome ir pristatome"),
+      desc: tr("Fresh, folded and beamed to your door.", "Švaru, sulankstyta ir pristatyta prie durų."),
+    },
+  ];
   return (
     <Section id="how">
       <div
@@ -90,7 +127,7 @@ function HowItWorks() {
       >
         <Card pad={40}>
           <div style={{ textAlign: "center", marginBottom: 30 }}>
-            <Eyebrow>HOW IT WORKS</Eyebrow>
+            <Eyebrow>{tr("HOW IT WORKS", "KAIP TAI VEIKIA")}</Eyebrow>
           </div>
           <div
             className="nw-how"
@@ -107,7 +144,7 @@ function HowItWorks() {
                 zIndex: 0,
               }}
             />
-            {STEPS.map((st) => (
+            {steps.map((st) => (
               <div
                 key={st.n}
                 className="nw-how-step"
@@ -174,7 +211,7 @@ function HowItWorks() {
   );
 }
 
-function ReviewsLocations() {
+function ReviewsLocations({ l, tr }: { l: Locale; tr: (en: string, lt: string) => string }) {
   return (
     <Section>
       <div
@@ -184,7 +221,7 @@ function ReviewsLocations() {
         {/* reviews */}
         <Card pad={34} style={{ display: "flex", flexDirection: "column" }}>
           <Eyebrow align="left" style={{ marginBottom: 22 }}>
-            WHAT OUR CUSTOMERS SAY
+            {tr("WHAT OUR CUSTOMERS SAY", "KĄ SAKO MŪSŲ KLIENTAI")}
           </Eyebrow>
           <div
             className="nw-grid-3 nw-slider"
@@ -215,7 +252,7 @@ function ReviewsLocations() {
                     flex: 1,
                   }}
                 >
-                  “{r.quote}”
+                  “{tt(r.quote, l)}”
                 </p>
                 <div style={{ display: "flex", alignItems: "center", gap: 9 }}>
                   <div
@@ -249,7 +286,8 @@ function ReviewsLocations() {
             className="fh"
             style={{ textAlign: "center", marginTop: 20, fontWeight: 700, color: "#09245B", fontSize: 14 }}
           >
-            <span style={{ color: "#B8F35A" }}>★</span> Rated 4.9/5 from 1,248 Earthlings & Aliens
+            <span style={{ color: "#B8F35A" }}>★</span>{" "}
+            {tr("Rated 4.9/5 from 1,248 Earthlings & Aliens", "Įvertinta 4,9/5 iš 1 248 žemiečių ir ateivių")}
           </div>
         </Card>
 
@@ -269,7 +307,7 @@ function ReviewsLocations() {
         >
           <div style={{ padding: 32, display: "flex", flexDirection: "column", justifyContent: "center" }}>
             <Eyebrow align="left" style={{ marginBottom: 18 }}>
-              OUR LOCATIONS
+              {tr("OUR LOCATIONS", "MŪSŲ SKYRIAI")}
             </Eyebrow>
             <div style={{ display: "flex", flexDirection: "column", gap: 16 }}>
               {CITIES.map((c) => (
@@ -284,14 +322,14 @@ function ReviewsLocations() {
                     >
                       {c.name}
                     </b>
-                    <span style={{ fontSize: 12, color: "#8AA0C0" }}>{c.hub}</span>
+                    <span style={{ fontSize: 12, color: "#8AA0C0" }}>{tt(c.hub, l)}</span>
                   </div>
                 </div>
               ))}
             </div>
             <div style={{ marginTop: 20 }}>
-              <Btn href="/locations" variant="ghost" fontSize={12.5} padding="11px 18px">
-                View all →
+              <Btn href={localePath("/locations", l)} variant="ghost" fontSize={12.5} padding="11px 18px">
+                {tr("View all →", "Visi skyriai →")}
               </Btn>
             </div>
           </div>
@@ -314,25 +352,32 @@ function ReviewsLocations() {
   );
 }
 
-export default function HomePage() {
+export default async function HomePage({ params }: { params: Promise<{ lang: string }> }) {
+  const { lang } = await params;
+  const l = lang as Locale;
+  const tr = trFor(l);
   return (
     <div className="nw-fade">
       <SceneHero
-        eyebrow="PREMIUM LAUNDRY FROM ANOTHER DIMENSION"
+        lang={l}
+        eyebrow={tr("PREMIUM LAUNDRY FROM ANOTHER DIMENSION", "PREMIUM SKALBIMAS IŠ KITOS DIMENSIJOS")}
         title={
           <>
-            Cosmic Laundry
+            {tr("Cosmic Laundry", "Kosminis skalbimas")}
             <br />
-            for <span style={{ color: "#1E8BE8" }}>Humans</span>{" "}
-            <span style={{ color: "#76C043" }}>& Aliens</span>
+            {tr("for", "")} <span style={{ color: "#1E8BE8" }}>{tr("Humans", "žmonėms")}</span>{" "}
+            <span style={{ color: "#76C043" }}>{tr("& Aliens", "ir ateiviams")}</span>
           </>
         }
-        subtitle="We wash. We steam. We refresh. We even clean your disguises. Because looking human is hard."
+        subtitle={tr(
+          "We wash. We steam. We refresh. We even clean your disguises. Because looking human is hard.",
+          "Skalbiame. Garuojame. Gaiviname. Net išvalome jūsų maskuotes. Nes atrodyti žmogumi sunku.",
+        )}
       />
-      <ServicesPreview />
-      <HowItWorks />
-      <ReviewsLocations />
-      <PromoBanner />
+      <ServicesPreview l={l} tr={tr} />
+      <HowItWorks l={l} tr={tr} />
+      <ReviewsLocations l={l} tr={tr} />
+      <PromoBanner lang={l} />
     </div>
   );
 }

@@ -1,6 +1,7 @@
 import { Illustration, type IllustrationName } from "@/components/illustrations";
 import { Btn } from "@/components/ui/Button";
 import { Section } from "@/components/ui/Container";
+import { type Locale, T, type Tx, localePath, trFor, tt } from "@/lib/i18n";
 import type { CSSProperties, ReactNode } from "react";
 
 export function EyebrowPill({ children }: { children: ReactNode }) {
@@ -26,25 +27,29 @@ export function EyebrowPill({ children }: { children: ReactNode }) {
   );
 }
 
-const TRUST = [
-  { img: "van" as IllustrationName, t: "Free Pickup", s: "Across Lithuania" },
-  { img: "stopwatch" as IllustrationName, t: "24h Express", s: "Alien Fast" },
-  { img: "shield" as IllustrationName, t: "100% Satisfaction", s: "Or We Abduct (Kidding)" },
+const TRUST: { img: IllustrationName; t: Tx; s: Tx }[] = [
+  { img: "van", t: T("Free Pickup", "Nemokamas paėmimas"), s: T("Across Lithuania", "Visoje Lietuvoje") },
+  { img: "stopwatch", t: T("24h Express", "24 val. ekspresas"), s: T("Alien Fast", "Ateiviškai greitai") },
+  {
+    img: "shield",
+    t: T("100% Satisfaction", "100 % pasitenkinimas"),
+    s: T("Or We Abduct (Kidding)", "Arba pagrobsim (juokas)"),
+  },
 ];
 
-export function TrustRow({ style }: { style?: CSSProperties }) {
+export function TrustRow({ lang, style }: { lang: Locale; style?: CSSProperties }) {
   return (
     <div className="nw-row-wrap" style={{ display: "flex", gap: 22, ...style }}>
       {TRUST.map((x) => (
-        <div key={x.t} style={{ display: "flex", alignItems: "center", gap: 10 }}>
+        <div key={x.img} style={{ display: "flex", alignItems: "center", gap: 10 }}>
           <span style={{ width: 38, height: 38, flex: "none" }}>
-            <Illustration name={x.img} />
+            <Illustration name={x.img} alt="" />
           </span>
           <span>
             <b className="fh" style={{ display: "block", fontSize: 13.5, color: "#09245B" }}>
-              {x.t}
+              {tt(x.t, lang)}
             </b>
-            <span style={{ fontSize: 12, color: "#7FA0C4" }}>{x.s}</span>
+            <span style={{ fontSize: 12, color: "#7FA0C4" }}>{tt(x.s, lang)}</span>
           </span>
         </div>
       ))}
@@ -53,18 +58,21 @@ export function TrustRow({ style }: { style?: CSSProperties }) {
 }
 
 export function SceneHero({
+  lang,
   eyebrow,
   title,
   subline,
   subtitle,
   tint = "#EAF4FF",
 }: {
+  lang: Locale;
   eyebrow: string;
   title: ReactNode;
   subline?: ReactNode;
   subtitle: string;
   tint?: string;
 }) {
+  const tr = trFor(lang);
   return (
     <Section mt={10}>
       <div
@@ -119,14 +127,14 @@ export function SceneHero({
             {subtitle}
           </p>
           <div className="nw-btnrow" style={{ display: "flex", gap: 14, alignItems: "center" }}>
-            <Btn href="/booking" icon="rocket">
-              BOOK A PICKUP
+            <Btn href={localePath("/booking", lang)} icon="rocket">
+              {tr("BOOK A PICKUP", "UŽSISAKYK PAĖMIMĄ")}
             </Btn>
-            <Btn href="/prices" variant="ghost" icon="pin">
-              VIEW PRICES
+            <Btn href={localePath("/prices", lang)} variant="ghost" icon="pin">
+              {tr("VIEW PRICES", "ŽIŪRĖTI KAINAS")}
             </Btn>
           </div>
-          <TrustRow style={{ marginTop: 24 }} />
+          <TrustRow lang={lang} style={{ marginTop: 24 }} />
         </div>
       </div>
     </Section>

@@ -1,12 +1,15 @@
 "use client";
 
+import { useLang } from "@/components/i18n/LangProvider";
 import { Icon } from "@/components/icons";
 import { ExtraToggle, Field, Stepper, Switch, selectStyle } from "@/components/ui/Controls";
 import { CALC_EXTRAS, CALC_SERVICES, CTYPES, URGENCY } from "@/lib/data";
+import { localePath } from "@/lib/i18n";
 import { type CalcState, calcLineItems, calcTotal, money } from "@/lib/pricing";
 import { useState } from "react";
 
 export function PriceCalculator() {
+  const { lang, tt, tr } = useLang();
   const [s, setS] = useState<CalcState>({
     service: 0,
     type: "everyday",
@@ -21,7 +24,7 @@ export function PriceCalculator() {
   const toggleExtra = (k: string) =>
     setS((prev) => ({ ...prev, extras: { ...prev.extras, [k]: !prev.extras[k] } }));
 
-  const items = calcLineItems(s);
+  const items = calcLineItems(s, lang);
   const total = calcTotal(s);
 
   return (
@@ -40,16 +43,16 @@ export function PriceCalculator() {
           padding: 38,
         }}
       >
-        <Field label="Service">
+        <Field label={tr("Service", "Paslauga")}>
           <select
             value={s.service}
             onChange={(e) => set({ service: +e.target.value })}
-            aria-label="Service"
+            aria-label={tr("Service", "Paslauga")}
             style={{ ...selectStyle, fontSize: 14.5, padding: 14, borderRadius: 13, marginBottom: 18 }}
           >
             {CALC_SERVICES.map((o, i) => (
-              <option key={o.name} value={i}>
-                {o.name}
+              <option key={o.name.en} value={i}>
+                {tt(o.name)}
               </option>
             ))}
           </select>
@@ -59,7 +62,7 @@ export function PriceCalculator() {
           className="fh"
           style={{ display: "block", fontWeight: 600, fontSize: 12.5, color: "#5B7194", marginBottom: 7 }}
         >
-          Laundry type
+          {tr("Laundry type", "Skalbinių tipas")}
         </label>
         <div
           className="nw-grid-4"
@@ -84,7 +87,7 @@ export function PriceCalculator() {
                   color: on ? "#1E8BE8" : "#5B7194",
                 }}
               >
-                {t.name}
+                {tt(t.name)}
               </button>
             );
           })}
@@ -101,7 +104,7 @@ export function PriceCalculator() {
             marginBottom: 8,
           }}
         >
-          Weight
+          {tr("Weight", "Svoris")}
           <span style={{ color: "#1E8BE8", fontWeight: 800 }}>{s.weight} kg</span>
         </label>
         <input
@@ -135,7 +138,7 @@ export function PriceCalculator() {
           className="fh"
           style={{ display: "block", fontWeight: 600, fontSize: 12.5, color: "#5B7194", marginBottom: 8 }}
         >
-          Urgency
+          {tr("Urgency", "Skubumas")}
         </label>
         <div style={{ display: "grid", gridTemplateColumns: "repeat(3,1fr)", gap: 8, marginBottom: 18 }}>
           {URGENCY.map((u) => {
@@ -156,9 +159,9 @@ export function PriceCalculator() {
                   textAlign: "center",
                 }}
               >
-                <div style={{ fontWeight: 700, fontSize: 12.5 }}>{u.name}</div>
+                <div style={{ fontWeight: 700, fontSize: 12.5 }}>{tt(u.name)}</div>
                 <div style={{ fontSize: 10.5, color: "#8AA0C0", marginTop: 2 }}>
-                  {u.sub} · {u.price > 0 ? `+${money(u.price)}` : "Free"}
+                  {u.sub} · {u.price > 0 ? `+${money(u.price)}` : tr("Free", "Nemokamai")}
                 </div>
               </button>
             );
@@ -169,7 +172,7 @@ export function PriceCalculator() {
           className="fh"
           style={{ display: "block", fontWeight: 600, fontSize: 12.5, color: "#5B7194", marginBottom: 8 }}
         >
-          Extras
+          {tr("Extras", "Priedai")}
         </label>
         <div
           className="nw-grid-2x"
@@ -179,7 +182,7 @@ export function PriceCalculator() {
             <ExtraToggle
               key={e.key}
               checked={!!s.extras[e.key]}
-              label={e.name}
+              label={tt(e.name)}
               price={`+${money(e.price)}`}
               onToggle={() => toggleExtra(e.key)}
               pad="11px 13px"
@@ -211,9 +214,11 @@ export function PriceCalculator() {
               <Icon name="truck" c="#1E8BE8" size={20} />
               <span style={{ textAlign: "left" }}>
                 <b className="fh" style={{ display: "block", fontSize: 13, color: "#09245B" }}>
-                  Pickup & Delivery
+                  {tr("Pickup & Delivery", "Paėmimas ir pristatymas")}
                 </b>
-                <span style={{ fontSize: 11, color: "#8AA0C0" }}>+€4.50 · or drop off free</span>
+                <span style={{ fontSize: 11, color: "#8AA0C0" }}>
+                  {tr("+€4.50 · or drop off free", "+4,50 € · arba atvežk nemokamai")}
+                </span>
               </span>
             </span>
             <Switch on={s.pickup} />
@@ -225,13 +230,13 @@ export function PriceCalculator() {
           style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 12, marginTop: 12 }}
         >
           <Stepper
-            label="Bags"
+            label={tr("Bags", "Maišai")}
             value={s.bags}
             onDec={() => set({ bags: Math.max(1, s.bags - 1) })}
             onInc={() => set({ bags: Math.min(9, s.bags + 1) })}
           />
           <Stepper
-            label="Bedding sets"
+            label={tr("Bedding sets", "Patalynės komplektai")}
             value={s.sets}
             onDec={() => set({ sets: Math.max(0, s.sets - 1) })}
             onInc={() => set({ sets: Math.min(9, s.sets + 1) })}
@@ -278,9 +283,11 @@ export function PriceCalculator() {
             </div>
             <div>
               <div className="fh" style={{ fontWeight: 800, fontSize: 15, letterSpacing: ".5px" }}>
-                YOUR LIVE TOTAL
+                {tr("YOUR LIVE TOTAL", "JŪSŲ SUMA REALIU LAIKU")}
               </div>
-              <div style={{ fontSize: 12, color: "#9Fc2f5" }}>Updates as you choose</div>
+              <div style={{ fontSize: 12, color: "#9Fc2f5" }}>
+                {tr("Updates as you choose", "Atsinaujina jums renkantis")}
+              </div>
             </div>
           </div>
 
@@ -315,7 +322,7 @@ export function PriceCalculator() {
             }}
           >
             <span className="fh" style={{ fontWeight: 600, fontSize: 14, color: "#9Fc2f5" }}>
-              Total
+              {tr("Total", "Iš viso")}
             </span>
             <span className="fh" style={{ fontWeight: 800, fontSize: 38, lineHeight: 1 }}>
               {money(total)}
@@ -323,7 +330,7 @@ export function PriceCalculator() {
           </div>
 
           <a
-            href="/booking"
+            href={localePath("/booking", lang)}
             className="nw-btn-primary fh"
             style={{
               width: "100%",
@@ -341,11 +348,11 @@ export function PriceCalculator() {
               textDecoration: "none",
             }}
           >
-            BOOK PICKUP
+            {tr("BOOK PICKUP", "UŽSISAKYK PAĖMIMĄ")}
             <Icon name="arrow" c="#09245B" size={16} sw={2} />
           </a>
           <a
-            href="/booking"
+            href={localePath("/booking", lang)}
             className="fh"
             style={{
               width: "100%",
@@ -364,11 +371,12 @@ export function PriceCalculator() {
               textDecoration: "none",
             }}
           >
-            SAVE ESTIMATE
+            {tr("SAVE ESTIMATE", "IŠSAUGOTI SĄMATĄ")}
             <Icon name="save" c="#fff" size={15} sw={1.9} />
           </a>
           <div style={{ textAlign: "center", fontSize: 11, color: "#7E97C4", marginTop: 12 }}>
-            First order? Use <b style={{ color: "#B8F35A" }}>HELLOEARTH</b> for 10% off.
+            {tr("First order? Use", "Pirmas užsakymas? Įvesk")} <b style={{ color: "#B8F35A" }}>HELLOEARTH</b>{" "}
+            {tr("for 10% off.", "ir gauk 10 % nuolaidą.")}
           </div>
         </div>
       </div>

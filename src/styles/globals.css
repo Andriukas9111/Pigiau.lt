@@ -336,6 +336,9 @@ input[type="range"] {
   .nw-desktop-nav {
     display: none !important;
   }
+  .nw-lang-desk {
+    display: none !important;
+  }
   .nw-burger {
     display: inline-flex !important;
   }
@@ -441,12 +444,17 @@ input[type="range"] {
   }
 }
 @media (max-width: 560px) {
-  /* never let a button's label wrap to two lines */
+  /* never let an action button's label wrap to two lines */
   button,
   .nw-btn-primary,
   .nw-btn-ghost,
   a[class*="nw-btn"] {
     white-space: nowrap;
+  }
+  /* …but selection chips (service/size/time/pay grids) DO wrap their labels */
+  .nw-grid-2up button,
+  .nw-grid-2up button * {
+    white-space: normal;
   }
 }
 
@@ -454,6 +462,13 @@ input[type="range"] {
 @media (max-width: 560px) {
   .nw-grid-2up {
     grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
+  }
+  /* let responsive grid tracks shrink below long-word min-content (LT text) */
+  .nw-grid-2up > *,
+  .nw-grid-3 > *,
+  .nw-grid-4 > *,
+  .nw-grid-6 > * {
+    min-width: 0;
   }
 }
 

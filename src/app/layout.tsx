@@ -1,7 +1,3 @@
-import { Footer } from "@/components/layout/Footer";
-import { Header } from "@/components/layout/Header";
-import { ScrollAnim } from "@/components/motion/ScrollAnim";
-import { JsonLd } from "@/components/seo/JsonLd";
 import type { Metadata, Viewport } from "next";
 import { Nunito_Sans, Poppins } from "next/font/google";
 import type { ReactNode } from "react";
@@ -24,30 +20,23 @@ const nunito = Nunito_Sans({
 export const metadata: Metadata = {
   metadataBase: new URL("https://www.nordwash.lt"),
   title: {
-    default: "NordWash — Cosmic Laundry for Humans & Aliens",
+    default: "NordWash — Kosminė skalbykla žmonėms ir ateiviams",
     template: "%s · NordWash",
   },
   description:
-    "Premium laundry, dry cleaning & cosmic care delivered across Lithuania. Free pickup, 24h express, 100% satisfaction. Book a wash today.",
-  keywords: ["laundry", "dry cleaning", "Lithuania", "pickup", "Vilnius", "Kaunas", "Klaipėda", "NordWash"],
-  alternates: { canonical: "/" },
-  openGraph: {
-    type: "website",
-    siteName: "NordWash",
-    url: "https://www.nordwash.lt",
-    title: "NordWash — Cosmic Laundry for Humans & Aliens",
-    description: "Premium laundry & dry cleaning delivered across Lithuania. Free pickup, 24h express.",
-    locale: "en",
-    images: [
-      { url: "/og.png", width: 1200, height: 630, alt: "NordWash — Cosmic Laundry for Humans & Aliens" },
-    ],
-  },
-  twitter: {
-    card: "summary_large_image",
-    title: "NordWash — Cosmic Laundry for Humans & Aliens",
-    description: "Premium laundry & dry cleaning delivered across Lithuania.",
-    images: ["/og.png"],
-  },
+    "Premium skalbimas, cheminis valymas ir kosminė priežiūra visoje Lietuvoje. Nemokamas paėmimas, 24 val. ekspresas, 100 % pasitenkinimas.",
+  keywords: [
+    "skalbykla",
+    "cheminis valymas",
+    "skalbimas",
+    "Lietuva",
+    "Vilnius",
+    "Kaunas",
+    "Klaipėda",
+    "laundry",
+    "dry cleaning",
+    "NordWash",
+  ],
   robots: { index: true, follow: true },
   icons: {
     icon: [
@@ -67,29 +56,8 @@ export const viewport: Viewport = {
 
 export default function RootLayout({ children }: { children: ReactNode }) {
   return (
-    <html lang="en" className={`${poppins.variable} ${nunito.variable}`}>
-      <body>
-        <a
-          href="#main"
-          style={{
-            position: "absolute",
-            left: -9999,
-            top: 0,
-            background: "#fff",
-            padding: "10px 16px",
-            borderRadius: 10,
-            zIndex: 100,
-          }}
-          className="fh"
-        >
-          Skip to content
-        </a>
-        <Header />
-        <main id="main">{children}</main>
-        <Footer />
-        <ScrollAnim />
-        <JsonLd />
-      </body>
+    <html lang="lt" className={`${poppins.variable} ${nunito.variable}`}>
+      <body>{children}</body>
     </html>
   );
 }
