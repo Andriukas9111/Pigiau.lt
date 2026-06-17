@@ -44,6 +44,7 @@ export function PriceCalculator() {
           <select
             value={s.service}
             onChange={(e) => set({ service: +e.target.value })}
+            aria-label="Service"
             style={{ ...selectStyle, fontSize: 14.5, padding: 14, borderRadius: 13, marginBottom: 18 }}
           >
             {CALC_SERVICES.map((o, i) => (

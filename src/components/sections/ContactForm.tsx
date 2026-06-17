@@ -89,9 +89,9 @@ export function ContactForm() {
               sw={2.4}
             />
           </div>
-          <h3 className="fh" style={{ fontWeight: 800, fontSize: 24, color: "#09245B", margin: "0 0 8px" }}>
+          <h2 className="fh" style={{ fontWeight: 800, fontSize: 24, color: "#09245B", margin: "0 0 8px" }}>
             {fallback ? "Let's connect directly" : "Message received!"}
-          </h3>
+          </h2>
           {fallback ? (
             <p
               style={{
@@ -153,16 +153,23 @@ export function ContactForm() {
         padding: 40,
       }}
     >
-      <h3 className="fh" style={{ fontWeight: 800, fontSize: 20, color: "#09245B", margin: "0 0 20px" }}>
+      <h2 className="fh" style={{ fontWeight: 800, fontSize: 20, color: "#09245B", margin: "0 0 20px" }}>
         Send us a message
-      </h3>
+      </h2>
       <div
         className="nw-grid-2c"
         style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 14, marginBottom: 14 }}
       >
         <div>
           <label style={labelStyle}>Name</label>
-          <input value={f.name} onChange={upd("name")} placeholder="Your name" required style={inputStyle} />
+          <input
+            value={f.name}
+            onChange={upd("name")}
+            placeholder="Your name"
+            required
+            aria-label="Name"
+            style={inputStyle}
+          />
         </div>
         <div>
           <label style={labelStyle}>Email</label>
@@ -172,6 +179,7 @@ export function ContactForm() {
             onChange={upd("email")}
             placeholder="you@email.com"
             required
+            aria-label="Email"
             style={inputStyle}
           />
         </div>
@@ -182,13 +190,25 @@ export function ContactForm() {
       >
         <div>
           <label style={labelStyle}>Phone</label>
-          <input value={f.phone} onChange={upd("phone")} placeholder="+370 …" style={inputStyle} />
+          <input
+            value={f.phone}
+            onChange={upd("phone")}
+            placeholder="+370 …"
+            aria-label="Phone"
+            style={inputStyle}
+          />
         </div>
         <div>
           <label style={labelStyle}>
             Order number <span style={{ color: "#9DB4D2" }}>(optional)</span>
           </label>
-          <input value={f.order} onChange={upd("order")} placeholder="NW-…" style={inputStyle} />
+          <input
+            value={f.order}
+            onChange={upd("order")}
+            placeholder="NW-…"
+            aria-label="Order number (optional)"
+            style={inputStyle}
+          />
         </div>
       </div>
       <div style={{ marginBottom: 14 }}>
@@ -197,6 +217,7 @@ export function ContactForm() {
           value={f.subject}
           onChange={upd("subject")}
           required
+          aria-label="Subject"
           style={{ ...inputStyle, fontWeight: 600, cursor: "pointer" }}
         >
           <option value="">Choose a topic…</option>
@@ -215,6 +236,7 @@ export function ContactForm() {
           placeholder="How can we help?"
           rows={4}
           required
+          aria-label="Message"
           style={{ ...inputStyle, resize: "vertical" }}
         />
       </div>

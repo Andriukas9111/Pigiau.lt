@@ -57,9 +57,9 @@ function StepHead({ n, title, sub }: { n: number; title: string; sub?: string })
         >
           {n}
         </span>
-        <h3 className="fh" style={{ fontWeight: 800, fontSize: 19, color: "#09245B", margin: 0 }}>
+        <h2 className="fh" style={{ fontWeight: 800, fontSize: 19, color: "#09245B", margin: 0 }}>
           {title}
-        </h3>
+        </h2>
       </div>
       {sub && <p style={{ fontSize: 13, color: "#7089AB", margin: "-6px 0 18px", paddingLeft: 42 }}>{sub}</p>}
     </>
@@ -479,6 +479,7 @@ export function BookingFlow() {
                       value={form.name}
                       onChange={(e) => setForm({ ...form, name: e.target.value })}
                       placeholder="Your name"
+                      aria-label="Full name"
                       style={reqStyle(form.name)}
                     />
                   </div>
@@ -488,6 +489,7 @@ export function BookingFlow() {
                       value={form.phone}
                       onChange={(e) => setForm({ ...form, phone: e.target.value })}
                       placeholder="+370 …"
+                      aria-label="Phone"
                       style={reqStyle(form.phone)}
                     />
                   </div>
@@ -498,6 +500,7 @@ export function BookingFlow() {
                     value={form.street}
                     onChange={(e) => setForm({ ...form, street: e.target.value })}
                     placeholder="Street, building, apt."
+                    aria-label="Street address"
                     style={reqStyle(form.street)}
                   />
                 </div>
@@ -515,6 +518,7 @@ export function BookingFlow() {
                     <input
                       value={form.city}
                       onChange={(e) => setForm({ ...form, city: e.target.value })}
+                      aria-label="City"
                       style={inputStyle}
                     />
                   </div>
@@ -526,6 +530,7 @@ export function BookingFlow() {
                       value={form.note}
                       onChange={(e) => setForm({ ...form, note: e.target.value })}
                       placeholder="Door code, etc."
+                      aria-label="Note (optional)"
                       style={inputStyle}
                     />
                   </div>

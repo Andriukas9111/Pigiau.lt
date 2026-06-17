@@ -71,9 +71,9 @@ export default function ContactPage() {
                 color: "#fff",
               }}
             >
-              <h4 className="fh" style={{ fontWeight: 800, fontSize: 18, margin: "0 0 18px" }}>
+              <h3 className="fh" style={{ fontWeight: 800, fontSize: 18, margin: "0 0 18px" }}>
                 Reach us directly
-              </h4>
+              </h3>
               <div style={{ display: "flex", flexDirection: "column", gap: 16, fontSize: 14 }}>
                 <InfoRow icon="phone" label="Phone" value={BRAND.phone} />
                 <InfoRow icon="mail" label="Email" value={<Email />} />
@@ -90,12 +90,12 @@ export default function ContactPage() {
                 padding: 24,
               }}
             >
-              <h4
+              <h3
                 className="fh"
                 style={{ fontWeight: 800, fontSize: 16, color: "#09245B", margin: "0 0 6px" }}
               >
                 Business enquiries
-              </h4>
+              </h3>
               <p style={{ fontSize: 13, color: "#6E86A8", lineHeight: 1.55, margin: "0 0 14px" }}>
                 Hotels, gyms, studios? We offer cosmic rates for recurring volume.
               </p>

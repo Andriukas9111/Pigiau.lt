@@ -64,10 +64,10 @@ export default function LocationsPage() {
                 </div>
                 <div style={{ flex: 1 }}>
                   <div style={{ display: "flex", justifyContent: "space-between", alignItems: "flex-start" }}>
-                    <h3 className="fh" style={{ fontWeight: 700, fontSize: 17, color: "#09245B", margin: 0 }}>
+                    <h2 className="fh" style={{ fontWeight: 700, fontSize: 17, color: "#09245B", margin: 0 }}>
                       {s.city}{" "}
                       <span style={{ color: "#9AAEC9", fontWeight: 600, fontSize: 13 }}>· {s.name}</span>
-                    </h3>
+                    </h2>
                     <span
                       className="fh"
                       style={{
@@ -176,7 +176,7 @@ export default function LocationsPage() {
             >
               ✦ WE COME TO YOU
             </div>
-            <h3
+            <h2
               className="fh"
               style={{
                 fontWeight: 800,
@@ -187,7 +187,7 @@ export default function LocationsPage() {
               }}
             >
               Door-to-door, across the galaxy (and Lithuania)
-            </h3>
+            </h2>
             <div
               className="nw-grid-3"
               style={{ display: "grid", gridTemplateColumns: "repeat(3,1fr)", gap: 16 }}
@@ -389,9 +389,9 @@ export default function LocationsPage() {
             >
               <Icon name="clock" size={26} c="#1E8BE8" />
             </div>
-            <h4 className="fh" style={{ fontWeight: 700, fontSize: 17, color: "#09245B", margin: "0 0 7px" }}>
+            <h3 className="fh" style={{ fontWeight: 700, fontSize: 17, color: "#09245B", margin: "0 0 7px" }}>
               Open late for busy humans
-            </h4>
+            </h3>
             <p style={{ fontSize: 13, color: "#7089AB", lineHeight: 1.55 }}>
               Most stations open early and close late — because laundry doesn't sleep, and neither do we.
             </p>
@@ -421,9 +421,9 @@ export default function LocationsPage() {
             >
               <Icon name="chat" size={26} c="#76C043" />
             </div>
-            <h4 className="fh" style={{ fontWeight: 700, fontSize: 17, color: "#09245B", margin: "0 0 7px" }}>
+            <h3 className="fh" style={{ fontWeight: 700, fontSize: 17, color: "#09245B", margin: "0 0 7px" }}>
               Real humans, real help
-            </h4>
+            </h3>
             <p style={{ fontSize: 13, color: "#7089AB", lineHeight: 1.55, marginBottom: 14 }}>
               Need help choosing a station or route? Our Earth-based team is here.
             </p>
@@ -456,9 +456,9 @@ export default function LocationsPage() {
             >
               <Icon name="chat" size={26} c="#7C5BD6" />
             </div>
-            <h4 className="fh" style={{ fontWeight: 700, fontSize: 17, color: "#09245B", margin: "0 0 7px" }}>
+            <h3 className="fh" style={{ fontWeight: 700, fontSize: 17, color: "#09245B", margin: "0 0 7px" }}>
               Questions about locations?
-            </h4>
+            </h3>
             <p style={{ fontSize: 13, color: "#7089AB", lineHeight: 1.55, marginBottom: 14 }}>
               Check our FAQ or talk to our support squad — faster than light.
             </p>

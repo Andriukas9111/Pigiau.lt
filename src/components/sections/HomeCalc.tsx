@@ -37,6 +37,7 @@ export function HomeCalc() {
           <select
             value={s.service}
             onChange={(e) => setS({ ...s, service: +e.target.value })}
+            aria-label="Service"
             style={selectStyle}
           >
             {HOME_SERVICES.map((o, i) => (
@@ -47,7 +48,12 @@ export function HomeCalc() {
           </select>
         </Field>
         <Field label="Laundry Type">
-          <select value={type} onChange={(e) => setType(e.target.value)} style={selectStyle}>
+          <select
+            value={type}
+            onChange={(e) => setType(e.target.value)}
+            aria-label="Laundry type"
+            style={selectStyle}
+          >
             {HOME_TYPES.map((t) => (
               <option key={t.key} value={t.key}>
                 {t.name}

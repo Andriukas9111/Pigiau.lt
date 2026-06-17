@@ -70,12 +70,12 @@ export default function ServicesPage() {
                     <Illustration name={s.img} />
                   </span>
                 </div>
-                <h3
+                <h2
                   className="fh"
                   style={{ fontWeight: 700, fontSize: 16, margin: "0 0 7px", color: "#09245B" }}
                 >
                   {s.title}
-                </h3>
+                </h2>
                 <p style={{ fontSize: 13, lineHeight: 1.5, color: "#6E86A8", margin: "0 0 14px", flex: 1 }}>
                   {s.desc}
                 </p>
@@ -102,10 +102,10 @@ export default function ServicesPage() {
       {/* 3) FABRICS */}
       <Section>
         <Card pad={40}>
-          <h3 className="fh" style={{ fontWeight: 800, fontSize: 20, color: "#09245B", margin: "0 0 18px" }}>
+          <h2 className="fh" style={{ fontWeight: 800, fontSize: 20, color: "#09245B", margin: "0 0 18px" }}>
             Fabrics we clean{" "}
             <span style={{ color: "#9AAEC9", fontWeight: 600, fontSize: 15 }}>(basically everything)</span>
-          </h3>
+          </h2>
           <div
             className="nw-two"
             style={{ display: "grid", gridTemplateColumns: "1fr .62fr", gap: 20, alignItems: "stretch" }}
@@ -203,12 +203,12 @@ export default function ServicesPage() {
                 >
                   <Icon name={w.icon} size={28} c="#fff" sw={2.2} />
                 </div>
-                <h4
+                <h3
                   className="fh"
                   style={{ fontWeight: 700, fontSize: 15, margin: "0 0 6px", color: "#09245B" }}
                 >
                   {w.title}
-                </h4>
+                </h3>
                 <p style={{ fontSize: 12, lineHeight: 1.5, color: "#7089AB", margin: 0 }}>{w.desc}</p>
               </div>
             ))}
@@ -235,7 +235,7 @@ export default function ServicesPage() {
           }}
         >
           <div>
-            <h3
+            <h2
               className="fh"
               style={{
                 fontWeight: 800,
@@ -246,7 +246,7 @@ export default function ServicesPage() {
               }}
             >
               Your clothes have been through a lot.
-            </h3>
+            </h2>
             <p style={{ fontSize: 16, color: "#48618A", margin: "0 0 20px" }}>
               Let us take it from here. Book a pickup and meet the crew.
             </p>
