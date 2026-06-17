@@ -38,21 +38,29 @@ const TRUST: { img: IllustrationName; t: Tx; s: Tx }[] = [
 ];
 
 export function TrustRow({ lang, style }: { lang: Locale; style?: CSSProperties }) {
-  return (
-    <div className="nw-row-wrap" style={{ display: "flex", gap: 22, ...style }}>
-      {TRUST.map((x) => (
-        <div key={x.img} style={{ display: "flex", alignItems: "center", gap: 10 }}>
+  const set = (dup: boolean) => (
+    <div className={`nw-trust-set${dup ? " nw-trust-dup" : ""}`} aria-hidden={dup || undefined}>
+      {TRUST.map((x, i) => (
+        <div key={`${dup ? "d" : ""}${i}`} className="nw-trust-item">
           <span style={{ width: 38, height: 38, flex: "none" }}>
             <Illustration name={x.img} alt="" />
           </span>
           <span>
-            <b className="fh" style={{ display: "block", fontSize: 13.5, color: "#09245B" }}>
+            <b className="fh" style={{ display: "block", fontSize: 13.5, color: "#09245B", whiteSpace: "nowrap" }}>
               {tt(x.t, lang)}
             </b>
-            <span style={{ fontSize: 12, color: "#7FA0C4" }}>{tt(x.s, lang)}</span>
+            <span style={{ fontSize: 12, color: "#7FA0C4", whiteSpace: "nowrap" }}>{tt(x.s, lang)}</span>
           </span>
         </div>
       ))}
+    </div>
+  );
+  return (
+    <div className="nw-trust" style={style}>
+      <div className="nw-trust-track">
+        {set(false)}
+        {set(true)}
+      </div>
     </div>
   );
 }
