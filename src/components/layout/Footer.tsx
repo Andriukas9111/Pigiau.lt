@@ -246,6 +246,14 @@ export function Footer() {
         }}
       >
         <span>{BRAND.copyright}</span>
+        <span style={{ display: "inline-flex", gap: 18 }}>
+          <Link href="/privacy" className="nw-link" style={{ color: "#9FB6DD", textDecoration: "none" }}>
+            Privacy
+          </Link>
+          <Link href="/terms" className="nw-link" style={{ color: "#9FB6DD", textDecoration: "none" }}>
+            Terms
+          </Link>
+        </span>
         <span style={{ display: "inline-flex", alignItems: "center", gap: 5 }}>
           Made with
           <svg width="13" height="13" viewBox="0 0 24 24" fill="#76C043" aria-hidden="true">
