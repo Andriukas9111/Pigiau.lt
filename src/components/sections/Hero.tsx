@@ -118,7 +118,7 @@ export function SceneHero({
           >
             {subtitle}
           </p>
-          <div className="nw-row-wrap" style={{ display: "flex", gap: 14, alignItems: "center" }}>
+          <div className="nw-btnrow" style={{ display: "flex", gap: 14, alignItems: "center" }}>
             <Btn href="/booking" icon="rocket">
               BOOK A PICKUP
             </Btn>

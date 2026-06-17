@@ -263,7 +263,7 @@ export default function AboutPage() {
             <p style={{ fontSize: 16, color: "#48618A", margin: "0 0 20px" }}>
               Send your laundry our way — first contact is on us, with 10% off.
             </p>
-            <div className="nw-row-wrap" style={{ display: "flex", gap: 14 }}>
+            <div className="nw-btnrow" style={{ display: "flex", gap: 14 }}>
               <Btn href="/booking">Book a pickup</Btn>
               <Btn href="/contact" variant="ghost">
                 Say hello

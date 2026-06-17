@@ -240,7 +240,7 @@ export function BookingFlow() {
                 {money(total)}
               </span>
             </div>
-            <div className="nw-row-wrap" style={{ display: "flex", gap: 14, justifyContent: "center" }}>
+            <div className="nw-btnrow" style={{ display: "flex", gap: 14, justifyContent: "center" }}>
               <a
                 href="/"
                 className="nw-btn-primary fh"

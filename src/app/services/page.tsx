@@ -230,9 +230,9 @@ export default function ServicesPage() {
             <p style={{ fontSize: 16, color: "#48618A", margin: "0 0 20px" }}>
               Let us take it from here. Book a pickup and meet the crew.
             </p>
-            <div className="nw-row-wrap" style={{ display: "flex", gap: 14 }}>
+            <div className="nw-btnrow" style={{ display: "flex", gap: 14 }}>
               <Btn href="/booking" icon="rocket">
-                BOOK A PICKUP TODAY
+                BOOK A PICKUP
               </Btn>
               <Btn href="/prices" variant="ghost">
                 See prices
