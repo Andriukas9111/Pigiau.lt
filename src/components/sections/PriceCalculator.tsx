@@ -219,7 +219,10 @@ export function PriceCalculator() {
           </button>
         </div>
 
-        <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 12, marginTop: 12 }}>
+        <div
+          className="nw-grid-2c"
+          style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 12, marginTop: 12 }}
+        >
           <Stepper
             label="Bags"
             value={s.bags}

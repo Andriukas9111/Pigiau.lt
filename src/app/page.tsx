@@ -92,8 +92,12 @@ function HowItWorks() {
           <div style={{ textAlign: "center", marginBottom: 30 }}>
             <Eyebrow>HOW IT WORKS</Eyebrow>
           </div>
-          <div style={{ display: "flex", justifyContent: "space-between", gap: 8, position: "relative" }}>
+          <div
+            className="nw-how"
+            style={{ display: "flex", justifyContent: "space-between", gap: 8, position: "relative" }}
+          >
             <div
+              className="nw-how-line"
               style={{
                 position: "absolute",
                 top: 62,
@@ -104,51 +108,60 @@ function HowItWorks() {
               }}
             />
             {STEPS.map((st) => (
-              <div key={st.n} style={{ flex: 1, textAlign: "center", position: "relative", zIndex: 1 }}>
-                <div
-                  style={{
-                    width: 124,
-                    height: 124,
-                    borderRadius: "50%",
-                    background: "#fff",
-                    border: "2px solid #E3EEFA",
-                    boxShadow: "0 8px 18px rgba(31,109,200,.10)",
-                    display: "flex",
-                    alignItems: "center",
-                    justifyContent: "center",
-                    margin: "0 auto 10px",
-                    overflow: "hidden",
-                    padding: 6,
-                  }}
-                >
-                  <Illustration name={st.img} />
+              <div
+                key={st.n}
+                className="nw-how-step"
+                style={{ flex: 1, textAlign: "center", position: "relative", zIndex: 1 }}
+              >
+                <div className="nw-how-ico">
+                  <div
+                    className="nw-how-circ"
+                    style={{
+                      width: 124,
+                      height: 124,
+                      borderRadius: "50%",
+                      background: "#fff",
+                      border: "2px solid #E3EEFA",
+                      boxShadow: "0 8px 18px rgba(31,109,200,.10)",
+                      display: "flex",
+                      alignItems: "center",
+                      justifyContent: "center",
+                      margin: "0 auto 10px",
+                      overflow: "hidden",
+                      padding: 6,
+                    }}
+                  >
+                    <Illustration name={st.img} />
+                  </div>
+                  <div
+                    className="fh"
+                    style={{
+                      width: 26,
+                      height: 26,
+                      borderRadius: "50%",
+                      background: "#1E8BE8",
+                      color: "#fff",
+                      fontWeight: 700,
+                      fontSize: 13,
+                      display: "flex",
+                      alignItems: "center",
+                      justifyContent: "center",
+                      margin: "-26px auto 12px",
+                      border: "3px solid #fff",
+                    }}
+                  >
+                    {st.n}
+                  </div>
                 </div>
-                <div
-                  className="fh"
-                  style={{
-                    width: 26,
-                    height: 26,
-                    borderRadius: "50%",
-                    background: "#1E8BE8",
-                    color: "#fff",
-                    fontWeight: 700,
-                    fontSize: 13,
-                    display: "flex",
-                    alignItems: "center",
-                    justifyContent: "center",
-                    margin: "-26px auto 12px",
-                    border: "3px solid #fff",
-                  }}
-                >
-                  {st.n}
+                <div className="nw-how-txt">
+                  <h4
+                    className="fh"
+                    style={{ fontWeight: 700, fontSize: 14.5, margin: "0 0 6px", color: "#09245B" }}
+                  >
+                    {st.title}
+                  </h4>
+                  <p style={{ fontSize: 12.5, lineHeight: 1.5, color: "#7089AB", margin: 0 }}>{st.desc}</p>
                 </div>
-                <h4
-                  className="fh"
-                  style={{ fontWeight: 700, fontSize: 14.5, margin: "0 0 6px", color: "#09245B" }}
-                >
-                  {st.title}
-                </h4>
-                <p style={{ fontSize: 12.5, lineHeight: 1.5, color: "#7089AB", margin: 0 }}>{st.desc}</p>
               </div>
             ))}
           </div>
