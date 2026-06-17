@@ -161,7 +161,7 @@ export function PriceCalculator() {
               >
                 <div style={{ fontWeight: 700, fontSize: 12.5 }}>{tt(u.name)}</div>
                 <div style={{ fontSize: 10.5, color: "#8AA0C0", marginTop: 2 }}>
-                  {u.sub} · {u.price > 0 ? `+${money(u.price)}` : tr("Free", "Nemokamai")}
+                  {u.sub} · {u.price > 0 ? `+${money(u.price, lang)}` : tr("Free", "Nemokamai")}
                 </div>
               </button>
             );
@@ -183,7 +183,7 @@ export function PriceCalculator() {
               key={e.key}
               checked={!!s.extras[e.key]}
               label={tt(e.name)}
-              price={`+${money(e.price)}`}
+              price={`+${money(e.price, lang)}`}
               onToggle={() => toggleExtra(e.key)}
               pad="11px 13px"
               box={20}
@@ -217,7 +217,7 @@ export function PriceCalculator() {
                   {tr("Pickup & Delivery", "Paėmimas ir pristatymas")}
                 </b>
                 <span style={{ fontSize: 11, color: "#8AA0C0" }}>
-                  {tr("+€4.50 · or drop off free", "+4,50 € · arba atvežk nemokamai")}
+                  {tr("+€4.50 · or drop off free", "+4,50 € · arba atveškite patys nemokamai")}
                 </span>
               </span>
             </span>
@@ -305,7 +305,7 @@ export function PriceCalculator() {
               >
                 <span>{li.label}</span>
                 <span style={{ fontWeight: 700, color: "#fff", whiteSpace: "nowrap" }}>
-                  {money(li.amount)}
+                  {money(li.amount, lang)}
                 </span>
               </div>
             ))}
@@ -325,7 +325,7 @@ export function PriceCalculator() {
               {tr("Total", "Iš viso")}
             </span>
             <span className="fh" style={{ fontWeight: 800, fontSize: 38, lineHeight: 1 }}>
-              {money(total)}
+              {money(total, lang)}
             </span>
           </div>
 
@@ -348,7 +348,7 @@ export function PriceCalculator() {
               textDecoration: "none",
             }}
           >
-            {tr("BOOK PICKUP", "UŽSISAKYK PAĖMIMĄ")}
+            {tr("BOOK PICKUP", "UŽSISAKYTI PAĖMIMĄ")}
             <Icon name="arrow" c="#09245B" size={16} sw={2} />
           </a>
           <a
@@ -375,8 +375,8 @@ export function PriceCalculator() {
             <Icon name="save" c="#fff" size={15} sw={1.9} />
           </a>
           <div style={{ textAlign: "center", fontSize: 11, color: "#7E97C4", marginTop: 12 }}>
-            {tr("First order? Use", "Pirmas užsakymas? Įvesk")} <b style={{ color: "#B8F35A" }}>HELLOEARTH</b>{" "}
-            {tr("for 10% off.", "ir gauk 10 % nuolaidą.")}
+            {tr("First order? Use", "Pirmas užsakymas? Įveskite")}{" "}
+            <b style={{ color: "#B8F35A" }}>HELLOEARTH</b> {tr("for 10% off.", "ir gaukite 10 % nuolaidą.")}
           </div>
         </div>
       </div>

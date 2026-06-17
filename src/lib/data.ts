@@ -70,13 +70,13 @@ export const SERVICES: Service[] = [
   },
   {
     key: "disguise",
-    title: T("Disguise Dry Clean", "Maskuotės sausas valymas"),
+    title: T("Disguise Dry Clean", "Maskuotės cheminis valymas"),
     img: "disguise",
     desc: T(
       "From human suits to invisible cloaks. We clean it all.",
       "Nuo žmogiškų kostiumų iki nematomų apsiaustų. Išvalome viską.",
     ),
-    quote: T("Blend in. (Literally.)", "Įsiliekite. (Tiesiogine prasme.)"),
+    quote: T("Blend in. (Literally.)", "Tobula priedanga. (Tiesiogine prasme.)"),
     price: 19.9,
   },
   {
@@ -96,9 +96,9 @@ export const SERVICES: Service[] = [
     img: "blanket",
     desc: T(
       "Quilts, duvets & even cosmic sleeping bags. Fluffy again.",
-      "Antklodės, dygsniuotos ir net kosminiai miegmaišiai. Vėl purūs.",
+      "Antklodės, patalai ir net kosminiai miegmaišiai. Vėl minkšti ir purūs.",
     ),
-    quote: T("Nap like a nebula.", "Snūstelėkite kaip ūkas."),
+    quote: T("Nap like a nebula.", "Snauskite tarp žvaigždžių."),
     price: 18.5,
   },
   {
@@ -107,7 +107,7 @@ export const SERVICES: Service[] = [
     img: "fold",
     desc: T(
       "Folded with precision. Beamed to your door. Neat as a nebula.",
-      "Tiksliai sulankstyta. Pristatyta prie durų. Tvarkinga kaip ūkas.",
+      "Tiksliai sulankstyta ir pristatyta prie durų. Nepriekaištinga tvarka.",
     ),
     quote: T("Folded. Fast. Flawless.", "Sulankstyta. Greitai. Nepriekaištingai."),
     price: 11.0,
@@ -125,13 +125,13 @@ export const SERVICES: Service[] = [
   },
   {
     key: "suit",
-    title: T("Deluxe Human Suit Refresh", "Prabangaus žmogaus kostiumo gaiva"),
+    title: T("Deluxe Human Suit Refresh", "Prabangaus žmogiškojo kostiumo gaiva"),
     img: "suit",
     desc: T(
       "For meetings, dates, and definitely-not-cover-story emergencies.",
-      "Susitikimams, pasimatymams ir tikrai-ne-priedangai skirtoms situacijoms.",
+      "Susitikimams, pasimatymams ir kitoms (visai ne slaptoms) progoms.",
     ),
-    quote: T("Look human. Smell stellar.", "Atrodyk žmogiškai. Kvepėk žvaigždiškai."),
+    quote: T("Look human. Smell stellar.", "Atrodykite kaip žmogus, kvepėkite kaip žvaigždė."),
     price: 24.0,
   },
 ];
@@ -143,7 +143,7 @@ export interface CalcService {
 export const CALC_SERVICES: CalcService[] = [
   { name: T("Standard Wash & Fold", "Standartinis skalbimas ir lankstymas"), base: 12 },
   { name: T("Steam Press", "Garų lyginimas"), base: 14 },
-  { name: T("Disguise Dry Clean", "Maskuotės sausas valymas"), base: 19.9 },
+  { name: T("Disguise Dry Clean", "Maskuotės cheminis valymas"), base: 19.9 },
   { name: T("Emergency Stain Rescue", "Skubus dėmių gelbėjimas"), base: 12 },
   { name: T("Space Blanket Refresh", "Kosminių antklodžių gaiva"), base: 18.5 },
   { name: T("Express Fold & Beam", "Greitas lankstymas ir pristatymas"), base: 11 },
@@ -346,7 +346,13 @@ export const COMPARE_ROWS: CompareRow[] = [
   },
   {
     label: T("Pickup & Delivery", "Paėmimas ir pristatymas"),
-    cells: ["+€4.50", "+€4.50", T("Free", "Nemokamai"), T("Free", "Nemokamai"), "+€4.50"],
+    cells: [
+      T("+€4.50", "+4,50 €"),
+      T("+€4.50", "+4,50 €"),
+      T("Free", "Nemokamai"),
+      T("Free", "Nemokamai"),
+      T("+€4.50", "+4,50 €"),
+    ],
   },
 ];
 
@@ -406,7 +412,7 @@ export const STATIONS: Station[] = [
     img: "wash",
     tags: [
       T("Wash & Fold", "Skalbimas ir lankstymas"),
-      T("Dry Clean", "Sausas valymas"),
+      T("Dry Clean", "Cheminis valymas"),
       T("Express", "Ekspresas"),
     ],
     rating: "4.9",
@@ -442,7 +448,7 @@ export const STATIONS: Station[] = [
     hours: "09:00 – 18:00",
     color: "#F2A53B",
     img: "stain",
-    tags: [T("Wash & Fold", "Skalbimas ir lankstymas"), T("Dry Clean", "Sausas valymas")],
+    tags: [T("Wash & Fold", "Skalbimas ir lankstymas"), T("Dry Clean", "Cheminis valymas")],
     rating: "4.7",
   },
   {
@@ -604,8 +610,8 @@ export const STORY: StoryItem[] = [
   },
   {
     icon: "rocket",
-    year: T("Year 0", "0-iniai metai"),
-    title: T("We Packed Up", "Susikuprinome"),
+    year: T("Year 0", "Nuliniai metai"),
+    title: T("We Packed Up", "Susikrovėme lagaminus"),
     desc: T(
       "We found Earthlings struggle with laundry. So we came to help.",
       "Pastebėjome, kad žemiečiai kankinasi su skalbiniais. Tad atvykome padėti.",
@@ -681,7 +687,7 @@ export const VALUES: ValueItem[] = [
   },
   {
     icon: "smile",
-    title: T("Human (ish) Touch", "Žmogiškas (beveik) prisilietimas"),
+    title: T("Human (ish) Touch", "Beveik žmogiškas rūpestis"),
     desc: T(
       "Friendly crew, real support, happy customers.",
       "Draugiška komanda, tikra pagalba, laimingi klientai.",

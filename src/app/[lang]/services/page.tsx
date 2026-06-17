@@ -10,13 +10,26 @@ import { type Locale, localePath, trFor, tt } from "@/lib/i18n";
 import type { Metadata } from "next";
 import Link from "next/link";
 
+/** Cosmic brand palette cycled across the fabric chips so the icons feel as
+ *  colourful and varied as the rest of the site (not a monotone blue block). */
+const FABRIC_COLORS: [string, string][] = [
+  ["#5BB4F5", "#1366B2"], // blue
+  ["#8FD66A", "#5A9E2E"], // green
+  ["#A88BE6", "#6B43C9"], // purple
+  ["#F6B25A", "#E08A1E"], // orange
+  ["#F186AE", "#D14E7C"], // pink
+  ["#54C7BD", "#1F9488"], // teal
+  ["#7FA8F0", "#3E63C7"], // indigo
+  ["#F2A05A", "#D9701E"], // amber
+];
+
 export async function generateMetadata({ params }: { params: Promise<{ lang: string }> }): Promise<Metadata> {
   const { lang } = await params;
   const lt = lang === "lt";
   return {
     title: lt ? "Paslaugos" : "Services",
     description: lt
-      ? "Šiaurinės žvaigždės skalbimas, garų lyginimas, maskuotės sausas valymas, dėmių gelbėjimas, antklodžių gaiva ir greitas lankstymas — aukščiausios klasės skalbimo ir cheminio valymo paslaugos visoje Lietuvoje."
+      ? "Šiaurinės žvaigždės skalbimas, garų lyginimas, maskuotės cheminis valymas, dėmių gelbėjimas, antklodžių gaiva ir greitas lankstymas — aukščiausios klasės skalbimo ir cheminio valymo paslaugos visoje Lietuvoje."
       : "North Star Wash, steam press, disguise dry clean, stain rescue, blanket refresh & express fold — premium laundry & dry-cleaning services delivered across Lithuania.",
     alternates: {
       canonical: `/${lang}/services`,
@@ -47,7 +60,7 @@ export default async function ServicesPage({ params }: { params: Promise<{ lang:
         }
         subtitle={tr(
           "We wash. We steam. We refresh. We even clean your disguises. Because looking human is hard.",
-          "Skalbiame. Lyginame garais. Gaiviname. Net išvalome jūsų maskuotes. Nes atrodyti kaip žmogui sunku.",
+          "Skalbiame. Lyginame garais. Gaiviname. Net išvalome jūsų maskuotę. Nes apsimesti žmogumi — nelengva.",
         )}
       />
 
@@ -132,42 +145,45 @@ export default async function ServicesPage({ params }: { params: Promise<{ lang:
             style={{ display: "grid", gridTemplateColumns: "1fr .62fr", gap: 20, alignItems: "stretch" }}
           >
             <div
-              className="nw-grid-4"
+              className="nw-grid-4 nw-grid-2up"
               style={{ display: "grid", gridTemplateColumns: "repeat(4,1fr)", gap: 12 }}
             >
-              {FABRICS.map((f) => (
-                <div
-                  key={f.name.en}
-                  className="nw-chip"
-                  style={{
-                    background: "#FbFdFF",
-                    border: "1px solid #EAF2FC",
-                    borderRadius: 16,
-                    padding: "14px 12px",
-                    textAlign: "center",
-                  }}
-                >
+              {FABRICS.map((f, i) => {
+                const c = FABRIC_COLORS[i % FABRIC_COLORS.length];
+                return (
                   <div
+                    key={f.name.en}
+                    className="nw-chip"
                     style={{
-                      width: 40,
-                      height: 40,
-                      borderRadius: 12,
-                      background: "linear-gradient(145deg,#5BB4F5 0%,#1E8BE8 60%,#1366B2 100%)",
-                      boxShadow: "0 6px 14px rgba(30,139,232,.24)",
-                      display: "flex",
-                      alignItems: "center",
-                      justifyContent: "center",
-                      margin: "0 auto 8px",
+                      background: "#FbFdFF",
+                      border: "1px solid #EAF2FC",
+                      borderRadius: 16,
+                      padding: "16px 12px",
+                      textAlign: "center",
                     }}
                   >
-                    <Icon name={f.icon} size={20} c="#fff" sw={2.2} />
+                    <div
+                      style={{
+                        width: 46,
+                        height: 46,
+                        borderRadius: 14,
+                        background: `linear-gradient(150deg, ${c[0]} 0%, ${c[1]} 100%)`,
+                        boxShadow: `0 6px 14px ${c[1]}40`,
+                        display: "flex",
+                        alignItems: "center",
+                        justifyContent: "center",
+                        margin: "0 auto 10px",
+                      }}
+                    >
+                      <Icon name={f.icon} size={22} c="#fff" sw={2.2} />
+                    </div>
+                    <div className="fh" style={{ fontWeight: 700, fontSize: 13, color: "#09245B" }}>
+                      {tt(f.name, l)}
+                    </div>
+                    <div style={{ fontSize: 11, color: "#8AA0C0", marginTop: 2 }}>{tt(f.note, l)}</div>
                   </div>
-                  <div className="fh" style={{ fontWeight: 700, fontSize: 13, color: "#09245B" }}>
-                    {tt(f.name, l)}
-                  </div>
-                  <div style={{ fontSize: 11, color: "#8AA0C0", marginTop: 2 }}>{tt(f.note, l)}</div>
-                </div>
-              ))}
+                );
+              })}
             </div>
             <div
               style={{
@@ -186,7 +202,7 @@ export default async function ServicesPage({ params }: { params: Promise<{ lang:
                 <b style={{ fontStyle: "normal", color: "#1E8BE8" }}>
                   {tr("we'll clean it.", "mes tai išvalysime.")}
                 </b>{" "}
-                {tr("When in doubt — abduct it.", "Jei abejoji — pagrobk tai.")}
+                {tr("When in doubt — abduct it.", "Jei abejojate — tiesiog pagrobkite.")}
               </div>
             </div>
           </div>
@@ -276,12 +292,12 @@ export default async function ServicesPage({ params }: { params: Promise<{ lang:
             <p style={{ fontSize: 16, color: "#48618A", margin: "0 0 20px" }}>
               {tr(
                 "Let us take it from here. Book a pickup and meet the crew.",
-                "Toliau pasirūpinsime mes. Užsisakyk paėmimą ir susipažink su komanda.",
+                "Toliau pasirūpinsime mes. Užsisakykite paėmimą ir susipažinkite su komanda.",
               )}
             </p>
             <div className="nw-btnrow" style={{ display: "flex", gap: 14 }}>
               <Btn href={localePath("/booking", l)} icon="rocket">
-                {tr("BOOK A PICKUP", "UŽSISAKYK PAĖMIMĄ")}
+                {tr("BOOK A PICKUP", "UŽSISAKYTI PAĖMIMĄ")}
               </Btn>
               <Btn href={localePath("/prices", l)} variant="ghost">
                 {tr("See prices", "Žiūrėti kainas")}

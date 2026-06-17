@@ -296,9 +296,9 @@ export default async function AboutPage({ params }: { params: Promise<{ lang: st
               )}
             </p>
             <div className="nw-btnrow" style={{ display: "flex", gap: 14 }}>
-              <Btn href={localePath("/booking", l)}>{tr("Book a pickup", "Užsisakyk paėmimą")}</Btn>
+              <Btn href={localePath("/booking", l)}>{tr("Book a pickup", "Užsisakyti paėmimą")}</Btn>
               <Btn href={localePath("/contact", l)} variant="ghost">
-                {tr("Say hello", "Pasisveikink")}
+                {tr("Say hello", "Pasisveikinti")}
               </Btn>
             </div>
           </div>

@@ -33,7 +33,7 @@ const TRUST: { img: IllustrationName; t: Tx; s: Tx }[] = [
   {
     img: "shield",
     t: T("100% Satisfaction", "100 % pasitenkinimas"),
-    s: T("Or We Abduct (Kidding)", "Arba pagrobsim (juokas)"),
+    s: T("Or We Abduct (Kidding)", "Arba pagrobsim (juokaujam)"),
   },
 ];
 
@@ -46,7 +46,10 @@ export function TrustRow({ lang, style }: { lang: Locale; style?: CSSProperties 
             <Illustration name={x.img} alt="" />
           </span>
           <span>
-            <b className="fh" style={{ display: "block", fontSize: 13.5, color: "#09245B", whiteSpace: "nowrap" }}>
+            <b
+              className="fh"
+              style={{ display: "block", fontSize: 13.5, color: "#09245B", whiteSpace: "nowrap" }}
+            >
               {tt(x.t, lang)}
             </b>
             <span style={{ fontSize: 12, color: "#7FA0C4", whiteSpace: "nowrap" }}>{tt(x.s, lang)}</span>
@@ -136,7 +139,7 @@ export function SceneHero({
           </p>
           <div className="nw-btnrow" style={{ display: "flex", gap: 14, alignItems: "center" }}>
             <Btn href={localePath("/booking", lang)} icon="rocket">
-              {tr("BOOK A PICKUP", "UŽSISAKYK PAĖMIMĄ")}
+              {tr("BOOK A PICKUP", "UŽSISAKYTI PAĖMIMĄ")}
             </Btn>
             <Btn href={localePath("/prices", lang)} variant="ghost" icon="pin">
               {tr("VIEW PRICES", "ŽIŪRĖTI KAINAS")}

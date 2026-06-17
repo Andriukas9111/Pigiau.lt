@@ -17,7 +17,7 @@ export async function generateMetadata({ params }: { params: Promise<{ lang: str
   return {
     title: lt ? "Kainos" : "Prices & Live Calculator",
     description: lt
-      ? "Susidėliokite skalbimą ir iškart pamatykite kainą. Skaidrios skalbimo ir cheminio valymo kainos su nemokamu paėmimu ir pristatymu didžiojoje Lietuvos dalyje — jokių paslėptų mokesčių."
+      ? "Pasirinkite paslaugas ir iškart matykite kainą. Skaidrios skalbimo ir cheminio valymo kainos su nemokamu paėmimu ir pristatymu didžiojoje Lietuvos dalyje — jokių paslėptų mokesčių."
       : "Build your wash and see your price instantly. Transparent laundry & dry-cleaning prices with free pickup & delivery in most of Lithuania — no hidden fees.",
     alternates: {
       canonical: `/${lang}/prices`,
@@ -98,7 +98,7 @@ function Packages({ l }: { l: Locale }) {
                     className="fh"
                     style={{ fontWeight: 800, fontSize: 34, color: "#09245B", lineHeight: 1 }}
                   >
-                    €{p.price}
+                    {l === "lt" ? `${p.price} €` : `€${p.price}`}
                   </span>
                   <span style={{ fontSize: 12, color: "#9AAEC9", marginBottom: 4 }}>
                     {tr("/ order", "/ užsakymas")}
@@ -372,7 +372,7 @@ function HowEstimate({ l }: { l: Locale }) {
             )}
           </p>
           <div className="fh" style={{ fontWeight: 800, fontSize: 15, color: "#09245B" }}>
-            {tr("Flat rate €4.50", "Fiksuotas tarifas €4.50")}{" "}
+            {tr("Flat rate €4.50", "Fiksuotas tarifas 4,50 €")}{" "}
             <span style={{ fontWeight: 600, color: "#7089AB", fontSize: 13 }}>
               {tr("· one-way or round trip", "· į vieną pusę arba pirmyn ir atgal")}
             </span>
@@ -391,10 +391,10 @@ export default async function PricesPage({ params }: { params: Promise<{ lang: s
     <div className="nw-fade">
       <PageBanner
         image="hero_prices"
-        title={tr("Prices & Live Calculator", "Kainos ir gyva skaičiuoklė")}
+        title={tr("Prices & Live Calculator", "Kainos ir skaičiuoklė realiu laiku")}
         alt={tr(
           "Prices & live calculator — see your price instantly",
-          "Kainos ir gyva skaičiuoklė — pamatykite kainą iškart",
+          "Kainos ir skaičiuoklė realiu laiku — matykite kainą iškart",
         )}
       />
 
@@ -403,7 +403,7 @@ export default async function PricesPage({ params }: { params: Promise<{ lang: s
           <Eyebrow>
             {tr(
               "BUILD YOUR WASH · SEE YOUR PRICE INSTANTLY",
-              "SUSIDĖLIOKITE SKALBIMĄ · PAMATYKITE KAINĄ IŠKART",
+              "PASIRINKITE PASLAUGAS · MATYKITE KAINĄ IŠ KARTO",
             )}
           </Eyebrow>
         </div>
@@ -448,12 +448,12 @@ export default async function PricesPage({ params }: { params: Promise<{ lang: s
                 letterSpacing: "-.5px",
               }}
             >
-              {tr("Happy with your estimate?", "Patenkinti įvertinimu?")}
+              {tr("Happy with your estimate?", "Patinka sąmata?")}
             </h3>
             <p style={{ fontSize: 16, color: "#48618A", margin: "0 0 20px" }}>
               {tr(
                 "Lock it in — book a pickup and our crew handles the rest.",
-                "Užfiksuokite — užsisakykite paėmimą, o visa kita pasirūpins mūsų komanda.",
+                "Užsisakykite paėmimą, o visa kita pasirūpins mūsų komanda.",
               )}
             </p>
             <Btn href={localePath("/booking", l)} icon="rocket">

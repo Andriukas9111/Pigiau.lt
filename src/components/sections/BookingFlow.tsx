@@ -182,7 +182,7 @@ export function BookingFlow() {
           note: form.note,
           pay: PAY_METHODS.find((p) => p.key === pay)?.name ?? pay,
           extras: BOOKING_EXTRAS.filter((e) => extras[e.key]).map((e) => e.name),
-          total: money(total),
+          total: money(total, lang),
         }),
       });
       const data = (await res.json().catch(() => null)) as { ok?: boolean; delivered?: boolean } | null;
@@ -344,7 +344,7 @@ export function BookingFlow() {
             >
               <span style={{ fontSize: 13, color: "#7089AB" }}>{tr("Order total", "Užsakymo suma")}</span>
               <span className="fh" style={{ fontWeight: 800, fontSize: 22, color: "#1E8BE8" }}>
-                {money(total)}
+                {money(total, lang)}
               </span>
             </div>
             <div className="nw-btnrow" style={{ display: "flex", gap: 14, justifyContent: "center" }}>
@@ -465,7 +465,7 @@ export function BookingFlow() {
                           {tt(s.title)}
                         </b>
                         <span style={{ fontSize: 13, color: "#1E8BE8", fontWeight: 800 }}>
-                          €{s.price.toFixed(2)}
+                          {money(s.price, lang)}
                         </span>
                       </button>
                     );
@@ -677,7 +677,7 @@ export function BookingFlow() {
                       key={e.key}
                       checked={extras[e.key]}
                       label={tt(e.name)}
-                      price={`+€${e.price.toFixed(2)}`}
+                      price={`+${money(e.price, lang)}`}
                       onToggle={() => setExtras({ ...extras, [e.key]: !extras[e.key] })}
                       pad="12px 14px"
                       box={20}
@@ -744,7 +744,7 @@ export function BookingFlow() {
                 >
                   {submitting
                     ? tr("Confirming…", "Patvirtinama…")
-                    : `${tr("Confirm & Pay", "Patvirtinti ir mokėti")} ${money(total)}`}
+                    : `${tr("Confirm & Pay", "Patvirtinti ir mokėti")} ${money(total, lang)}`}
                   {!submitting && <Icon name="rocket" c="#09245B" size={17} sw={2} />}
                 </button>
                 <div style={{ textAlign: "center", fontSize: 11.5, color: "#9DB4D2", marginTop: 12 }}>
@@ -853,8 +853,8 @@ export function BookingFlow() {
                   fontSize: 13,
                 }}
               >
-                <Row label={tr("Subtotal", "Tarpinė suma")} value={money(subtotal)} />
-                <Row label={tr("Extras", "Priedai")} value={money(extrasTotal)} />
+                <Row label={tr("Subtotal", "Tarpinė suma")} value={money(subtotal, lang)} />
+                <Row label={tr("Extras", "Priedai")} value={money(extrasTotal, lang)} />
                 <Row
                   label={tr("Pickup & Delivery", "Paėmimas ir pristatymas")}
                   value={tr("FREE", "NEMOKAMAI")}
@@ -878,7 +878,7 @@ export function BookingFlow() {
                   className="fh"
                   style={{ fontWeight: 800, fontSize: 30, color: "#1E8BE8", lineHeight: 1 }}
                 >
-                  {money(total)}
+                  {money(total, lang)}
                 </span>
               </div>
             </div>

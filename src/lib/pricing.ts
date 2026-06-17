@@ -1,7 +1,9 @@
 import { type Locale, tt } from "@/lib/i18n";
 import { CALC_EXTRAS, CALC_SERVICES, CTYPES, SERVICES, SIZES, URGENCY } from "./data";
 
-export const money = (n: number) => `€${n.toFixed(2)}`;
+/** Format a price. Lithuania uses a comma decimal and a trailing € ("17,50 €"). */
+export const money = (n: number, lang: Locale = "en") =>
+  lang === "lt" ? `${n.toFixed(2).replace(".", ",")} €` : `€${n.toFixed(2)}`;
 
 /* ----------------------------------------------------------- home calc --- */
 export interface HomeState {

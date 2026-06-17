@@ -53,10 +53,7 @@ function ServicesPreview({ l, tr }: { l: Locale; tr: (en: string, lt: string) =>
               letterSpacing: "-.5px",
             }}
           >
-            {tr(
-              "Whatever the mess, we beam it clean",
-              "Kad ir kokia netvarka, mes ją išspinduliuojame švarią",
-            )}
+            {tr("Whatever the mess, we beam it clean", "Kad ir kokia būtų netvarka — mes ją išvalysime")}
           </h2>
         </div>
         <div
@@ -105,8 +102,8 @@ function HowItWorks({ l, tr }: { l: Locale; tr: (en: string, lt: string) => stri
   const steps = [
     {
       ...STEPS[0],
-      title: tr("Book Online", "Užsisakyk internetu"),
-      desc: tr("Choose your service and pick a time.", "Pasirink paslaugą ir patogų laiką."),
+      title: tr("Book Online", "Užsisakykite internetu"),
+      desc: tr("Choose your service and pick a time.", "Pasirinkite paslaugą ir patogų laiką."),
     },
     {
       ...STEPS[1],
@@ -371,7 +368,7 @@ export default async function HomePage({ params }: { params: Promise<{ lang: str
         }
         subtitle={tr(
           "We wash. We steam. We refresh. We even clean your disguises. Because looking human is hard.",
-          "Skalbiame. Garuojame. Gaiviname. Net išvalome jūsų maskuotes. Nes atrodyti žmogumi sunku.",
+          "Skalbiame. Lyginame. Gaiviname. Net išvalome jūsų maskuotę. Nes apsimesti žmogumi — nelengva.",
         )}
       />
       <ServicesPreview l={l} tr={tr} />

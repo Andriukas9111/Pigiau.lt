@@ -129,7 +129,7 @@ export function Header() {
               textDecoration: "none",
             }}
           >
-            {tt(T("BOOK A WASH", "UŽSISAKYK"))}
+            {tt(T("BOOK A WASH", "UŽSISAKYTI"))}
             <Icon name="rocket" c="#09245B" size={16} sw={2} />
           </Link>
           <button

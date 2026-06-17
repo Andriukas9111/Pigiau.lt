@@ -156,7 +156,7 @@ export default async function LocationsPage({ params }: { params: Promise<{ lang
             </span>
             <div style={{ marginTop: 8 }}>
               <Btn href={localePath("/booking", l)}>
-                {tr("Book a pickup near you", "Užsisakyk paėmimą netoliese")}
+                {tr("Book a pickup near you", "Užsisakyti paėmimą netoliese")}
               </Btn>
             </div>
           </div>
@@ -217,7 +217,7 @@ export default async function LocationsPage({ params }: { params: Promise<{ lang
               {[
                 {
                   n: 1,
-                  title: tr("Book a slot", "Užsisakyk laiką"),
+                  title: tr("Book a slot", "Užsisakykite laiką"),
                   desc: tr(
                     "Choose a 2-hour window that suits you.",
                     "Pasirinkite jums tinkantį 2 val. langą.",
@@ -438,7 +438,7 @@ export default async function LocationsPage({ params }: { params: Promise<{ lang
             <p style={{ fontSize: 13, color: "#7089AB", lineHeight: 1.55 }}>
               {tr(
                 "Most stations open early and close late — because laundry doesn't sleep, and neither do we.",
-                "Dauguma stočių atsidaro anksti ir užsidaro vėlai — nes skalbiniai nemiega, o ir mes ne.",
+                "Dauguma stočių atsidaro anksti ir užsidaro vėlai — nes skalbiniai nemiega, kaip ir mes.",
               )}
             </p>
           </div>

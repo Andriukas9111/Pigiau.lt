@@ -117,7 +117,7 @@ export function StarBanner({ lang }: { lang: Locale }) {
         "NordWash Star Member — 10% off every order, priority pickup, free rewash",
         "NordWash „Star“ narys — 10 % nuolaida kiekvienam užsakymui, prioritetinis paėmimas, nemokamas perskalbimas",
       )}
-      label={tr("Become a NordWash Star Member", "Tapk NordWash „Star“ nariu")}
+      label={tr("Become a NordWash Star Member", "Tapkite NordWash „Star“ nariu")}
     />
   );
 }

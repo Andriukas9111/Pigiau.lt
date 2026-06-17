@@ -95,19 +95,19 @@ export function HomeCalc() {
         <ExtraToggle
           checked={s.steam}
           label={tr("Steam Finish", "Garų apdaila")}
-          price="+€2.00"
+          price={`+${money(2, lang)}`}
           onToggle={() => setS({ ...s, steam: !s.steam })}
         />
         <ExtraToggle
           checked={s.stain}
           label={tr("Stain Rescue", "Dėmių gelbėjimas")}
-          price="+€2.50"
+          price={`+${money(2.5, lang)}`}
           onToggle={() => setS({ ...s, stain: !s.stain })}
         />
         <ExtraToggle
           checked={s.express}
           label={tr("Express (24h)", "Ekspresas (24 val.)")}
-          price="+€3.00"
+          price={`+${money(3, lang)}`}
           onToggle={() => setS({ ...s, express: !s.express })}
         />
       </div>
@@ -133,7 +133,7 @@ export function HomeCalc() {
             {tr("Estimated Total", "Apytikslė suma")}
           </div>
           <div className="fh" style={{ fontWeight: 800, fontSize: 30, lineHeight: 1.05, color: "#09245B" }}>
-            {money(homeTotal(s))}
+            {money(homeTotal(s), lang)}
           </div>
         </div>
         <a

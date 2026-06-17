@@ -11,7 +11,7 @@ export async function generateMetadata({
   const { lang } = await params;
   const lt = lang === "lt";
   return {
-    title: lt ? "Užsisakyk skalbimą" : "Book Your Wash",
+    title: lt ? "Užsisakyti skalbimą" : "Book Your Wash",
     description: lt
       ? "Užsisakykite skalbinių paėmimą penkiais žingsniais. Pasirinkite paslaugą ir laiką, o mūsų komanda paims, išvalys ir pristatys visoje Lietuvoje — paėmimas nemokamas."
       : "Book a laundry pickup in five quick steps. Choose your service, pick a time, and our crew collects, cleans and delivers across Lithuania — free pickup.",
@@ -29,10 +29,10 @@ export default async function BookingPage({ params }: { params: Promise<{ lang: 
     <div className="nw-fade">
       <PageBanner
         image="hero_booking"
-        title={tr("Book Your Wash", "Užsisakyk skalbimą")}
+        title={tr("Book Your Wash", "Užsisakykite skalbimą")}
         alt={tr(
           "Book your wash — five quick steps to a cosmic-clean pickup",
-          "Užsisakyk skalbimą — penki žingsniai iki kosmiškai švaraus paėmimo",
+          "Užsisakykite skalbimą — penki žingsniai iki kosmiškai švaraus paėmimo",
         )}
       />
       <BookingFlow />

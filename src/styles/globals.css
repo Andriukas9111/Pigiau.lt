@@ -506,17 +506,12 @@ input[type="range"] {
   }
 }
 @media (max-width: 560px) {
-  /* never let an action button's label wrap to two lines */
-  button,
+  /* Keep real CTA buttons on a single line; selection/toggle buttons wrap
+     naturally so long Lithuanian labels never overflow. */
   .nw-btn-primary,
   .nw-btn-ghost,
   a[class*="nw-btn"] {
     white-space: nowrap;
-  }
-  /* …but selection chips (service/size/time/pay grids) DO wrap their labels */
-  .nw-grid-2up button,
-  .nw-grid-2up button * {
-    white-space: normal;
   }
 }
 
