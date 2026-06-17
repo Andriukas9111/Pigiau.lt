@@ -489,3 +489,27 @@ input[type="range"] {
     height: 84px !important;
   }
 }
+
+/* Small phones (≤480px): compact header so the CTA + burger never overflow. */
+@media (max-width: 480px) {
+  .nw-head {
+    padding-left: 10px !important;
+    padding-right: 10px !important;
+  }
+  .nw-headpill {
+    padding: 10px 12px !important;
+    gap: 8px !important;
+  }
+  .nw-book-btn {
+    font-size: 11px !important;
+    padding: 9px 12px !important;
+    gap: 5px !important;
+  }
+  .nw-logo-name {
+    font-size: 16px !important;
+  }
+  .nw-burger {
+    width: 40px !important;
+    height: 40px !important;
+  }
+}

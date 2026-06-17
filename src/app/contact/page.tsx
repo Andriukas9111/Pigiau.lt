@@ -204,12 +204,13 @@ export default function ContactPage() {
               display: "flex",
               gap: 18,
               alignItems: "center",
+              flexWrap: "wrap",
             }}
           >
             <span style={{ width: 150, flex: "none", display: "block" }}>
               <Illustration name="pickup" />
             </span>
-            <div>
+            <div style={{ flex: "1 1 200px", minWidth: 0 }}>
               <div
                 className="fh"
                 style={{

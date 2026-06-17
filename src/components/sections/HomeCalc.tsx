@@ -112,12 +112,14 @@ export function HomeCalc() {
           display: "flex",
           alignItems: "center",
           gap: 14,
+          flexWrap: "wrap",
+          rowGap: 12,
         }}
       >
         <span style={{ width: 56, height: 56, flex: "none" }}>
           <Illustration name="basket" />
         </span>
-        <div style={{ flex: 1 }}>
+        <div style={{ flex: 1, minWidth: 110 }}>
           <div style={{ fontSize: 11.5, color: "#7089AB", fontWeight: 600 }}>Estimated Total</div>
           <div className="fh" style={{ fontWeight: 800, fontSize: 30, lineHeight: 1.05, color: "#09245B" }}>
             {money(homeTotal(s))}

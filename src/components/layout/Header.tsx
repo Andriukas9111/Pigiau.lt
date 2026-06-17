@@ -13,8 +13,9 @@ export function Header() {
   const isActive = (href: string) => href !== "/#how" && pathname === href;
 
   return (
-    <header style={{ position: "sticky", top: 0, zIndex: 50, padding: "14px 18px" }}>
+    <header className="nw-head" style={{ position: "sticky", top: 0, zIndex: 50, padding: "14px 18px" }}>
       <div
+        className="nw-headpill"
         style={{
           maxWidth: 1440,
           margin: "0 auto",
