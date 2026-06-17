@@ -53,7 +53,7 @@ function ServicesPreview({ l, tr }: { l: Locale; tr: (en: string, lt: string) =>
               letterSpacing: "-.5px",
             }}
           >
-            {tr("Whatever the mess, we beam it clean", "Kad ir kokia būtų netvarka — mes ją išvalysime")}
+            {tr("Whatever the mess, we beam it clean", "Kad ir ką būtumėte aplaistę — mes tai išskalbsime")}
           </h2>
         </div>
         <div

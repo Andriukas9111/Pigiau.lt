@@ -52,9 +52,9 @@ export const SERVICES: Service[] = [
     img: "wash",
     desc: T(
       "Deep clean with Arctic-ion bubbles. Bright. Fresh. Stellar.",
-      "Gilus valymas su Arkties jonų burbuliukais. Šviežia. Spindinčiai švaru.",
+      "Gilus skalbimas su Arkties burbuliukais. Drabužiai grįžta švieži, purūs ir spindintys.",
     ),
-    quote: T("Out-of-this-world clean.", "Nežemiškai švaru."),
+    quote: T("Out-of-this-world clean.", "Švaru taip, kad net ateiviai pavydi."),
     price: 17.5,
   },
   {
@@ -65,7 +65,7 @@ export const SERVICES: Service[] = [
       "Wrinkle? What wrinkle? Precision steam for perfect results.",
       "Raukšlės? Kokios raukšlės? Tikslūs garai tobulam rezultatui.",
     ),
-    quote: T("So smooth, it's illegal.", "Taip glotnu, kad net neteisėta."),
+    quote: T("So smooth, it's illegal.", "Po mūsų garų nė viena raukšlė neišgyvena."),
     price: 14.0,
   },
   {
@@ -85,9 +85,9 @@ export const SERVICES: Service[] = [
     img: "stain",
     desc: T(
       "Coffee. Ketchup. Meteor dust. We have got you.",
-      "Kava. Kečupas. Meteorų dulkės. Mes jus išgelbėsime.",
+      "Kava, kečupas ar meteorų dulkės — dar nesutikome dėmės, kurios neįveiktume.",
     ),
-    quote: T("Stains don't stand a chance.", "Dėmės neturi jokių šansų."),
+    quote: T("Stains don't stand a chance.", "Dėmės, mus pamačiusios, sprunka."),
     price: 12.0,
   },
   {
@@ -98,7 +98,7 @@ export const SERVICES: Service[] = [
       "Quilts, duvets & even cosmic sleeping bags. Fluffy again.",
       "Antklodės, patalai ir net kosminiai miegmaišiai. Vėl minkšti ir purūs.",
     ),
-    quote: T("Nap like a nebula.", "Snauskite tarp žvaigždžių."),
+    quote: T("Nap like a nebula.", "Tokie purūs, kad iš lovos nebenorėsite keltis."),
     price: 18.5,
   },
   {
@@ -109,7 +109,7 @@ export const SERVICES: Service[] = [
       "Folded with precision. Beamed to your door. Neat as a nebula.",
       "Tiksliai sulankstyta ir pristatyta prie durų. Nepriekaištinga tvarka.",
     ),
-    quote: T("Folded. Fast. Flawless.", "Sulankstyta. Greitai. Nepriekaištingai."),
+    quote: T("Folded. Fast. Flawless.", "Sulankstyta taip dailiai, kad net gaila ardyti."),
     price: 11.0,
   },
   {
@@ -161,7 +161,7 @@ export const REVIEWS: Review[] = [
   {
     quote: T(
       "My shirts have never been this fresh — even my soul.",
-      "Mano marškiniai dar niekada nebuvo tokie švieži — net mano siela.",
+      "Marškiniai dar niekada taip nekvepėjo — net kaimynai per laiptinę užuodė.",
     ),
     name: "Mantas",
     city: "Vilnius",
@@ -179,7 +179,10 @@ export const REVIEWS: Review[] = [
     bg: "#D6E6FB",
   },
   {
-    quote: T("Fast, friendly and absolutely out of this world!", "Greita, draugiška ir visiškai nežemiška!"),
+    quote: T(
+      "Fast, friendly and absolutely out of this world!",
+      "Greita, draugiška ir — o stebukle! — grąžino visas kojines iki vienos.",
+    ),
     name: "Eglė",
     city: "Klaipėda",
     kind: "user",
@@ -513,7 +516,7 @@ export const BRANCH_CHARS: BranchChar[] = [
   },
   {
     name: "Beammy",
-    role: T("Laundry Technician", "Skalbimo technikas"),
+    role: T("Laundry Technician", "Putų burtininkas"),
     city: "Kaunas",
     img: "press",
     color: "#7C5BD6",
@@ -557,7 +560,7 @@ export const CREW: Crew[] = [
     color: "#76C043",
     bio: T(
       "Master of Arctic-ion bubbles. Has never met a stain he respects.",
-      "Arkties jonų burbuliukų meistras. Dar nesutiko dėmės, kurią gerbtų.",
+      "Arkties burbuliukų meistras. Dar nesutiko dėmės, kuri jam atsispirtų.",
     ),
   },
   {
@@ -587,7 +590,7 @@ export const CREW: Crew[] = [
     color: "#2E74D0",
     bio: T(
       "Folds with mathematical precision. Dreams in perfect squares.",
-      "Lanksto matematiniu tikslumu. Sapnuoja tobulus kvadratus.",
+      "Lanksto matematiniu tikslumu. Sapnuoja tobulai sulankstytus rankšluosčius.",
     ),
   },
 ];
@@ -614,7 +617,7 @@ export const STORY: StoryItem[] = [
     title: T("We Packed Up", "Susikrovėme lagaminus"),
     desc: T(
       "We found Earthlings struggle with laundry. So we came to help.",
-      "Pastebėjome, kad žemiečiai kankinasi su skalbiniais. Tad atvykome padėti.",
+      "Pamatėme, kad žemiečiai kankinasi su skalbiniais ir nuolat pameta kojines. Tad atskridome į pagalbą.",
     ),
   },
   {
