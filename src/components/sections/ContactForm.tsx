@@ -1,7 +1,7 @@
 "use client";
 
 import { Icon } from "@/components/icons";
-import { SUBJECTS } from "@/lib/data";
+import { BRAND, SUBJECTS } from "@/lib/data";
 import { type CSSProperties, type FormEvent, useState } from "react";
 
 const inputStyle: CSSProperties = {
@@ -24,19 +24,40 @@ const labelStyle: CSSProperties = {
   marginBottom: 6,
 };
 
+type Status = "idle" | "sending" | "ok" | "fallback" | "error";
+const empty = { name: "", email: "", phone: "", order: "", subject: "", message: "" };
+
 export function ContactForm() {
-  const [sent, setSent] = useState(false);
-  const [f, setF] = useState({ name: "", email: "", phone: "", order: "", subject: "", message: "" });
+  const [status, setStatus] = useState<Status>("idle");
+  const [f, setF] = useState(empty);
   const upd = (k: keyof typeof f) => (e: { target: { value: string } }) =>
     setF((p) => ({ ...p, [k]: e.target.value }));
 
-  function submit(e: FormEvent) {
+  async function submit(e: FormEvent) {
     e.preventDefault();
     if (!f.name || !f.email || !f.subject || !f.message) return;
-    setSent(true);
+    setStatus("sending");
+    try {
+      const res = await fetch("/api/contact", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(f),
+      });
+      const data = (await res.json().catch(() => null)) as { ok?: boolean; delivered?: boolean } | null;
+      if (res.ok && data?.ok) setStatus(data.delivered ? "ok" : "fallback");
+      else setStatus("error");
+    } catch {
+      setStatus("error");
+    }
   }
 
-  if (sent) {
+  const reset = () => {
+    setStatus("idle");
+    setF(empty);
+  };
+
+  if (status === "ok" || status === "fallback") {
+    const fallback = status === "fallback";
     return (
       <div
         className="nw-pad"
@@ -54,27 +75,52 @@ export function ContactForm() {
               width: 72,
               height: 72,
               borderRadius: "50%",
-              background: "#EAF7EE",
+              background: fallback ? "#FFF4E5" : "#EAF7EE",
               display: "flex",
               alignItems: "center",
               justifyContent: "center",
               margin: "0 auto 18px",
             }}
           >
-            <Icon name="check" c="#76C043" size={36} sw={2.4} />
+            <Icon
+              name={fallback ? "phone" : "check"}
+              c={fallback ? "#F2A53B" : "#76C043"}
+              size={34}
+              sw={2.4}
+            />
           </div>
           <h3 className="fh" style={{ fontWeight: 800, fontSize: 24, color: "#09245B", margin: "0 0 8px" }}>
-            Message received!
+            {fallback ? "Let's connect directly" : "Message received!"}
           </h3>
-          <p style={{ fontSize: 14.5, color: "#5B7194", margin: "0 auto 22px", maxWidth: 380 }}>
-            Our crew will beam back a reply within one Earth day. Keep an eye on your inbox.
-          </p>
+          {fallback ? (
+            <p
+              style={{
+                fontSize: 14.5,
+                color: "#5B7194",
+                margin: "0 auto 22px",
+                maxWidth: 400,
+                lineHeight: 1.6,
+              }}
+            >
+              Our online inbox isn't accepting messages right now. Reach our crew straight away and we'll help
+              you fast:
+              <br />
+              <a href={`mailto:${BRAND.email}`} style={{ color: "#1E8BE8", fontWeight: 700 }}>
+                {BRAND.email}
+              </a>{" "}
+              ·{" "}
+              <a href={`tel:${BRAND.phoneHref}`} style={{ color: "#1E8BE8", fontWeight: 700 }}>
+                {BRAND.phone}
+              </a>
+            </p>
+          ) : (
+            <p style={{ fontSize: 14.5, color: "#5B7194", margin: "0 auto 22px", maxWidth: 380 }}>
+              Our crew will beam back a reply within one Earth day. Keep an eye on your inbox.
+            </p>
+          )}
           <button
             type="button"
-            onClick={() => {
-              setSent(false);
-              setF({ name: "", email: "", phone: "", order: "", subject: "", message: "" });
-            }}
+            onClick={reset}
             className="nw-btn-ghost fh"
             style={{
               background: "#fff",
@@ -87,13 +133,14 @@ export function ContactForm() {
               cursor: "pointer",
             }}
           >
-            Send another
+            {fallback ? "Back to form" : "Send another"}
           </button>
         </div>
       </div>
     );
   }
 
+  const sending = status === "sending";
   return (
     <form
       onSubmit={submit}
@@ -171,8 +218,36 @@ export function ContactForm() {
           style={{ ...inputStyle, resize: "vertical" }}
         />
       </div>
+      {status === "error" && (
+        <div
+          style={{
+            display: "flex",
+            alignItems: "center",
+            gap: 10,
+            background: "#FDECEC",
+            border: "1px solid #F6C9C9",
+            color: "#B4322B",
+            borderRadius: 12,
+            padding: "12px 14px",
+            fontSize: 13.5,
+            marginBottom: 16,
+          }}
+        >
+          <span aria-hidden="true" style={{ fontSize: 16, lineHeight: 1, flex: "none" }}>
+            ⚠️
+          </span>
+          <span>
+            Something glitched in transit. Please try again, or email{" "}
+            <a href={`mailto:${BRAND.email}`} style={{ color: "#B4322B", fontWeight: 700 }}>
+              {BRAND.email}
+            </a>
+            .
+          </span>
+        </div>
+      )}
       <button
         type="submit"
+        disabled={sending}
         className="nw-btn-primary fh"
         style={{
           width: "100%",
@@ -187,12 +262,13 @@ export function ContactForm() {
           padding: 16,
           borderRadius: 14,
           border: "none",
-          cursor: "pointer",
+          cursor: sending ? "wait" : "pointer",
+          opacity: sending ? 0.75 : 1,
           boxShadow: "0 10px 24px rgba(184,243,90,.4)",
         }}
       >
-        Send message
-        <Icon name="arrow" c="#09245B" size={16} sw={2} />
+        {sending ? "Sending…" : "Send message"}
+        {!sending && <Icon name="arrow" c="#09245B" size={16} sw={2} />}
       </button>
     </form>
   );

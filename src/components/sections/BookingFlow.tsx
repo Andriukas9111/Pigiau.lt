@@ -4,7 +4,7 @@ import { Icon, type IconName } from "@/components/icons";
 import { Illustration } from "@/components/illustrations";
 import { Section } from "@/components/ui/Container";
 import { ExtraToggle } from "@/components/ui/Controls";
-import { BOOKING_EXTRAS, BSTEPS_SHORT, PAY_METHODS, SERVICES, SIZES, TIMES } from "@/lib/data";
+import { BOOKING_EXTRAS, BRAND, BSTEPS_SHORT, PAY_METHODS, SERVICES, SIZES, TIMES } from "@/lib/data";
 import { bookingExtrasTotal, bookingSubtotal, bookingTotal, money } from "@/lib/pricing";
 import { type CSSProperties, useEffect, useState } from "react";
 
@@ -77,6 +77,8 @@ const cardStyle: CSSProperties = {
 export function BookingFlow() {
   const [step, setStep] = useState(1);
   const [confirmed, setConfirmed] = useState(false);
+  const [submitting, setSubmitting] = useState(false);
+  const [delivered, setDelivered] = useState(false);
   const [service, setService] = useState(0);
   const [size, setSize] = useState("medium");
   const [date, setDate] = useState<number | null>(null);
@@ -108,6 +110,39 @@ export function BookingFlow() {
   const total = bookingTotal(service, size, extras);
   const svcTitle = SERVICES[service].title;
   const sizeName = SIZES.find((z) => z.key === size)?.name ?? "";
+
+  async function confirmBooking() {
+    if (submitting) return;
+    setSubmitting(true);
+    const dayObj = days.find((d) => d.day === date);
+    try {
+      const res = await fetch("/api/booking", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          service: svcTitle,
+          size: sizeName,
+          date: dayObj ? `${dayObj.dow} ${dayObj.day}` : "",
+          time,
+          name: form.name,
+          phone: form.phone,
+          street: form.street,
+          city: form.city,
+          note: form.note,
+          pay: PAY_METHODS.find((p) => p.key === pay)?.name ?? pay,
+          extras: BOOKING_EXTRAS.filter((e) => extras[e.key]).map((e) => e.name),
+          total: money(total),
+        }),
+      });
+      const data = (await res.json().catch(() => null)) as { ok?: boolean; delivered?: boolean } | null;
+      setDelivered(Boolean(res.ok && data?.ok && data.delivered));
+    } catch {
+      setDelivered(false);
+    } finally {
+      setSubmitting(false);
+      setConfirmed(true);
+    }
+  }
 
   /* ---------------------------------------------------- progress bar --- */
   const progress = (
@@ -201,7 +236,7 @@ export function BookingFlow() {
                 width: 84,
                 height: 84,
                 borderRadius: "50%",
-                background: "#EAF7EE",
+                background: delivered ? "#EAF7EE" : "#FFF4E5",
                 display: "flex",
                 alignItems: "center",
                 justifyContent: "center",
@@ -209,19 +244,34 @@ export function BookingFlow() {
                 animation: "nwPulse 2s ease-out infinite",
               }}
             >
-              <Icon name="check" c="#76C043" size={42} sw={2.4} />
+              <Icon
+                name={delivered ? "check" : "phone"}
+                c={delivered ? "#76C043" : "#F2A53B"}
+                size={40}
+                sw={2.4}
+              />
             </div>
             <h2
               className="fh"
               style={{ fontWeight: 800, fontSize: 28, color: "#09245B", margin: "0 0 10px" }}
             >
-              Booking confirmed!
+              {delivered ? "Booking confirmed!" : "One quick step to lock it in"}
             </h2>
             <p
-              style={{ fontSize: 15, color: "#5B7194", lineHeight: 1.6, margin: "0 auto 8px", maxWidth: 420 }}
+              style={{ fontSize: 15, color: "#5B7194", lineHeight: 1.6, margin: "0 auto 8px", maxWidth: 440 }}
             >
-              Your <b style={{ color: "#09245B" }}>{svcTitle}</b> is scheduled for{" "}
-              <b style={{ color: "#09245B" }}>{time}</b>. Our crew will beam in to collect it.
+              {delivered ? (
+                <>
+                  Your <b style={{ color: "#09245B" }}>{svcTitle}</b> is scheduled for{" "}
+                  <b style={{ color: "#09245B" }}>{time}</b>. Our crew will beam in to collect it.
+                </>
+              ) : (
+                <>
+                  We've saved your <b style={{ color: "#09245B" }}>{svcTitle}</b> for{" "}
+                  <b style={{ color: "#09245B" }}>{time}</b>. To lock in your pickup, just call or text us and
+                  our crew will beam straight over.
+                </>
+              )}
             </p>
             <div
               style={{
@@ -241,22 +291,41 @@ export function BookingFlow() {
               </span>
             </div>
             <div className="nw-btnrow" style={{ display: "flex", gap: 14, justifyContent: "center" }}>
-              <a
-                href="/"
-                className="nw-btn-primary fh"
-                style={{
-                  background: "#B8F35A",
-                  color: "#09245B",
-                  fontWeight: 800,
-                  fontSize: 14.5,
-                  padding: "15px 28px",
-                  borderRadius: 999,
-                  boxShadow: "0 10px 24px rgba(184,243,90,.4)",
-                  textDecoration: "none",
-                }}
-              >
-                Back to home
-              </a>
+              {delivered ? (
+                <a
+                  href="/"
+                  className="nw-btn-primary fh"
+                  style={{
+                    background: "#B8F35A",
+                    color: "#09245B",
+                    fontWeight: 800,
+                    fontSize: 14.5,
+                    padding: "15px 28px",
+                    borderRadius: 999,
+                    boxShadow: "0 10px 24px rgba(184,243,90,.4)",
+                    textDecoration: "none",
+                  }}
+                >
+                  Back to home
+                </a>
+              ) : (
+                <a
+                  href={`tel:${BRAND.phoneHref}`}
+                  className="nw-btn-primary fh"
+                  style={{
+                    background: "#B8F35A",
+                    color: "#09245B",
+                    fontWeight: 800,
+                    fontSize: 14.5,
+                    padding: "15px 28px",
+                    borderRadius: 999,
+                    boxShadow: "0 10px 24px rgba(184,243,90,.4)",
+                    textDecoration: "none",
+                  }}
+                >
+                  Call {BRAND.phone}
+                </a>
+              )}
               <button
                 type="button"
                 onClick={() => {
@@ -561,7 +630,8 @@ export function BookingFlow() {
                 </div>
                 <button
                   type="button"
-                  onClick={() => setConfirmed(true)}
+                  onClick={confirmBooking}
+                  disabled={submitting}
                   className="nw-btn-primary fh"
                   style={{
                     width: "100%",
@@ -576,12 +646,13 @@ export function BookingFlow() {
                     padding: 17,
                     borderRadius: 16,
                     border: "none",
-                    cursor: "pointer",
+                    cursor: submitting ? "wait" : "pointer",
+                    opacity: submitting ? 0.75 : 1,
                     boxShadow: "0 10px 24px rgba(184,243,90,.4)",
                   }}
                 >
-                  Confirm & Pay {money(total)}
-                  <Icon name="rocket" c="#09245B" size={17} sw={2} />
+                  {submitting ? "Confirming…" : `Confirm & Pay ${money(total)}`}
+                  {!submitting && <Icon name="rocket" c="#09245B" size={17} sw={2} />}
                 </button>
                 <div style={{ textAlign: "center", fontSize: 11.5, color: "#9DB4D2", marginTop: 12 }}>
                   Your payment is secure & encrypted.
